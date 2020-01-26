@@ -6,38 +6,48 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class User extends BaseTimeEntity {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String name;
 
-    @Column(nullable = false)
+    @Column
     private String email;
 
     @Column
     private String picture;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private Role role;
 
     @Column
     private String recommended;
 
+    @Column
+    private LocalDateTime createdDate;
+
+    @Column
+    private LocalDateTime updatedDate;
+
     @Builder
-    public User(Long id, String name, String email, String picture, Role role, String recommended){
+    public User(Long id, String name, String email, String picture, Role role, String recommended,
+                LocalDateTime createdDate, LocalDateTime updatedDate){
         this.id = id;
         this.name = name;
         this.email = email;
         this.picture = picture;
         this.role = role;
         this.recommended = recommended;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
     }
 }

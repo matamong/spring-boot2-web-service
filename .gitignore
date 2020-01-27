@@ -103,3 +103,6 @@ local.properties
 .scala_dependencies
 .worksheetapplication-oauth.yml
 application.yml
+application.yml
+application.yml
+application-oauth.yml

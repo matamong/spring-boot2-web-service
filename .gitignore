@@ -9,6 +9,7 @@
 .idea
 
 application-oauth.yml
+application.yml
 
 build
 out
@@ -101,3 +102,4 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheetapplication-oauth.yml
+application.yml

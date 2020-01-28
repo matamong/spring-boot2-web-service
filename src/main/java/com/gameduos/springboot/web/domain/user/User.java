@@ -1,17 +1,20 @@
 package com.gameduos.springboot.web.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gameduos.springboot.web.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class User {
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

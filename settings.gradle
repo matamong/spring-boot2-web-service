@@ -1,2 +1,3 @@
 rootProject.name = 'spring-boot2-web-service'
+include 'rest-web'
 

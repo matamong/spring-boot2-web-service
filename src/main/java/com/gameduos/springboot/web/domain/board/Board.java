@@ -1,5 +1,6 @@
 package com.gameduos.springboot.web.domain.board;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gameduos.springboot.web.domain.BaseTimeEntity;
 import com.gameduos.springboot.web.domain.user.User;
 import lombok.Builder;
@@ -7,12 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class Board {
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+public class Board implements Serializable {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

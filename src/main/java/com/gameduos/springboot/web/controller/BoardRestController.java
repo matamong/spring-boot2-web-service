@@ -2,6 +2,9 @@ package com.gameduos.springboot.web.controller;
 
 import com.gameduos.springboot.web.domain.board.Board;
 import com.gameduos.springboot.web.domain.board.BoardRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,16 +18,20 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-
-@NoArgsConstructor
+@Api(tags = {"BoardRest"})
 @RestController
 @RequestMapping("/api/boards")
 public class BoardRestController {
 
     private BoardRepository boardRepository;
 
+    public BoardRestController(BoardRepository boardRepository) {
+        this.boardRepository = boardRepository;
+    }
+
+    @ApiOperation(value = "게시물 조회", notes = "모든 보드 리스트를 조회한다")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getBoards(@PageableDefault Pageable pageable) {
+    public ResponseEntity<?> getBoards(@ApiParam(value = "페이징 조건", required = true) @PageableDefault Pageable pageable) {
 
         Page<Board> boards = boardRepository.findAll(pageable);
         PagedResources.PageMetadata pageMetadata = new PagedResources.PageMetadata((pageable.getPageSize()),
@@ -41,16 +48,20 @@ public class BoardRestController {
 
     }
 
+    @ApiOperation(value = "게시물 저장", notes = "보드를 저장한다.")
     @PostMapping
-    public ResponseEntity<?> postBoard(@RequestBody Board board) {
+    public ResponseEntity<?> postBoard(@ApiParam(value = "게시물", required = true) @RequestBody Board board) {
         //valid 체크
         board.setCreatedDateNow();
         boardRepository.save(board);
         return new ResponseEntity<>("{}", HttpStatus.CREATED);
     }
 
+
+    @ApiOperation(value = "게시물 수정", notes = "보드를 수정한다.")
     @PutMapping("/{idx}")
-    public ResponseEntity<?> putBoard(@PathVariable("idx")Long idx, @RequestBody Board board) {
+    public ResponseEntity<?> putBoard(@ApiParam(value = "게시물 번호", required = true) @PathVariable("idx")Long idx,
+                                      @ApiParam(value = "게시물", required = true) @RequestBody Board board) {
         //valid 체크
         Board persistBoard = boardRepository.getOne(idx) ;
         persistBoard.update(board);
@@ -58,8 +69,9 @@ public class BoardRestController {
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
 
+    @ApiOperation(value = "게시물 삭제", notes = "보드를 삭제한다.")
     @DeleteMapping("/{idx}")
-    public ResponseEntity<?> deleteBoard(@PathVariable("idx")Long idx) {
+    public ResponseEntity<?> deleteBoard(@ApiParam(value = "게시물 번호", required = true) @PathVariable("idx")Long idx) {
         //valid 체크
         boardRepository.deleteById(idx);
         return new ResponseEntity<>("{}", HttpStatus.OK);

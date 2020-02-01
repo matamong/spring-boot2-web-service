@@ -15,6 +15,8 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.util.List;
@@ -31,6 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
+
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");                            //요청을 보내는 페이지의 출처 (*, 도메인)
+        configuration.addAllowedMethod("*");                            //요청을 허용하는 메소드 (Default : GET, POST, HEAD)
+        configuration.addAllowedHeader("*");                            // 요청을 허용하는 헤더
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
         http
                 .authorizeRequests()
                 .antMatchers("/", "/oauth2/**", "/login/**",  "/css/**", "/images/**", "/js/**", "/console/**").permitAll()
@@ -56,6 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .logoutSuccessUrl("/")
                         .deleteCookies("JSESSIONID")
                         .invalidateHttpSession(true)
+                .and()
+                    .cors().configurationSource(source)
                 .and()
                     .addFilterBefore(filter, CsrfFilter.class)
                     .csrf().disable();

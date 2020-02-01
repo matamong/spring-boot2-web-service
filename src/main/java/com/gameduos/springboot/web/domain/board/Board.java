@@ -43,6 +43,22 @@ public class Board implements Serializable {
     @Column
     private LocalDateTime updatedDate;
 
+    public void setCreatedDateNow() {
+        this.createdDate = LocalDateTime.now();
+    }
+
+    public void setUpdatedDateNow() {
+        this.updatedDate = LocalDateTime.now();
+    }
+
+    public void update(Board board) {
+        this.title = board.getTitle();
+        this.subTitle = board.getSubTitle();
+        this.content = board.getContent();
+        this.boardType = board.getBoardType();
+        this.updatedDate = LocalDateTime.now();
+    }
+
     @Builder
     public Board(String title, String subTitle, String content, BoardType boardType, User user,
                  LocalDateTime createdDate, LocalDateTime updatedDate){

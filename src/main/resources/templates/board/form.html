@@ -52,8 +52,8 @@
                 <div class="pull-left">
                     <select class="form-control input-sm" id="board_type">
                         <option>--분류--</option>
-                        <option th:value="notice" th:selected="${board?.boardType}">공지사항</option>
-                        <option th:value="free" th:selected="${board?.boardType}">자유게시판</option>
+                        <option th:value="NOTICE" th:selected="${board?.boardType}">공지사항</option>
+                        <option th:value="FREE" th:selected="${board?.boardType}">자유게시판</option>
                     </select>
                 </div>
             </td>
@@ -102,9 +102,6 @@
             type: "POST",
             data: jsonData,
             contentType: "application/json",
-            headers: {
-                "Authorization": "Basic " + btoa("havi" + ":" + "test")
-            },
             dataType: "json",
             success: function () {
                 alert('저장 성공!');

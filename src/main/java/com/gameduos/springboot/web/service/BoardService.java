@@ -26,4 +26,8 @@ public class BoardService {
         return boardRepository.findById(idx).orElse(new Board());
     }
 
+    public void countViewCnt(Board board) {
+        board.countViewCnt();
+    }
+
 }

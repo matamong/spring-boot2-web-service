@@ -6,6 +6,7 @@ import com.gameduos.springboot.web.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,6 +39,10 @@ public class Board implements Serializable {
     private User user;
 
     @Column
+    @ColumnDefault("0")
+    private Long viewCnt;
+
+    @Column
     private LocalDateTime createdDate;
 
     @Column
@@ -51,6 +56,8 @@ public class Board implements Serializable {
         this.updatedDate = LocalDateTime.now();
     }
 
+    public void countViewCnt() { this.viewCnt = this.viewCnt + 1L; }
+
     public void update(Board board) {
         this.title = board.getTitle();
         this.subTitle = board.getSubTitle();
@@ -61,12 +68,13 @@ public class Board implements Serializable {
 
     @Builder
     public Board(String title, String subTitle, String content, BoardType boardType, User user,
-                 LocalDateTime createdDate, LocalDateTime updatedDate){
+                 Long viewCnt, LocalDateTime createdDate, LocalDateTime updatedDate){
         this.title = title;
         this.subTitle = subTitle;
         this.content = content;
         this.boardType = boardType;
         this.user = user;
+        this.viewCnt = viewCnt;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }

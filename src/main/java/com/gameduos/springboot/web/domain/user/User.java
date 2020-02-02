@@ -28,6 +28,9 @@ public class User implements Serializable {
     @Column
     private String picture;
 
+    @Column
+    private String nickname;
+
     @Enumerated(EnumType.STRING)
     @Column
     private Role role;
@@ -49,7 +52,7 @@ public class User implements Serializable {
     private LocalDateTime updatedDate;
 
     @Builder
-    public User(Long id, String name, String email, String picture, Role role, String recommended,
+    public User(Long id, String name, String email, String picture, Role role, String recommended, String nickname,
                 String principal, SocialType socialType, LocalDateTime createdDate, LocalDateTime updatedDate){
         this.id = id;
         this.name = name;
@@ -59,6 +62,7 @@ public class User implements Serializable {
         this.principal = principal;
         this.socialType = socialType;
         this.recommended = recommended;
+        this.nickname = nickname;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }

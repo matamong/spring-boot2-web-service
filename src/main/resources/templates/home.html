@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<div th:replace="layout/header::header"></div>
+
+<!--body-->
+<div class="container">
+    <br/><br/>
+    <div class="jumbotron">
+        <h1>홈 입니다.</h1>
+        <p>
+            홈입니다.
+        </p>
+        <div>
+            <span th:text="${session['userEmail']}"></span>
+        </div>
+        <div sec:authorize="hasRole('ROLE_USER')">
+            This content is only shown to users.
+        </div>
+        <br/>
+        <p align="right">
+            <a class="btn btn-primary btn-lg" href="/board/list">게시판 바로가기</a>
+        </p>
+    </div>
+</div>
+<!--/body-->
+
+<div th:replace="layout/footer::footer"></div>
+</body>
+</html>

@@ -2,6 +2,8 @@ package com.gameduos.springboot.web.controller;
 
 import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.user.User;
+import com.gameduos.springboot.web.service.PointService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -14,8 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@RequiredArgsConstructor
 @Controller
 public class LoginController {
+
+    private final PointService pointService;
 
     @GetMapping("/login")
     public String login() {
@@ -24,6 +29,7 @@ public class LoginController {
 
     @GetMapping("/loginSuccess")
     public String loginComplete(@SocialUser User user) {
+        pointService.LoginPointSave(user);
         return "redirect:/board/list";
     }
 

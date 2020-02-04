@@ -1,8 +1,13 @@
 package com.gameduos.springboot.web.service;
 
+import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.controller.BoardRestController;
 import com.gameduos.springboot.web.domain.board.Board;
 import com.gameduos.springboot.web.domain.board.BoardRepository;
+import com.gameduos.springboot.web.domain.point.Point;
+import com.gameduos.springboot.web.domain.point.PointRepository;
+import com.gameduos.springboot.web.domain.point.PointType;
+import com.gameduos.springboot.web.domain.user.User;
 import com.gameduos.springboot.web.dto.BoardSaveRequestDto;
 import com.gameduos.springboot.web.dto.BoardUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -25,6 +32,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final PointService pointService;
 
     public Page<Board> findBoardList(Pageable pageable) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
@@ -55,6 +63,7 @@ public class BoardService {
     @Transactional
     public ResponseEntity<?> save (BoardSaveRequestDto requestDto) {
         requestDto.setCreatedDateNow();
+        pointService.boardPointSave(requestDto);
         boardRepository.save(requestDto.toEntity());
 
         return new ResponseEntity<>("{}", HttpStatus.CREATED);

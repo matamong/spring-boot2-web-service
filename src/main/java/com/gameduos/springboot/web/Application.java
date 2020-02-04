@@ -41,7 +41,7 @@ public class Application implements WebMvcConfigurer {
                                     BoardRepository boardRepository) throws Exception {
         return (args -> {
             User user = userRepository.save(User.builder()
-            .name("matmaong")
+            .nickName("matmaong")
             .email("matamong@gmail.com")
             .build());
 

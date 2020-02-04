@@ -20,7 +20,7 @@ public class User implements Serializable {
     private Long id;
 
     @Column
-    private String name;
+    private String nickName;
 
     @Column
     private String email;
@@ -49,10 +49,10 @@ public class User implements Serializable {
     private LocalDateTime updatedDate;
 
     @Builder
-    public User(Long id, String name, String email, String picture, Role role, String recommended,
+    public User(Long id, String nickName, String email, String picture, Role role, String recommended,
                 String principal, SocialType socialType, LocalDateTime createdDate, LocalDateTime updatedDate){
         this.id = id;
-        this.name = name;
+        this.nickName = nickName;
         this.email = email;
         this.picture = picture;
         this.role = role;

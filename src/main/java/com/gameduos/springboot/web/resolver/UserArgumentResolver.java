@@ -4,6 +4,7 @@ import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.user.SocialType;
 import com.gameduos.springboot.web.domain.user.User;
 import com.gameduos.springboot.web.domain.user.UserRepository;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -74,7 +75,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     private User getModernUser(SocialType socialType, Map<String, Object> map) {
         return User.builder()
-                .name(String.valueOf(map.get("name")))
+                .nickName(String.valueOf(map.get("name")))
                 .email(String.valueOf(map.get("email")))
                 .principal(String.valueOf(map.get("id")))
                 .socialType(socialType)
@@ -85,7 +86,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     private User getKaKaoUser(Map<String, Object> map) {
         Map<String, String> propertyMap = (HashMap<String, String>) map.get("properties");
         return User.builder()
-                .name(propertyMap.get("nickname"))
+                .nickName(propertyMap.get("nickname"))
                 .email(String.valueOf(map.get("kaccount_email")))
                 .principal(String.valueOf(map.get("id")))
                 .socialType(KAKAO)

@@ -32,7 +32,7 @@ public class JpaMappingTest {
     @Before
     public void init() {
         User user = userRepository.save(User.builder()
-                .name("matamong")
+                .nickName("matamong")
                 .email(email)
                 .picture("http://testPath.com/test.png")
                 .recommended("root")
@@ -57,7 +57,7 @@ public class JpaMappingTest {
     @Test
     public void 생성_테스트 () {
         User user = userRepository.findByEmail(email);
-        assertThat(user.getName()).isEqualTo("matamong");
+        assertThat(user.getNickName()).isEqualTo("matamong");
         assertThat(user.getEmail()).isEqualTo(email);
 
         Board board = boardRepository.findByUser(user);

@@ -1,5 +1,6 @@
 package com.gameduos.springboot.web.dto;
 
+import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.board.Board;
 import com.gameduos.springboot.web.domain.board.BoardType;
 import com.gameduos.springboot.web.domain.user.User;
@@ -19,14 +20,17 @@ public class BoardSaveRequestDto {
     private String content;
     private LocalDateTime createdDate;
 
+    public void setUser(User user){
+        this.user = user;
+    }
 
     @Builder
     public BoardSaveRequestDto (BoardType boardType, String title, String subTitle, User user,
                                 String content, LocalDateTime createdDate){
         this.boardType = boardType;
         this.title = title;
-        this.subTitle = subTitle;
         this.user = user;
+        this.subTitle = subTitle;
         this.content = content;
         this.createdDate = createdDate;
     }
@@ -39,8 +43,8 @@ public class BoardSaveRequestDto {
         return Board.builder()
                 .boardType(boardType)
                 .title(title)
-                .subTitle(subTitle)
                 .user(user)
+                .subTitle(subTitle)
                 .content(content)
                 .createdDate(createdDate)
                 .build();

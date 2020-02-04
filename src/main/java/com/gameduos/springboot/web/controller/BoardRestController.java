@@ -1,7 +1,9 @@
 package com.gameduos.springboot.web.controller;
 
+import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.board.Board;
 import com.gameduos.springboot.web.domain.board.BoardRepository;
+import com.gameduos.springboot.web.domain.user.User;
 import com.gameduos.springboot.web.dto.BoardSaveRequestDto;
 import com.gameduos.springboot.web.dto.BoardUpdateRequestDto;
 import com.gameduos.springboot.web.service.BoardService;
@@ -39,7 +41,8 @@ public class BoardRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postBoard(@RequestBody BoardSaveRequestDto requestDto) {
+    public ResponseEntity<?> postBoard(@RequestBody BoardSaveRequestDto requestDto, @SocialUser User user) {
+        requestDto.setUser(user);
         return boardService.save(requestDto);
     }
 

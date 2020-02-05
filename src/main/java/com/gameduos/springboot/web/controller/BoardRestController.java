@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -24,16 +25,12 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/boards")
 public class BoardRestController {
 
-    private BoardService boardService;
-
-    public BoardRestController(BoardService boardService) {
-        this.boardService = boardService;
-    }
-
+    private final BoardService boardService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getBoards(@PageableDefault Pageable pageable) {

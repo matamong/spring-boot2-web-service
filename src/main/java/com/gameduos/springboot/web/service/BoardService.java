@@ -63,7 +63,7 @@ public class BoardService {
     @Transactional
     public ResponseEntity<?> save (BoardSaveRequestDto requestDto) {
         requestDto.setCreatedDateNow();
-        pointService.boardPointSave(requestDto);
+        pointService.boardPointSave(requestDto.getUser());
         boardRepository.save(requestDto.toEntity());
 
         return new ResponseEntity<>("{}", HttpStatus.CREATED);

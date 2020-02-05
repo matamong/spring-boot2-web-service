@@ -17,22 +17,50 @@ import java.util.List;
 public class PointService {
     private final PointRepository pointRepository;
 
-    public void boardPointSave (BoardSaveRequestDto requestDto) {
+    private int boardPoint = 10;
+    private int loginPoint = 1;
+    private int referralCodePoint = -50;
+
+    public void boardPointSave (User user) {
         pointRepository.save(Point.builder()
-                .user(requestDto.getUser())
-                .point(10)
+                .user(user)
+                .point(boardPoint)
                 .pointType(PointType.BOARD_POINT)
                 .pointGiveDate(LocalDateTime.now())
                 .build());
     }
 
-    public void LoginPointSave (@SocialUser User user) {
+    public void LoginPointSave (User user) {
         pointRepository.save(Point.builder()
                 .user(user)
-                .point(1)
+                .point(loginPoint)
                 .pointType(PointType.LOGIN_POINT)
                 .pointGiveDate(LocalDateTime.now())
                 .build());
+    }
+
+    public void ReferralPointCut (@SocialUser User user) {
+        pointRepository.save(Point.builder()
+                .user(user)
+                .point(referralCodePoint)
+                .pointType(PointType.CODE_CREATE)
+                .pointGiveDate(LocalDateTime.now())
+                .build());
+    }
+
+    public boolean measureReferralPoint (User user) {
+        boolean isPointEnough = false;
+        int totalPoint = 0;
+
+        List<Point> pointList = pointRepository.findByUser(user);
+
+        for(Point point : pointList) {
+            totalPoint += point.getPoint();
+        }
+        if(totalPoint >= referralCodePoint) {
+            isPointEnough = true;
+        }
+        return isPointEnough;
     }
 
     public boolean measurePoint (int pointToSubtract, User user) {
@@ -49,5 +77,4 @@ public class PointService {
         }
         return isPointEnough;
     }
-
 }

@@ -1,12 +1,13 @@
 package com.gameduos.springboot.web.service;
 
+import com.gameduos.springboot.web.domain.board.BoardRepository;
 import com.gameduos.springboot.web.domain.point.Point;
 import com.gameduos.springboot.web.domain.point.PointRepository;
 import com.gameduos.springboot.web.domain.point.PointType;
+import com.gameduos.springboot.web.domain.referralCode.ReferralCodeRepository;
 import com.gameduos.springboot.web.domain.user.User;
 import com.gameduos.springboot.web.domain.user.UserRepository;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class PointServiceTest {
     private PointService pointService;
     @Autowired
     private PointRepository pointRepository;
+    @Autowired
+    private BoardRepository boardRepository;
+    @Autowired
+    private ReferralCodeRepository referralCodeRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -32,7 +37,9 @@ public class PointServiceTest {
     @After
     public void cleanup() throws Exception{
         pointRepository.deleteAll();
-        userRepository.deleteById(2L);
+        referralCodeRepository.deleteAll();
+        boardRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
@@ -57,5 +64,29 @@ public class PointServiceTest {
         //then
         assertThat(isPointEnough).isEqualTo(true);
     }
+
+    @Test
+    public void ReferralMeasurePoint_test () throws Exception {
+        //given
+        User user = User.builder()
+                .nickName("referralTest")
+                .build();
+
+        userRepository.save(user);
+        pointRepository.save(Point.builder()
+                .point(50)
+                .user(user)
+                .pointType(PointType.BOARD_POINT)
+                .pointGiveDate(LocalDateTime.now())
+                .build());
+
+        //when
+        boolean isPointEnough = pointService.measureReferralPoint(user);
+
+        //then
+        assertThat(isPointEnough).isEqualTo(true);
+    }
+
+
 
 }

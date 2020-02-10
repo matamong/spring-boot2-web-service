@@ -3,6 +3,8 @@ package com.gameduos.springboot.web;
 import com.gameduos.springboot.web.domain.board.Board;
 import com.gameduos.springboot.web.domain.board.BoardRepository;
 import com.gameduos.springboot.web.domain.board.BoardType;
+import com.gameduos.springboot.web.domain.referralCode.ReferralCode;
+import com.gameduos.springboot.web.domain.referralCode.ReferralCodeRepository;
 import com.gameduos.springboot.web.domain.user.User;
 import com.gameduos.springboot.web.domain.user.UserRepository;
 import com.gameduos.springboot.web.resolver.UserArgumentResolver;
@@ -36,24 +38,31 @@ public class Application implements WebMvcConfigurer {
         resolvers.add(userArgumentResolver);
     }
 
-    @Bean
-    public CommandLineRunner runner(UserRepository userRepository,
-                                    BoardRepository boardRepository) throws Exception {
-        return (args -> {
-            User user = userRepository.save(User.builder()
-            .nickName("matmaong")
-            .email("matamong@gmail.com")
-            .build());
-
-            IntStream.rangeClosed(1, 200).forEach(index ->
-                    boardRepository.save(Board.builder()
-                    .title("게시글"+index)
-                    .subTitle("순서"+index)
-                    .content("내용"+index).createdDate(LocalDateTime.now())
-                    .boardType(BoardType.FREE)
-                    .user(user)
-                    .build())
-            );
-        });
-    }
+//    @Bean
+//    public CommandLineRunner runner(UserRepository userRepository,
+//                                    BoardRepository boardRepository,
+//                                    ReferralCodeRepository referralCodeRepository) throws Exception {
+//        return (args -> {
+//            User user = userRepository.save(User.builder()
+//            .nickName("matmaong")
+//            .email("matamatamong@gmail.com")
+//            .build());
+//
+//            referralCodeRepository.save(ReferralCode.builder()
+//                    .user(user)
+//                    .referralCode("matamong")
+//                    .createdDate(LocalDateTime.now())
+//                    .build());
+//
+//            IntStream.rangeClosed(1, 200).forEach(index ->
+//                    boardRepository.save(Board.builder()
+//                    .title("게시글"+index)
+//                    .subTitle("순서"+index)
+//                    .content("내용"+index).createdDate(LocalDateTime.now())
+//                    .boardType(BoardType.FREE)
+//                    .user(user)
+//                    .build())
+//            );
+//        });
+//    }
 }

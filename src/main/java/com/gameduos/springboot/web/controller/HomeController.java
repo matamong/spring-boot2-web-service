@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
     @GetMapping("/home")
-    public String index(Model model, @SocialUser User user) {
+    public String home(Model model, @SocialUser User user) {
 
         if (user != null) {
             System.out.println(user.getEmail());

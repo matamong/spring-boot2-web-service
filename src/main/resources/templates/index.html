@@ -3,34 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Home</title>
-    <link rel="stylesheet" th:href="@{/css/base.css}" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
 </head>
 <body>
-<div th:replace="layout/header::header"></div>
-
-<!--body-->
-<div class="container">
-    <br/><br/>
-    <div class="jumbotron">
-        <h1>인덱스페이지</h1>
-        <p>
-            인덱스 페이지 입니다.
-        </p>
-        <p>
-            대문과도 같음.
-        </p>
-        <br/>
-        <p align="right">
-            <a class="btn btn-primary btn-lg" href="/board/list">게시판 바로가기</a>
-        </p>
-        <p align="right">
-            <a class="btn btn-primary btn-lg" href="/login">로그인 하기</a>
-        </p>
-    </div>
-</div>
-<!--/body-->
-
-<div th:replace="layout/footer::footer"></div>
+<div class="contrain" id="js-constrain" href="/login"></div>
+<script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mojs/player"></script>
+<script th:src="@{/js/index.js}"></script>
 </body>
 </html>

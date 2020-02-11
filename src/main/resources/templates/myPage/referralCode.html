@@ -13,21 +13,52 @@
 <div class="container">
     <br/><br/>
     <div class="jumbotron">
-        <h1>홈 입니다.</h1>
+        <h1>마이페이지의 추천코드 페이지 입니다.</h1>
         <p>
-            홈입니다.
+            추천코드를 생성하고 조회할 수 있습니다.(디자인은 아직)
         </p>
-        <div>
-            <span th:text="${session['userEmail']}"></span>
-        </div>
-        <div sec:authorize="hasRole('ROLE_USER')">
-            This content is only shown to users.
-        </div>
         <br/>
         <p align="right">
             <a class="btn btn-primary btn-lg" href="/myPage/referralCode" id="insert">추천코드생성</a>
         </p>
     </div>
+</div>
+<div id="mainHide">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-md-5">추천코드</th>
+            <th class="col-md-2">생성날짜</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="referralCode : ${referralCodeList}">
+            <td th:text="${referralCode.referralCode}"></td>
+            <td th:text="${referralCode.createdDate} ? ${#temporals.format(referralCode.createdDate,'yyyy-MM-dd HH:mm')} : ${referralCode.createdDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br/>
+<!-- Pagination -->
+<nav aria-label="Page navigation" style="text-align:center;">
+    <ul class="pagination" th:with="startNumber=${T(Math).floor(referralCodeList.number/10)}*10+1, endNumber=(${referralCodeList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${referralCodeList.totalPages}">
+        <li><a aria-label="Previous" href="/myPage/referralCode?page=1">&laquo;</a></li>
+        <li th:style="${referralCodeList.first} ? 'display:none'">
+            <a th:href="@{/myPage/referralCode(page=${referralCodeList.number})}">&lsaquo;</a>
+        </li>
+
+        <li th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:class="(${page} == ${referralCodeList.number}+1) ? 'active'">
+            <a th:href="@{/myPage/referralCode(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+        </li>
+
+        <li th:style="${referralCodeList.last} ? 'display:none'">
+            <a th:href="@{/myPage/referralCode(page=${referralCodeList.number}+2)}">&rsaquo;</a>
+        </li>
+        <li><a aria-label="Next" th:href="@{/myPage/referralCode(page=${referralCodeList.totalPages})}">&raquo;</a></li>
+    </ul>
+</nav>
+<!-- /Pagination -->
 </div>
 <!--/body-->
 

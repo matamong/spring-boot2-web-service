@@ -1,10 +1,15 @@
 package com.gameduos.springboot.web.service;
 
 import com.gameduos.springboot.web.annotation.SocialUser;
+import com.gameduos.springboot.web.domain.board.Board;
 import com.gameduos.springboot.web.domain.referralCode.ReferralCode;
 import com.gameduos.springboot.web.domain.referralCode.ReferralCodeRepository;
 import com.gameduos.springboot.web.domain.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,13 @@ public class ReferralCodeService {
 
     private final ReferralCodeRepository referralCodeRepository;
     private final PointService pointService;
+
+    @Transactional
+    public Page<ReferralCode> findBoardList(Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 10);
+        return referralCodeRepository.findAll(pageable);
+    }
 
     @Transactional
     public ResponseEntity<?> createReferralCode (User user) {

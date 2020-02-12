@@ -27,7 +27,7 @@ public class ReferralCodeService {
     private final PointService pointService;
 
     @Transactional
-    public Page<ReferralCode> findBoardList(Pageable pageable) {
+    public Page<ReferralCode> findReferralList(Pageable pageable) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, 10);
         return referralCodeRepository.findAll(pageable);

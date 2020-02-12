@@ -62,4 +62,12 @@ public class User implements Serializable {
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
+
+    public void nicknameUpdate(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void roleUpdate(Role role) {
+        this.role = role;
+    }
 }

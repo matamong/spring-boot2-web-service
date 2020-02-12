@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Board Form</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+    <br/><br/>
+    <div class="jumbotron">
+        <h1>마이페이지의 레벨업 페이지 입니다.</h1>
+        <p>
+            추천코드를 입력하여 자신의 프로필을 생성하고 권한을 User로 만듭니다.(디자인은 아직)
+        </p>
+        <br/>
+        <p align="right">
+            <a class="btn btn-primary btn-lg" href="/myPage/referralCode" id="update">레벨업 하기</a>
+        </p>
+    </div>
+    <input type="text" id="nickname" placeholder="사용할 닉네임"> 닉네임<br>
+    <input type="text" id="referralCode" placeholder="추천코드"> 추천코드<br>
+</div>
+<div th:replace="layout/header::header"></div>
+
+<div th:replace="layout/footer::footer"></div>
+</body>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script>
+    $('#update').click(function () {
+        var jsonData = JSON.stringify({
+            nickname: $('#nickname').val(),
+            referralCode: $('#referralCode').val()
+        });
+        $.ajax({
+            url: "http://localhost:8080/api/levelUp/" +$('#referralCode').val(),
+            type: "PUT",
+            data: jsonData,
+            contentType: "application/json",
+            dataType: "json",
+            success: function () {
+                alert('레벨업 성공!');
+                location.href = '/myPage/home';
+            },
+            error: function () {
+                alert('레벨업 실패!');
+            }
+        });
+    });
+</script>
+</html>

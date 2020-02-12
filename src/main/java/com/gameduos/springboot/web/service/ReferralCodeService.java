@@ -27,10 +27,10 @@ public class ReferralCodeService {
     private final PointService pointService;
 
     @Transactional
-    public Page<ReferralCode> findReferralList(Pageable pageable) {
+    public Page<ReferralCode> findReferralList(User user, Pageable pageable) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, 10);
-        return referralCodeRepository.findAll(pageable);
+        return referralCodeRepository.findAllByUserId(user.getId(), pageable);
     }
 
     @Transactional
@@ -55,17 +55,6 @@ public class ReferralCodeService {
         }else {
             return new ResponseEntity<>("{}", HttpStatus.BAD_REQUEST);
         }
-    }
-
-    @Transactional
-    public ResponseEntity<?>  useReferralCode (String referralCode, @SocialUser User user) {
-        ReferralCode entity = referralCodeRepository.findByReferralCodeAndAvailable(referralCode,'Y')
-                .orElseThrow(() -> new IllegalArgumentException("해당 코드가 존재하지않습니다. code=" + referralCode));
-
-        entity.update('N', user.getId(), LocalDateTime.now());
-        referralCodeRepository.save(entity);
-
-        return new ResponseEntity<>("{}", HttpStatus.OK);
     }
 
     private String makeReferralCode(User user) {

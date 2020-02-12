@@ -36,10 +36,10 @@ public class ReferralCode implements Serializable {
     @Column
     private LocalDateTime usedDate;
 
-    public void update(char available, Long useUserId, LocalDateTime usedDate) {
-        this.available = available;
-        this.useUserId = useUserId;
-        this.usedDate = usedDate;
+    public void update(ReferralCode referralCode) {
+        this.available = referralCode.getAvailable();
+        this.useUserId = referralCode.getUseUserId();
+        this.usedDate = referralCode.getUsedDate();
     }
 
     @Builder

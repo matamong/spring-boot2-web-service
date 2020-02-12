@@ -68,11 +68,11 @@
 <script>
     $('#insert').click(function () {
         $.ajax({
-            url: "http://localhost:8080/api/referral",
+            url: "http://localhost:8080/api/referralCode",
             type: "POST",
             success: function () {
                 alert('생성 성공!');
-                location.href = '/board/list';
+                location.href = '/myPage/referralCode';
             },
             error: function () {
                 alert('생성 실패!');

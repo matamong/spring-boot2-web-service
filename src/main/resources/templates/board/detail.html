@@ -44,7 +44,7 @@
         <h1>게시글 등록</h1>
     </div>
     <br/>
-    <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
+    <!-- <input id="board_idx" type="hidden" th:value="${board?.idx}"/> -->
     <table class="table">
         <tr>
             <th style="padding:13px 0 0 15px">게시판 선택</th>
@@ -65,6 +65,7 @@
         <tr>
             <th style="padding:13px 0 0 15px;">부제목</th>
             <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>
+            <td><input id="board_idx" type="text" class="col-md-1 form-control input-sm" th:value="${board?.idx}"/></td>
         </tr>
         <tr>
             <th style="padding:13px 0 0 15px;">내용</th>
@@ -89,34 +90,10 @@
 <div th:replace="layout/footer::footer"></div>
 
 <script th:src="@{/js/jquery.min.js}"></script>
-<script th:if="!${board?.idx}">
-    $('#insert').click(function () {
-        var jsonData = JSON.stringify({
-            title: $('#board_title').val(),
-            subTitle: $('#board_sub_title').val(),
-            content: $('#board_content').val(),
-            boardType: $('#board_type option:selected').val()
-        });
-        $.ajax({
-            url: "http://localhost:8080/api/boards",
-            type: "POST",
-            data: jsonData,
-            contentType: "application/json",
-            dataType: "json",
-            success: function () {
-                alert('저장 성공!');
-                location.href = '/board/list';
-            },
-            error: function () {
-                alert('저장 실패!');
-            }
-        });
-    });
-</script>
-<script th:if="${board?.idx}">
+<script>
     $('#update').click(function () {
         var jsonData = JSON.stringify({
-            title: $('#board_title').val(),
+            boardIdx: $('#board_idx').val(),
             subTitle: $('#board_sub_title').val(),
             content: $('#board_content').val(),
             boardType: $('#board_type option:selected').val(),

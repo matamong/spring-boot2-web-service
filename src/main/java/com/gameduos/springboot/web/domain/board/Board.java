@@ -37,7 +37,7 @@ public class Board implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @Column
+    @Column(columnDefinition = "int default 0")
     private int viewCnt;
 
     @Column

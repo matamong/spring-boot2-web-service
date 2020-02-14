@@ -38,6 +38,9 @@ public class Board implements Serializable {
     private User user;
 
     @Column
+    private int viewCnt;
+
+    @Column
     private LocalDateTime createdDate;
 
     @Column
@@ -49,6 +52,10 @@ public class Board implements Serializable {
 
     public void setUpdatedDateNow() {
         this.updatedDate = LocalDateTime.now();
+    }
+
+    public void updateViewCnt(Board board){
+        this.viewCnt += 1;
     }
 
     public void update(Board board) {

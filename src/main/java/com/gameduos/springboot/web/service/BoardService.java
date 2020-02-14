@@ -55,8 +55,13 @@ public class BoardService {
         return ResponseEntity.ok(resources);
     }
 
-
+    @Transactional
     public Board findBoardByIdx(Long idx) {
+        Board board = boardRepository.findById(idx)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호d=" + idx));
+        board.updateViewCnt(board);
+        boardRepository.save(board);
+
         return boardRepository.findById(idx).orElse(new Board());
     }
 

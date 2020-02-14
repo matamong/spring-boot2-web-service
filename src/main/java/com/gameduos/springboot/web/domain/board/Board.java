@@ -40,6 +40,9 @@ public class Board implements Serializable {
     @Column(columnDefinition = "int default 0")
     private int viewCnt;
 
+    @Column(columnDefinition = "int default 0")
+    private int likesCnt;
+
     @Column
     private LocalDateTime createdDate;
 
@@ -54,8 +57,15 @@ public class Board implements Serializable {
         this.updatedDate = LocalDateTime.now();
     }
 
-    public void updateViewCnt(Board board){
+    public void updateViewCnt(){
         this.viewCnt += 1;
+    }
+
+    public void increaseLikesCnt(){
+        this.likesCnt += 1;
+    }
+    public void decreaseLikesCnt(){
+        this.likesCnt -= 1;
     }
 
     public void update(Board board) {

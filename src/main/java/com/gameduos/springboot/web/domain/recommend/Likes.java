@@ -22,8 +22,8 @@ public class Likes implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recommendId;
 
-    @Column
-    private Long boardIdx;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -40,8 +40,8 @@ public class Likes implements Serializable {
     }
 
     @Builder
-    public Likes(Long boardIdx, User user){
-        this.boardIdx = boardIdx;
+    public Likes(Board board, User user){
+        this.board = board;
         this.user = user;
     }
 

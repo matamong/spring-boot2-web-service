@@ -35,7 +35,7 @@ public class LikesService {
             return new ResponseEntity<>("{}", HttpStatus.BAD_REQUEST);
         }else{
             Likes newLikes = Likes.builder()
-                    .boardIdx(requestDto.getBoardIdx())
+                    .board(board)
                     .user(user)
                     .build();
 

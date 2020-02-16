@@ -82,10 +82,18 @@
         <a href="/board/list" class="btn btn-default">목록으로</a>
     </div>
     <div class="pull-right">
+        <button type="button"class="btn btn-primary" id="like">좋아요</button>
         <button type="button" class="btn btn-primary" id="insert">저장</button>
         <button type="button" class="btn btn-info" id="update">수정</button>
         <button type="button" class="btn btn-danger" id="delete">삭제</button>
     </div>
+</div>
+<div id="comments_list">
+
+</div>
+<div id="comments_container">
+    <textarea name="comments" cols="30" rows="5" id="comment_content"></textarea><br>
+    <button type="button"class="btn btn-primary" id="comment_insert">등록</button>
 </div>
 <div th:replace="layout/footer::footer"></div>
 
@@ -124,6 +132,49 @@
             },
             error: function () {
                 alert('삭제 실패!');
+            }
+        });
+    });
+</script>
+<script>
+    $('#like').click(function () {
+        var jsonData = JSON.stringify({
+            boardIdx: $('#board_idx').val()
+        });
+        $.ajax({
+            url: "http://localhost:8080/api/likes/board",
+            type: "POST",
+            data: jsonData,
+            contentType: "application/json",
+            dataType: "json",
+            success: function () {
+                alert('추천 성공!');
+                location.href = '/board?idx=' + $('#board_idx').val();
+            },
+            error: function () {
+                alert('저장 실패!');
+            }
+        });
+    });
+</script>
+<script>
+
+            $('#comment_insert').click(function () {
+            var jsonData = JSON.stringify({
+                content: $('#comment_content').val(),
+                boardIdx: $('#board_idx').val()
+            });
+            $.ajax({
+                url: "http://localhost:8080/api/comments",
+                type: "POST",
+                data: jsonData,
+                contentType: "application/json",
+            dataType: "json",
+            success: function (data,status) {
+                console.log('댓글 저장 성공! data >>>' + data + "status >> "  + status);
+            },
+            error: function (status) {
+                console.log('댓글 저장 실패!' + status);
             }
         });
     });

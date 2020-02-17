@@ -27,7 +27,7 @@ public class Board implements Serializable {
     @Column
     private String subTitle;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String content;
 
     @Column

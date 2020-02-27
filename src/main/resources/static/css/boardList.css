@@ -1,0 +1,56 @@
+/**Board List**/
+
+.middle-area-container{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.sec1{
+    width: 100%;
+    margin-top: 70px;
+}
+
+.sec1 .intro{
+    width: 100%;
+    height: 90px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background-color: violet;
+}
+
+.sec2{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.left-banner-wrapper{
+    width: 20%;
+}
+
+.left-banner{
+    width: 100%;
+    height: 500px;
+    background-color: lawngreen;
+}
+
+.boardContainer{
+    width: 60%;
+}
+
+#mainHide{
+    width: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.right-banner-wrapper{
+    width: 15%;
+    height: 500px;
+    background-color: maroon;
+}
+
+button{
+    color: white;
+}

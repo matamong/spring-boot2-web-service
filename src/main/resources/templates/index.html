@@ -1,14 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <title>Game Duos</title>
 </head>
 <body>
-<div class="contrain" id="js-constrain" href="/login"></div>
-<script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mojs/player"></script>
-<script th:src="@{/js/index.js}"></script>
+    <div class="container">
+        <div class="container__item landing-page-container">
+            <div class="content-wrapper">s
+                <header class="header"> 
+                    <div class="menu-icon header__item">
+                        <span class="menu-icon__line"></span>
+                    </div>
+                    <h1 class="heading header__item">LOGO</h1>
+                    <ul class="social-container header__item">
+                        <li class="social__icon social__icon--fb">
+                            <a href="javascript:;"  class="btn_social">
+                                <img th:src="@{/images/facebook.png}" alt="facebook" data-social="facebook" width="20px" height="20px" >
+                            </a>
+                        </li>
+                        <li class="social__icon social__icon--google" >
+                            <a href="javascript:;"  class="btn_social" data-social="google" >
+                                <img th:src="@{/images/google.png}" alt="google" width="20px" height="20px" >
+                            </a>
+                        </li>
+                        <li class="social__icon social__icon--kakao" data-social="kakao">
+                            <a href="javascript:;"  class="btn_social" data-social="kakao">
+                                <img th:src="@{/images/kakao.png}" alt="kakao" width="20px" height="20px" >
+                            </a>
+                        </li>
+                    </ul>
+                </header>
+                <p class="coordes">N 49º 16' 37.173"  /  W  0º 42' 11.30"</p>
+                <div class="ellipse-container">
+                    <h2 class="greeting">GameDuos</h2>
+                    <div class="ellipse ellipse__outer--thin">
+                        <div class="ellipse ellipse__orbit"></div>
+                    </div>
+                    <div class="ellipse ellipse__outer--thick"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script>
+    $('.btn_social').click(function () {
+        var socialType = $(this).data('social');
+        location.href="/oauth2/authorization/"+socialType;
+    });
+</script>
 </html>

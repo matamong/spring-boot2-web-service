@@ -1,37 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://kit.fontawesome.com/d22a341da8.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+          type="text/css" />
+    <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" th:href="@{/css/base.css}" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
+    <link rel="stylesheet" th:href="@{/css/semantic.min.css}" />
+    <title>Home - Game Duos</title>
+    <meta name="description" content="게임을 이용하는 유저들의 만남의 장이 될 수 있게
+    매칭 시스템, 커뮤니티 등을 제공합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Game Duos">
+    <meta property="og:description" content="눈치 볼 필요없이 게임 같이 할 사람 구하자!">
+    <meta property="og:image" content="http://">
+    <meta property="og:url" content="https://GameDuos.com">
 </head>
 <body>
-<div th:replace="layout/header::header"></div>
-
+<header th:replace="layout/header::header"></header>
 <!--body-->
-<div class="container">
-    <br/><br/>
-    <div class="jumbotron">
-        <h1>홈 입니다.</h1>
-        <p>
-            홈입니다.
-        </p>
-        <div>
-            <span th:text="${session['userEmail']}"></span>
-        </div>
-        <div sec:authorize="hasRole('ROLE_USER')">
-            This content is only shown to users.
-        </div>
-        <br/>
-        <p align="right">
-            <a class="btn btn-primary btn-lg" href="/board/list">게시판 바로가기</a>
-            <a class="btn btn-primary btn-lg" href="/myPage">마이페이지 바로가기</a>
-        </p>
+<section class="sec1">
+    <div class="banner"></div>
+    </article>
+</section>
+<section class="sec2">
+    <img id="matchingStart" src="https://place-hold.it/380x230"></img>
+</section>
+<section class="sec3">
+    <div class="board">
+        <div class="boardImg"></div>
+        <div id="freeBoard"></div>
     </div>
-</div>
+    <div class="board">
+        <div class="boardImg"></div>
+        <div id="anotherBoard"></div>
+    </div>
+</section>
 <!--/body-->
-
 <div th:replace="layout/footer::footer"></div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+<script th:src="@{/js/mobileMenu.js}"></script>
 </html>

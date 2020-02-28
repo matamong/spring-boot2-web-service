@@ -1,68 +1,93 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://kit.fontawesome.com/d22a341da8.js" crossorigin="anonymous"></script>
+    <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+    <title>마이 페이지 - Game Duos</title>
     <link rel="stylesheet" th:href="@{/css/base.css}" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/levelUp.css}" />
+    <link rel="stylesheet" th:href="@{/css/semantic.min.css}" />
+    <meta name="description" content="게임을 이용하는 유저들의 만남의 장이 될 수 있게
+    매칭 시스템, 커뮤니티 등을 제공합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Game Duos-마이 페이지">
+    <meta property="og:description" content="눈치 볼 필요없이 게임 같이 할 사람 구하자!">
+    <meta property="og:image" content="http://">
+    <meta property="og:url" content="https://GameDuos.com">
 </head>
 <body>
 <div th:replace="layout/header::header"></div>
-
-<!--body-->
-<div class="container">
-    <br/><br/>
-    <div class="jumbotron">
-        <h1>마이페이지의 추천코드 페이지 입니다.</h1>
-        <p>
-            추천코드를 생성하고 조회할 수 있습니다.(디자인은 아직)
-        </p>
-        <br/>
-        <p align="right">
-            <a class="btn btn-primary btn-lg" href="/myPage/referralCode" id="insert">추천코드생성</a>
-        </p>
-    </div>
+<div class="middle-area-container">
+    <section class="sec1">
+        <div class="intro"></div>
+    </section>
+    <section class="sec2">
+        <div class="left-menu-wrapper">
+            <div class="left-menu">
+                <div class="ui vertical menu">
+                    <div class="item">
+                        <div class="header active">내 정보</div>
+                        <div class="menu">
+                            <a class="item" href="/myPage">내 정보 조회</a>
+                            <a class="item">정보 수정</a>
+                            <a class="item">회원 탈퇴</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="header">매칭 정보</div>
+                        <div class="menu">
+                            <a class="item">나의 매칭정보</a>
+                            <a class="item">매칭정보 수정</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="header">포인트</div>
+                        <div class="menu">
+                            <a class="item">포인트 조회 및 사용내역</a>
+                            <a class="item" href="/myPage/referralCode">인증코드 발급</a>
+                            <a class="item active" href="/myPage/levelUp">인증코드 사용</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="header">내 게시물</div>
+                        <div class="menu">
+                            <a class="item">내가 쓴 게시물</a>
+                            <a class="item">준비 중</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="middle-content-wrapper">
+            <div class="middle-content">
+                <button class="positive ui button" id="insert">추천 코드 생성</button>
+                <div id="mainHide">
+                    <table class="ui celled striped table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                 사용 가능 한 추천 코드
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="referralCode : ${referralCodeList}">
+                            <td th:text="${referralCode.referralCode}"></td>
+                            <td th:text="${referralCode.createdDate} ? ${#temporals.format(referralCode.createdDate,'yyyy-MM-dd HH:mm')} : ${referralCode.createdDate}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /Pagination -->
+            </div>
+        </div>
+    </section>
 </div>
-<div id="mainHide">
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th class="col-md-5">추천코드</th>
-            <th class="col-md-2">생성날짜</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="referralCode : ${referralCodeList}">
-            <td th:text="${referralCode.referralCode}"></td>
-            <td th:text="${referralCode.createdDate} ? ${#temporals.format(referralCode.createdDate,'yyyy-MM-dd HH:mm')} : ${referralCode.createdDate}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<br/>
-<!-- Pagination -->
-<nav aria-label="Page navigation" style="text-align:center;">
-    <ul class="pagination" th:with="startNumber=${T(Math).floor(referralCodeList.number/10)}*10+1, endNumber=(${referralCodeList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${referralCodeList.totalPages}">
-        <li><a aria-label="Previous" href="/myPage/referralCode?page=1">&laquo;</a></li>
-        <li th:style="${referralCodeList.first} ? 'display:none'">
-            <a th:href="@{/myPage/referralCode(page=${referralCodeList.number})}">&lsaquo;</a>
-        </li>
-
-        <li th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:class="(${page} == ${referralCodeList.number}+1) ? 'active'">
-            <a th:href="@{/myPage/referralCode(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
-        </li>
-
-        <li th:style="${referralCodeList.last} ? 'display:none'">
-            <a th:href="@{/myPage/referralCode(page=${referralCodeList.number}+2)}">&rsaquo;</a>
-        </li>
-        <li><a aria-label="Next" th:href="@{/myPage/referralCode(page=${referralCodeList.totalPages})}">&raquo;</a></li>
-    </ul>
-</nav>
-<!-- /Pagination -->
-</div>
-<!--/body-->
-
 <div th:replace="layout/footer::footer"></div>
+</body>
 
 <script th:src="@{/js/jquery.min.js}"></script>
 <script>

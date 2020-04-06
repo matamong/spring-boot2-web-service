@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class BoardSaveRequestDto {
     private BoardType boardType;
     private String title;
-    private String subTitle;
+//    private String subTitle;
     private User user;
     private String content;
     private LocalDateTime createdDate;
@@ -25,12 +25,12 @@ public class BoardSaveRequestDto {
     }
 
     @Builder
-    public BoardSaveRequestDto (BoardType boardType, String title, String subTitle, User user,
+    public BoardSaveRequestDto (BoardType boardType, String title, User user,
                                 String content, LocalDateTime createdDate){
         this.boardType = boardType;
         this.title = title;
         this.user = user;
-        this.subTitle = subTitle;
+//        this.subTitle = subTitle;
         this.content = content;
         this.createdDate = createdDate;
     }
@@ -44,7 +44,7 @@ public class BoardSaveRequestDto {
                 .boardType(boardType)
                 .title(title)
                 .user(user)
-                .subTitle(subTitle)
+//                .subTitle(subTitle)
                 .content(content)
                 .createdDate(createdDate)
                 .build();

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class BoardUpdateRequestDto {
     private BoardType boardType;
     private String title;
-    private String subTitle;
+//    private String subTitle;
     private String content;
     private LocalDateTime updatedDate;
 
@@ -23,11 +23,11 @@ public class BoardUpdateRequestDto {
     }
 
     @Builder
-    public BoardUpdateRequestDto (BoardType boardType, String title, String subTitle, User user,
+    public BoardUpdateRequestDto (BoardType boardType, String title, User user,
                                 String content, LocalDateTime updatedDate){
         this.boardType = boardType;
         this.title = title;
-        this.subTitle = subTitle;
+//        this.subTitle = subTitle;
         this.content = content;
         this.updatedDate = updatedDate;
     }
@@ -36,7 +36,7 @@ public class BoardUpdateRequestDto {
         return Board.builder()
                 .boardType(boardType)
                 .title(title)
-                .subTitle(subTitle)
+//                .subTitle(subTitle)
                 .content(content)
                 .createdDate(updatedDate)
                 .build();

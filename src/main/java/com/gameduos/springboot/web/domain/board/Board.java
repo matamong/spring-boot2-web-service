@@ -24,8 +24,8 @@ public class Board implements Serializable {
     @Column(length = 500)
     private String title;
 
-    @Column
-    private String subTitle;
+//    @Column
+//    private String subTitle;
 
     @Lob
     private String content;
@@ -70,17 +70,17 @@ public class Board implements Serializable {
 
     public void update(Board board) {
         this.title = board.getTitle();
-        this.subTitle = board.getSubTitle();
+//        this.subTitle = board.getSubTitle();
         this.content = board.getContent();
         this.boardType = board.getBoardType();
         this.updatedDate = LocalDateTime.now();
     }
 
     @Builder
-    public Board(String title, String subTitle, String content, BoardType boardType, User user,
+    public Board(String title, String content, BoardType boardType, User user,
                  LocalDateTime createdDate, LocalDateTime updatedDate){
         this.title = title;
-        this.subTitle = subTitle;
+//        this.subTitle = subTitle;
         this.content = content;
         this.boardType = boardType;
         this.user = user;

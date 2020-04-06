@@ -83,7 +83,7 @@ public class BoardService {
         entity.update(Board.builder()
                 .boardType(requestDto.getBoardType())
                 .title(requestDto.getTitle())
-                .subTitle(requestDto.getSubTitle())
+//                .subTitle(requestDto.getSubTitle())
                 .content(requestDto.getContent())
                 .updatedDate(requestDto.getUpdatedDate())
                 .build());

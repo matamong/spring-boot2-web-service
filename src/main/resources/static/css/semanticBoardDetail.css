@@ -1,0 +1,164 @@
+/**main area **/
+
+.middle-area-container{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.sec1{
+    width: 100%;
+    margin-top: 70px;
+}
+
+.sec1 .intro{
+    width: 100%;
+    height: 90px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background-color: violet;
+}
+
+.sec2{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.left-banner-wrapper{
+    width: 20%;
+}
+
+.left-banner{
+    width: 100%;
+    height: 500px;
+    background-color: lawngreen;
+}
+
+.boardContainer{
+    width: 60%;
+}
+
+#mainHide{
+    width: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.right-banner-wrapper{
+    width: 15%;
+    height: 500px;
+    background-color: maroon;
+}
+
+button{
+    color: white;
+}
+
+/**board detail contents**/
+
+/**article**/
+
+.article {
+    margin: 1%;
+}
+
+/** article header **/
+.article-title {
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: auto;
+    text-align: center;
+    margin: 1%;
+}
+
+.article-meta{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 2%;
+    color: grey;
+}
+
+.article-meta-item:before {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 12px;
+    vertical-align: middle;
+    content: "";
+    border-left: 1px solid #dddfe4;
+}
+.article-meta-left{
+    width: 300px;
+    height: 20px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.article-meta-right{
+    width: 130px;
+    height: 20px;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+}
+
+/** article content **/
+
+.article-content-wrap {
+    margin: 5% 5% 5% 0;
+}
+
+.article-vote-box {
+    text-align: center;
+    margin: 5%;
+}
+
+/** article footer **/
+
+.article-footer{
+    color: grey;
+    text-align: right;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.article-footer-report-item > span:hover{
+    color: darkgray;
+    cursor: pointer;
+}
+
+.article-footer-edit-item > span:hover {
+    color: darkgray;
+    cursor: pointer;
+}
+
+/** comments**/
+
+.comments-container {
+    margin: 6% 2% 2% 5%;
+}
+
+.comments-refresh {
+    color: gray;
+    text-align: right;
+}
+.comments-refresh > span:hover{
+    cursor: pointer;
+    color: darkgray;
+
+}
+
+#commentRating:hover {
+    cursor: pointer;
+}
+
+/** ect **/
+
+.to-the-up {
+    text-align: right;
+}

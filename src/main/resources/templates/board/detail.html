@@ -1,103 +1,204 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Board Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" th:href="@{/css/base.css}" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/semanticBoardDetail.css}" />
+    <link rel="stylesheet" th:href="@{/css/semantic.min.css}" />
+    <title  th:text="${board?.title}"> </title>
+    <meta name="description" content="게임을 이용하는 유저들의 만남의 장이 될 수 있게
+    매칭 시스템, 커뮤니티 등을 제공합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Game Duos-글 작성">
+    <meta property="og:description" content="눈치 볼 필요없이 게임 같이 할 사람 구하자!">
+    <meta property="og:image" content="http://">
+    <meta property="og:url" content="https://GameDuos.com">
 </head>
 <body>
 <!--header-->
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/" class="navbar-brand" style="text-decoration:none;">
-                <img th:src="@{/images/spring_boot_gray.png}" class="img-rounded" style="display:inline-block;height:100%;margin-right:5px" />
-                <span style="vertical-align:middle;">SpringBoot Community Web</span>
-            </a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="/signout">LOGOUT</a>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<!--/header-->
-
 <!--body-->
 <div th:replace="layout/header::header"></div>
-<div class="container">
-    <div class="page-header">
-        <h1>게시글 등록</h1>
-    </div>
-    <br/>
-    <!-- <input id="board_idx" type="hidden" th:value="${board?.idx}"/> -->
-    <table class="table">
-        <tr>
-            <th style="padding:13px 0 0 15px">게시판 선택</th>
-            <td>
-                <div class="pull-left">
-                    <select class="form-control input-sm" id="board_type">
-                        <option>--분류--</option>
-                        <option th:value="NOTICE" th:selected="${board?.boardType}">공지사항</option>
-                        <option th:value="FREE" th:selected="${board?.boardType}">자유게시판</option>
-                    </select>
+<!-- middle area -->
+<div class="middle-area-container">
+    <section class="sec1">
+        <div class="intro"></div>
+    </section>
+    <section class="sec2">
+        <div class="left-banner-wrapper">
+            <div class="left-banner">
+            </div>
+        </div>
+        <div class="boardContainer">
+            <div id="mainHide">
+                <div class="ui raised segment">
+                    <div class="article">
+                        <div class="article-header">
+                            <div class="article-title">
+                                <h1 id="board_title" th:text="${board?.title}"></h1>
+                            </div>
+                            <div class="article-meta">
+                                <div class="article-meta-left">
+                                    <div class="article-meta-item">
+                                        <i class="user outline icon"></i>
+                                        <span >익명</span>
+                                    </div>
+                                    <div class="divider"> / </div>
+                                    <div class="article-meta-item">
+                                        <i class="calendar outline icon"></i>
+                                        <span id="article_date" th:text="${board?.createdDate}"></span>
+                                    </div>
+                                    <div class="divider"> / </div>
+                                    <div class="article-meta-item">
+                                        <i class="folder open outline icon"></i>
+                                        <span id="article_type" th:text="${board?.boardType}"></span>
+                                        &nbsp
+                                        <span id="board_idx" th:text="${board?.idx}"></span>
+                                    </div>
+                                </div>
+                                <div class="article-meta-right">
+                                    <div class="article-meta-item">
+                                        <i class="comment outline icon"></i>
+                                        <span></span>
+                                    </div>
+                                    <div class="divider"> / </div>
+                                    <div class="article-meta-item">
+                                        <i class="heart outline icon"></i>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="article-content-wrap">
+                            <div class="article-content" id="board_content" th:utext="${board?.content}"></div>
+                        </div>
+                        <div class="article-vote-box">
+                            <div class="vote">
+                                <div class="ui labeled button" tabindex="0">
+                                    <div class="ui button" id="like">
+                                        <i class="heart icon"></i> 좋아요
+                                    </div>
+                                    <a class="ui basic label">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-footer">
+                            <div class="article-footer-report">
+                                <div class="article-footer-report-item">
+                                    <span id="postReport"><i class="shield alternate icon"></i>신고하기</span>
+                                </div>
+                            </div>
+<!--                            <div class="article-footer-edit">-->
+<!--                                <div class="article-footer-edit-item">-->
+<!--                                    <span id="postEdit"><i class="edit outline icon"></i>수정하기</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="article-footer-back">
+                                <div class="ui animated button" tabindex="0" onclick="pageBack()">
+                                    <div class="visible content">목록으로</div>
+                                    <div class="hidden content">
+                                        <i class="left arrow icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Comments-->
+                    <div class="ui divider"></div>
+                    <div class="comments-container">
+                        <div class="ui comments">
+                            <h3 class="ui dividing header">댓글</h3>
+                            <div class="comment" th:each="comment : ${comment}">
+                                <a class="avatar">
+                                    <img src="https://semantic-ui.com/images/avatar/small/steve.jpg">
+                                </a>
+                                <div class="content">
+                                    <a class="author" th:href="'/board?idx='+${comment.user.getNickName()}" th:text="${comment.user.getNickName()}"></a>
+                                    <div class="metadata">
+                                        <span class="date" th:text="${comment.getCreatedDate()}"></span>
+                                        <div id="commentRating">
+                                            <i class="star icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="text" th:text="${comment.getContent()}">
+                                    </div>
+                                    <div class="actions">
+                                        <a class="reply active">답글 달기</a>
+                                        <a class="comment-report">신고하기</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <form class="ui reply form">
+                                <div class="field">
+                                    <textarea id="comment_content"></textarea>
+                                </div>
+                                <div class="ui blue labeled submit icon button" id="comment_insert">
+                                    <i class="icon edit"></i> 댓글 달기
+                                </div>
+                                <div class="comments-refresh">
+                                    <span id="commentsRefresh"><i class="sync alternate icon"></i>댓글 새로고침</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </td>
-        </tr>
-        <tr>
-            <th style="padding:13px 0 0 15px;">제목</th>
-            <td><input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/></td>
-        </tr>
-        <tr>
-            <th style="padding:13px 0 0 15px;">부제목</th>
-<!--            <td><input id="board_sub_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.subTitle}"/></td>-->
-            <td><input id="board_idx" type="text" class="col-md-1 form-control input-sm" th:value="${board?.idx}"/></td>
-        </tr>
-        <tr>
-            <th style="padding:13px 0 0 15px;">내용</th>
-            <td><textarea id="board_content" class="col-md-1 form-control input-sm" maxlength="140" rows="7" style="height: 200px;"
-                          th:text="${board?.content}"></textarea><span class="help-block"></span>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-    <div class="pull-left">
-        <a href="/board/list" class="btn btn-default">목록으로</a>
-    </div>
-    <div class="pull-right">
-        <button type="button"class="btn btn-primary" id="like">좋아요</button>
-        <button type="button" class="btn btn-primary" id="insert">저장</button>
-        <button type="button" class="btn btn-info" id="update">수정</button>
-        <button type="button" class="btn btn-danger" id="delete">삭제</button>
-    </div>
-</div>
-<div id="comments_list">
-
-</div>
-<div id="comments_container">
-    <textarea name="comments" cols="30" rows="5" id="comment_content"></textarea><br>
-    <button type="button"class="btn btn-primary" id="comment_insert">등록</button>
+                <div class="to-the-up">
+                    <div class="ui vertical animated button" tabindex="0" onclick="window.scrollTo(0,0);">
+                        <div class="hidden content">맨 위로</div>
+                        <div class="visible content">
+                            <i class="arrow up icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-banner-wrapper">
+            <div class="ui wide skyscraper test ad" data-text="Skyscraper"></div>
+        </div>
+    </section>
 </div>
 <div th:replace="layout/footer::footer"></div>
 
 <script th:src="@{/js/jquery.min.js}"></script>
+<script>
+    //서버에서 데이터만(json)만 받아서 직접 js로 만지고싶은데....
+    // 구조가 서버사이드 렌더링이라 강제로 model에 저장되어있는 데이터를 끄집어내겠다,,,
+    console.log("서버에서 데이터만(json)만 받아서 직접 js로 만지고싶은데....\n" +
+        "     애초에 시작한 구조가 서버사이드 렌더링이라..\n" +
+        "백엔드와 프론트엔드를 떼어낼 그 날을 위하여...ㅠㅠ");
+</script>
+<script>
+    var articleDateText = document.getElementById("article_date").innerText;
+    var articleType = document.getElementById("article_type").innerText;
+
+    window.onload = function(){
+        articleDateSpliter(articleDateText);
+        articleTypeChanger(articleType);
+    }
+    articleDateSpliter(articleDateText);
+    articleTypeChanger(articleType);
+
+    function articleDateSpliter(str) {
+        var strArr = str.split('');
+        var slicedStrArr = strArr.slice(0,10);
+        var text = slicedStrArr.join('');
+
+        document.getElementById("article_date").innerHTML = text;
+    }
+
+    function articleTypeChanger(type) {
+        if(type === 'FREE'){
+            document.getElementById("article_type").innerHTML = '자유게시판';
+        }if(type === 'NOTICE'){
+            document.getElementById("article_type").innerHTML = '공지사항';
+        }
+    }
+</script>
 <script>
     $('#update').click(function () {
         var jsonData = JSON.stringify({
@@ -161,7 +262,7 @@
     $('#comment_insert').click(function () {
         var jsonData = JSON.stringify({
             content: $('#comment_content').val(),
-            boardIdx: $('#board_idx').val()
+            boardIdx: $('#board_idx').text()
             });
         $.ajax({
             url: "http://localhost:8080/api/comments",

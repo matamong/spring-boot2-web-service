@@ -17,7 +17,9 @@
                             <li class="hvr-underline-reveal"><a href="/myPage">My Page</a></li>
                         </ul>
                     </div>
-                    <div class="user"></div>
+                    <div class="user" th:if="${session.user != null}">
+                        <span th:text="${session['nickname']}"></span>
+                    </div>
                 </section>
             </div>
             <!-- mobile Menu -->

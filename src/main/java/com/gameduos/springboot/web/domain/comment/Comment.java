@@ -3,6 +3,7 @@ package com.gameduos.springboot.web.domain.comment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gameduos.springboot.web.domain.board.Board;
 import com.gameduos.springboot.web.domain.user.User;
+import com.gameduos.springboot.web.dto.CommentUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,14 +42,22 @@ public class Comment {
     @Column
     private LocalDateTime createdDate;
 
+    @Column
+    private LocalDateTime deletedDate;
+
     public void setCreatedDateNow() {
         this.createdDate = LocalDateTime.now();
     }
 
-    public void update(Comment comment){
-        this.content = content;
+    public void update(CommentUpdateRequestDto requestDto){
+        this.content = requestDto.getContent();
         this.updated = 1;
         this.createdDate = LocalDateTime.now();
+    }
+
+    public void delete(Comment comment){
+        this.deleted = 1;
+        this.deletedDate = LocalDateTime.now();
     }
 
     @Builder

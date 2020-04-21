@@ -3,6 +3,7 @@ package com.gameduos.springboot.web.controller;
 import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.user.User;
 import com.gameduos.springboot.web.dto.CommentSaveRequestDto;
+import com.gameduos.springboot.web.dto.CommentUpdateRequestDto;
 import com.gameduos.springboot.web.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -23,9 +24,21 @@ public class CommentRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveComments(@RequestBody CommentSaveRequestDto requestDto, @SocialUser User user){
+    public ResponseEntity<?> saveComment(@RequestBody CommentSaveRequestDto requestDto, @SocialUser User user){
         requestDto.setUser(user);
         return commentService.save(requestDto);
     }
+
+    @PutMapping("/{commentId}")
+    public ResponseEntity<?> updateComment(@RequestBody CommentUpdateRequestDto requestDto, @SocialUser User user){
+        requestDto.setUser(user);
+        return commentService.update(requestDto);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<?> deleteComment(@PathVariable("commentId") Long commentId, @SocialUser User user){
+        return commentService.delete(commentId, user);
+    }
+
 
 }

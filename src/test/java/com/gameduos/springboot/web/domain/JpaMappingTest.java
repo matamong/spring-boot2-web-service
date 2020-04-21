@@ -41,7 +41,6 @@ public class JpaMappingTest {
 
         boardRepository.save(Board.builder()
                 .title(boardTestTitle)
-                .subTitle("서브 타이틀")
                 .content("테스트 내용")
                 .boardType(BoardType.FREE)
                 .user(user)
@@ -62,7 +61,6 @@ public class JpaMappingTest {
 
         Board board = boardRepository.findByUser(user);
         assertThat(board.getTitle()).isEqualTo(boardTestTitle);
-        assertThat(board.getSubTitle()).isEqualTo("서브 타이틀");
         assertThat(board.getContent()).isEqualTo("테스트 내용");
         assertThat(board.getBoardType()).isEqualTo(BoardType.FREE);
 

@@ -1,6 +1,7 @@
 package com.gameduos.springboot.web.controller;
 
 import com.gameduos.springboot.web.service.BoardService;
+import com.gameduos.springboot.web.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @GetMapping("/list")
     public String list(@PageableDefault Pageable pageable, Model model) {
@@ -25,8 +27,10 @@ public class BoardController {
     }
 
     @GetMapping({"", "/"})
-    public String boardDetail(@RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {
+    public String boardDetail(@PageableDefault Pageable pageable,
+                              @RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {
         model.addAttribute("board", boardService.findBoardByIdx(idx));
+        model.addAttribute("comment", commentService.findCommentsByBoardIdx(idx, pageable));
         return "/board/detail";
     }
 

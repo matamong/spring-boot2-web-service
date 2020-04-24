@@ -8,6 +8,7 @@ import com.gameduos.springboot.web.domain.point.Point;
 import com.gameduos.springboot.web.domain.point.PointRepository;
 import com.gameduos.springboot.web.domain.point.PointType;
 import com.gameduos.springboot.web.domain.user.User;
+import com.gameduos.springboot.web.domain.user.UserRepository;
 import com.gameduos.springboot.web.dto.BoardSaveRequestDto;
 import com.gameduos.springboot.web.dto.BoardUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
     private final PointService pointService;
 
     public Page<Board> findBoardList(Pageable pageable) {
@@ -63,6 +66,19 @@ public class BoardService {
         boardRepository.save(board);
 
         return board;
+    }
+
+    @Transactional
+    public User findBoardUserById(Long idx) {
+        Board board = boardRepository.findById(idx)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호d=" + idx));
+
+        Long userId = board.getUser().getId();
+
+        User boardUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다. 유저 id = " + userId));
+
+        return boardUser;
     }
 
     @Transactional

@@ -1,5 +1,7 @@
 package com.gameduos.springboot.web.controller;
 
+import com.gameduos.springboot.web.annotation.SocialUser;
+import com.gameduos.springboot.web.domain.user.User;
 import com.gameduos.springboot.web.service.BoardService;
 import com.gameduos.springboot.web.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +31,12 @@ public class BoardController {
     @GetMapping({"", "/"})
     public String boardDetail(@PageableDefault Pageable pageable,
                               @RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {
+        // fetchType.lazy 로 불러온 entity 는 연관된 엔티티까지 담아서 thymeleaf 에 보내지 않으니 연관된 entity 를
+        // List에 따로 담아서 보내주기로...
         model.addAttribute("board", boardService.findBoardByIdx(idx));
-        model.addAttribute("comment", commentService.findCommentsByBoardIdx(idx, pageable));
+        model.addAttribute("boardUser", boardService.findBoardUserById(idx));
+        model.addAttribute("commentInfoList", commentService.getCommentInfo(idx));
+
         return "/board/detail";
     }
 

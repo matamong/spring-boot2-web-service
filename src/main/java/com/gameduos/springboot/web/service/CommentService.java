@@ -7,6 +7,8 @@ import com.gameduos.springboot.web.domain.board.BoardRepository;
 import com.gameduos.springboot.web.domain.comment.Comment;
 import com.gameduos.springboot.web.domain.comment.CommentRepository;
 import com.gameduos.springboot.web.domain.user.User;
+import com.gameduos.springboot.web.domain.user.UserRepository;
+import com.gameduos.springboot.web.dto.CommentInfoDto;
 import com.gameduos.springboot.web.dto.CommentSaveRequestDto;
 import com.gameduos.springboot.web.dto.CommentUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -29,6 +34,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
     private final BoardRepository boardRepository;
 
     @Transactional
@@ -47,6 +53,32 @@ public class CommentService {
     }
 
     @Transactional
+    public List<CommentInfoDto> getCommentInfo (Long boardIdx){
+        Board board = boardRepository.findById(boardIdx)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호 =" + boardIdx));
+
+        List<Comment> commentsList = commentRepository.findAllByBoardOrderByIdDesc(board);
+
+        List<CommentInfoDto> commentInfoList = new ArrayList<>();
+        for(int i =0; i < commentsList.size(); i++){
+            CommentInfoDto commentInfoDto = new CommentInfoDto();
+
+            Comment comment = commentsList.get(i);
+            Long commentUserId = commentsList.get(i).getId();
+            String commentUserNickname = commentsList.get(i).getUser().getNickName();
+
+            commentInfoDto.setComment(comment);
+            commentInfoDto.setCommentUserId(commentUserId);
+            commentInfoDto.setCommentUserNickname(commentUserNickname);
+
+            commentInfoList.add(commentInfoDto);
+        }
+
+        return commentInfoList;
+
+    }
+
+    @Transactional
     public Page<Comment> findCommentsByBoardIdx(Long boardIdx, Pageable pageable) {
         Board board = boardRepository.findById(boardIdx)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호 =" + boardIdx));
@@ -55,6 +87,13 @@ public class CommentService {
         pageable = PageRequest.of(page, 50, new Sort(Sort.Direction.ASC, "id")); // <- Sort 추가
 
         return commentRepository.findAllByBoardOrderByIdDesc(board, pageable);
+    }
+
+    public List<User> findCommentUserByBoardIdx(Long boardIdx){
+        Board board = boardRepository.findById(boardIdx)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호 =" + boardIdx));
+
+        return commentRepository.findUserByBoardOrderByIdDesc(board);
     }
 
 

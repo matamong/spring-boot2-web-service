@@ -43,7 +43,7 @@
                                 <div class="article-meta-left">
                                     <div class="article-meta-item">
                                         <i class="user outline icon"></i>
-                                        <span th:text="${boardUser.getNickName()}">닉넴</span>
+                                        <span th:text="${boardUser.getNickName()}"></span>
                                     </div>
                                     <div class="divider"> / </div>
                                     <div class="article-meta-item">
@@ -61,7 +61,7 @@
                                 <div class="article-meta-right">
                                     <div class="article-meta-item">
                                         <i class="comment outline icon"></i>
-                                        <span></span>
+                                        <span th:text="${commentInfoList.size()}"></span>
                                     </div>
                                     <div class="divider"> / </div>
                                     <div class="article-meta-item">
@@ -125,16 +125,17 @@
                                         <div id="commentRating">
                                             <i class="star icon"></i>
                                         </div>
-                                    </div>
+                                        <span th:if="${commentInfo.getComment().getUpdated() == 1}">(수정됨)</span>
+                                    </div>s
                                     <div class="text" th:if="${commentInfo.getComment().getDeleted() == 0}" th:text="${commentInfo.getComment().getContent()}"></div>
                                     <div class="text" th:if="${commentInfo.getComment().getDeleted() == 1}" style="color: darkgray ">
                                         <i class="trash alternate outline icon"></i> 삭제된 댓글입니다.
                                     </div>
                                     <div class="actions">
-                                        <a class="reply">답글 달기</a>
-                                        <a class="comment-report">신고하기</a>
-                                        <a th:if="${commentInfo.getCommentUserId()} == ${session.user.id}" class="edit">수정</a>
-                                        <a th:if="${commentInfo.getCommentUserId()} == ${session.user.id}" class="delete">삭제</a>
+                                        <a th:if="${commentInfo.getComment().getDeleted() == 0}" class="reply">답글 달기</a>
+                                        <a th:if="${commentInfo.getComment().getDeleted() == 0}" class="comment-report">신고하기</a>
+                                        <a th:if="${commentInfo.getCommentUserId()} == ${session.user.id} and ${commentInfo.getComment().getDeleted() == 0}" class="edit">수정</a>
+                                        <a th:if="${commentInfo.getCommentUserId()} == ${session.user.id} and ${commentInfo.getComment().getDeleted() == 0}" class="delete">삭제</a>
                                     </div>
                                 </div>
                             </div>
@@ -251,6 +252,78 @@
     });
 </script>
 <script>
+    $('.edit').on('click', function () {
+        var commentId = $(this).parent().parent().find('.metadata').find('input:hidden').val();
+        var commentActionDiv = $(this).parent();
+        var commentContentDiv = $(this).parent().prev();
+        var commentContent = commentContentDiv.text();
+
+        var form = createCommentEditForm(commentContent);
+        $(commentContentDiv).after(form);
+        commentContentDiv.hide();
+        commentActionDiv.hide();
+    });
+
+    function createCommentEditForm(content) {
+        var form = document.createElement('form');
+        var fieldDiv = document.createElement('div');
+        var textarea = document.createElement('textarea');
+        var submitDiv = document.createElement('div');
+        var cancleDiv = document.createElement('div');
+
+        form.className = 'ui reply form';
+        fieldDiv.className = 'field';
+        textarea.value = content;
+        submitDiv.className = 'ui green button commentUpdate';
+        submitDiv.innerHTML = '수정'
+        cancleDiv.className = 'ui button commentEditCancle';
+        cancleDiv.innerHTML = '취소';
+
+        cancleDiv.onclick = function (event) {
+            var editForm = $(this).parent().parent();
+            var commentForm = $(this).parent().parent().parent().find('.text');
+            var commentActions = $(this).parent().parent().parent().find('.actions');
+            commentForm.show();
+            commentActions.show();
+            editForm.remove();
+        }
+
+        submitDiv.onclick = function (event) {
+
+                var textareaContent = $(this).parent().find('textarea').val();
+                var commentId = $(this).parent().parent().prev().prev().find('.comment_id').val();
+
+                var jsonData = JSON.stringify({
+                    commentId: commentId,
+                    content: textareaContent,
+                    boardIdx: $('#board_idx').val()
+                });
+                $.ajax({
+                    url: "http://localhost:8080/api/comments/" + commentId,
+                    type: "PUT",
+                    data: jsonData,
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (data, status) {
+                        location.reload();
+                        console.log('댓글 수정 성공! data >>>' + data + "status >> " + status);
+                    },
+                    error: function (status) {
+                        console.log('댓글 수정 실패!' + status);
+                    }
+                });
+        }
+
+        fieldDiv.appendChild(textarea);
+        fieldDiv.appendChild(submitDiv);
+        fieldDiv.appendChild(cancleDiv);
+        form.appendChild(fieldDiv);
+
+        textarea.focus();
+        return form;
+    }
+</script>
+<script>
     $('.delete').on('click', function () {
         var commentId = $(this).parent().parent().find('.metadata').find('input:hidden').val();
 
@@ -278,7 +351,7 @@
 <script>
     $('#like').click(function () {
         var jsonData = JSON.stringify({
-            boardIdx: $('#board_idx').val()
+            boardIdx: $('#board_idx').text()
         });
         $.ajax({
             url: "http://localhost:8080/api/likes/board",
@@ -288,10 +361,10 @@
             dataType: "json",
             success: function () {
                 alert('추천 성공!');
-                location.href = '/board?idx=' + $('#board_idx').val();
+                location.reload();
             },
             error: function () {
-                alert('저장 실패!');
+                location.reload();
             }
         });
     });

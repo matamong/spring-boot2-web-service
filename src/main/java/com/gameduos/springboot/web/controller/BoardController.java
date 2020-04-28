@@ -40,6 +40,18 @@ public class BoardController {
         return "/board/detail";
     }
 
+    @GetMapping("/editForm")
+    public String boardEditForm(@RequestParam(value = "idx") Long idx, @SocialUser User user, Model model){
+        User boardAuthor = boardService.findBoardUserById(idx);
+
+        if(!user.getId().equals(boardAuthor.getId())){
+            throw new IllegalStateException("자신의 정보만 수정할 수 있습니다.");
+        }
+        model.addAttribute("board", boardService.findBoardByIdx(idx));
+
+        return "/board/editForm";
+    }
+
     @GetMapping("/form")
     public String boardForm() {
         return "/board/form";

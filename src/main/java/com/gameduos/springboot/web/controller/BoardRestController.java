@@ -43,15 +43,26 @@ public class BoardRestController {
         return boardService.save(requestDto);
     }
 
-
     @PutMapping("/{idx}")
-    public ResponseEntity<?> putBoard(@PathVariable("idx")Long idx, @RequestBody BoardUpdateRequestDto requestDto) {
+    public ResponseEntity<?> putBoard(@PathVariable("idx")Long idx, @RequestBody BoardUpdateRequestDto requestDto,
+                                      @SocialUser User user) {
+        User boardAuthor = boardService.findBoardUserById(idx);
+
+        if(!user.getId().equals(boardAuthor.getId())){
+            throw new IllegalStateException("자신의 게시글만 수정할 수 있습니다.");
+        }
+
         return boardService.update(idx, requestDto);
     }
 
-
     @DeleteMapping("/{idx}")
-    public ResponseEntity<?> deleteBoard(@PathVariable("idx")Long idx) {
+    public ResponseEntity<?> deleteBoard(@PathVariable("idx")Long idx, @SocialUser User user) {
+        User boardAuthor = boardService.findBoardUserById(idx);
+
+        if(!user.getId().equals(boardAuthor.getId())){
+            throw new IllegalStateException("자신의 게시글만 삭제할 수 있습니다.");
+        }
+
         return boardService.delete(idx);
     }
 }

@@ -90,7 +90,7 @@
                             <div class="article-footer-report">
                                 <div class="article-footer-report-item">
                                     <span id="postReport"><i class="shield alternate icon"></i>신고하기</span>
-                                    <span id="postEdit" th:if="${boardUser.getId()} == ${session.user.id}" ><i class="edit outline icon"></i>수정하기</span>
+                                    <a th:if="${boardUser.getId()} == ${session.user.id}" th:href="'/board/editForm?idx='+${board.getIdx()}"><i class="edit outline icon"></i>수정하기</a>
                                 </div>
                             </div>
 <!--                            <div class="article-footer-edit">-->
@@ -213,44 +213,7 @@
         history.back();
     }
 </script>
-<script>
-    $('#update').click(function () {
-        var jsonData = JSON.stringify({
-            boardIdx: $('#board_idx').val(),
-            // subTitle: $('#board_sub_title').val(),
-            content: $('#board_content').val(),
-            boardType: $('#board_type option:selected').val(),
-            createdDate: $('#board_create_date').val()
-        });
-        $.ajax({
-            url: "http://localhost:8080/api/boards/" + $('#board_idx').val(),
-            type: "PUT",
-            data: jsonData,
-            contentType: "application/json",
-            dataType: "json",
-            success: function () {
-                alert('수정 성공!');
-                location.href = '/board/list';
-            },
-            error: function () {
-                alert('수정 실패!');
-            }
-        });
-    });
-    $('#delete').click(function () {
-        $.ajax({
-            url: "http://localhost:8080/api/boards/" + $('#board_idx').val(),
-            type: "DELETE",
-            success: function () {
-                alert('삭제 성공!');
-                location.href = '/board/list';
-            },
-            error: function () {
-                alert('삭제 실패!');
-            }
-        });
-    });
-</script>
+
 <script>
     $('.edit').on('click', function () {
         var commentId = $(this).parent().parent().find('.metadata').find('input:hidden').val();
@@ -390,37 +353,5 @@
             }
         });
     });
-    $('#comment_update').click(function () {
-        var jsonData = JSON.stringify({
-            commentId: $('#comment_id').val(),
-            content: $('#comment_content').val(),
-            boardIdx: $('#board_idx').val()
-        });
-        $.ajax({
-            url: "http://localhost:8080/api/comments" + $('#comment_id').val(),
-            type: "POST",
-            data: jsonData,
-            contentType: "application/json",
-            dataType: "json",
-            success: function (data,status) {
-                console.log('댓글 수정 성공! data >>>' + data + "status >> "  + status);
-            },
-            error: function (status) {
-                console.log('댓글 수정 실패!' + status);
-            }
-        });
-    });
-    // $('#comment_delete').click(function () {
-    //     $.ajax({
-    //         url: "http://localhost:8080/api/comments/" + $('#comment_id').val(),
-    //         type: "DELETE",
-    //         success: function (data,status) {
-    //             console.log('삭제 성공!' + 'data >> ' + data + 'status >> ' + status);
-    //         },
-    //         error: function (status) {
-    //             alert('삭제 실패!' + 'status >> ' + status);
-    //         }
-    //     });
-    // });
 
 </script>

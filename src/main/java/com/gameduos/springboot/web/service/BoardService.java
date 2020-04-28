@@ -40,7 +40,7 @@ public class BoardService {
     public Page<Board> findBoardList(Pageable pageable) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, 10, new Sort(Sort.Direction.DESC, "idx")); // <- Sort 추가
-        return boardRepository.findAll(pageable);
+        return boardRepository.findAllByDeleted(pageable);
     }
 
     public ResponseEntity<?> getBoard (Pageable pageable) {

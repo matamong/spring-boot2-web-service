@@ -43,11 +43,17 @@ public class Board implements Serializable {
     @Column(columnDefinition = "int default 0")
     private int likesCnt;
 
+    @Column(columnDefinition = "int default 0")
+    private int deleted;
+
     @Column
     private LocalDateTime createdDate;
 
     @Column
     private LocalDateTime updatedDate;
+
+    @Column
+    private LocalDateTime deletedDate;
 
     public void setCreatedDateNow() {
         this.createdDate = LocalDateTime.now();
@@ -74,6 +80,11 @@ public class Board implements Serializable {
         this.content = board.getContent();
         this.boardType = board.getBoardType();
         this.updatedDate = LocalDateTime.now();
+    }
+
+    public void delete(Board board){
+        this.deleted = 1;
+        this.deletedDate = LocalDateTime.now();
     }
 
     @Builder

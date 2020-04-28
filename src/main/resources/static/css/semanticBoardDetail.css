@@ -162,3 +162,21 @@ button{
 .to-the-up {
     text-align: right;
 }
+@media screen and (max-width: 768px) {
+    .sec1{
+        margin-top: 0;
+    }
+
+    .boardContainer{
+        width: 100%;
+    }
+
+    .left-banner-wrapper{
+        display: none;
+    }
+
+    .right-banner-wrapper{
+        display: none;
+    }
+
+}

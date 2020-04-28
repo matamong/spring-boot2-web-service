@@ -31,13 +31,25 @@ public class CommentRestController {
 
     @PutMapping("/{commentId}")
     public ResponseEntity<?> updateComment(@RequestBody CommentUpdateRequestDto requestDto, @SocialUser User user){
+        Long userId = commentService.getCommentUserId(requestDto.getCommentId());
+
+        if(!user.getId().equals(userId)){
+            throw new IllegalStateException("자신의 댓글만 수정 할 수 있습니다.");
+        }
+
         requestDto.setUser(user);
         return commentService.update(requestDto);
     }
 
     @DeleteMapping("/{commentId}")
     public ResponseEntity<?> deleteComment(@PathVariable("commentId") Long commentId, @SocialUser User user){
-        return commentService.delete(commentId, user);
+        Long userId = commentService.getCommentUserId(commentId);
+
+        if(!user.getId().equals(userId)){
+            throw new IllegalStateException("자신의 댓글만 삭제 할 수 있습니다.");
+        }
+
+        return commentService.delete(commentId);
     }
 
 

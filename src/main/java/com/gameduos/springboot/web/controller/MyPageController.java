@@ -2,8 +2,8 @@ package com.gameduos.springboot.web.controller;
 
 import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.user.User;
-import com.gameduos.springboot.web.service.BoardService;
 import com.gameduos.springboot.web.service.ReferralCodeService;
+import com.gameduos.springboot.web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -18,10 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyPageController {
 
     private final ReferralCodeService referralCodeService;
+    private final UserService userService;
 
     @GetMapping({"", "/"})
-    public String myPage(@SocialUser User user) {
+    public String myPage(Model model, @SocialUser User user) {
+        model.addAttribute("userInfo", userService.getUser(user.getId()));
         return "myPage/myPage";
+    }
+
+    @GetMapping("/userUpdate")
+    public String userEdit(Model model, @SocialUser User user){
+        model.addAttribute("userInfo", userService.getUser(user.getId()));
+        return "myPage/userEdit";
+
     }
 
     @GetMapping("/referralCode")

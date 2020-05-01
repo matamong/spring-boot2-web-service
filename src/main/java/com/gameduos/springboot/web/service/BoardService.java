@@ -99,7 +99,6 @@ public class BoardService {
         entity.update(Board.builder()
                 .boardType(requestDto.getBoardType())
                 .title(requestDto.getTitle())
-//                .subTitle(requestDto.getSubTitle())
                 .content(requestDto.getContent())
                 .updatedDate(requestDto.getUpdatedDate())
                 .build());
@@ -111,7 +110,11 @@ public class BoardService {
 
     @Transactional
     public ResponseEntity<?> delete (Long idx) {
-        boardRepository.deleteById(idx);
+        Board board = boardRepository.findById(idx)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호d=" + idx));
+
+        board.delete(board);
+        boardRepository.save(board);
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
 

@@ -70,4 +70,10 @@ public class User implements Serializable {
     public void roleUpdate(Role role) {
         this.role = role;
     }
+
+    public void update(User user){
+        this.nickName = user.getNickName();
+        this.picture = user.getPicture();
+        this.updatedDate = user.getUpdatedDate();
+    }
 }

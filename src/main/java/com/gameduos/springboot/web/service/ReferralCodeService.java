@@ -2,6 +2,7 @@ package com.gameduos.springboot.web.service;
 
 import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.board.Board;
+import com.gameduos.springboot.web.domain.point.PointType;
 import com.gameduos.springboot.web.domain.referralCode.ReferralCode;
 import com.gameduos.springboot.web.domain.referralCode.ReferralCodeRepository;
 import com.gameduos.springboot.web.domain.user.Role;
@@ -27,6 +28,9 @@ public class ReferralCodeService {
     private final ReferralCodeRepository referralCodeRepository;
     private final UserService userService;
     private final PointService pointService;
+
+    private int referralCodePoint = 50;
+
 
     @Transactional
     public Page<ReferralCode> findReferralList(User user, Pageable pageable) {
@@ -54,9 +58,7 @@ public class ReferralCodeService {
 
     @Transactional
     public ResponseEntity<?> createReferralCode (User user) {
-        boolean isPointEnough = pointService.measureReferralPoint(user);
-
-        System.out.println(user.getEmail() +"의 Service isPointEnough ==================== " + isPointEnough);
+        boolean isPointEnough = pointService.measurePoint(user, referralCodePoint);
 
         if(isPointEnough) {
             String referralCode = makeReferralCode(user);
@@ -68,7 +70,7 @@ public class ReferralCodeService {
                     .user(user)
                     .build());
 
-            pointService.referralPointCut(user);
+            pointService.cutPoint(user, referralCodePoint, PointType.CODE_CREATE);
 
             return new ResponseEntity<>("{}", HttpStatus.CREATED);
         }else {

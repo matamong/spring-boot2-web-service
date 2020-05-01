@@ -19,7 +19,6 @@ public class PointService {
 
     private int boardPoint = 100;
     private int loginPoint = 100;
-    private int referralCodePoint = 50;
 
     public void boardPointSave (User user) {
         pointRepository.save(Point.builder()
@@ -39,23 +38,20 @@ public class PointService {
                 .build());
     }
 
-    public void referralPointCut (@SocialUser User user) {
+   public void cutPoint (@SocialUser User user, int needPoint, PointType pointType) {
         pointRepository.save(Point.builder()
                 .user(user)
-                .point(-referralCodePoint)
-                .pointType(PointType.CODE_CREATE)
+                .point(-needPoint)
+                .pointType(pointType)
                 .pointGiveDate(LocalDateTime.now())
                 .build());
     }
 
-    public boolean measureReferralPoint (User user) {
+    public boolean measurePoint (User user, int needPoint) {
         if(isPointNotNull(user)){
-            System.out.println(user.getEmail() +"의 PointService null ==================== " + false);
             int totalPoint = sumPoint(user);
-            System.out.println(user.getEmail() +"의 PointService point sum ==================== " + totalPoint);
-            return totalPointMeasure(totalPoint);
+            return totalPointMeasure(totalPoint,needPoint);
         }
-        System.out.println(user.getEmail() +"의 PointService null ==================== " + true);
         return false;
     }
 
@@ -77,7 +73,7 @@ public class PointService {
     public boolean isPointNotNull(User user){
         List<Point> pointList = pointRepository.findByUser(user);
 
-        if(user != null && pointList.isEmpty() == false) {
+        if(user != null && !pointList.isEmpty()) {
             return true;
         }else{
             return false;
@@ -95,8 +91,8 @@ public class PointService {
         return totalPoint;
     }
 
-    public boolean totalPointMeasure(int totalPoint){
-        if(totalPoint >= referralCodePoint) {
+    public boolean totalPointMeasure(int totalPoint, int needPoint){
+        if(totalPoint >= needPoint) {
             return true;
         }else{
             return false;

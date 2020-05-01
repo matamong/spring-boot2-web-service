@@ -20,7 +20,7 @@ public class Likes implements Serializable {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long recommendId;
+    private Long likesId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Board board;

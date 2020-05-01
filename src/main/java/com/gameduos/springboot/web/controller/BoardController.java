@@ -5,7 +5,6 @@ import com.gameduos.springboot.web.domain.user.User;
 import com.gameduos.springboot.web.service.BoardService;
 import com.gameduos.springboot.web.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -29,8 +28,7 @@ public class BoardController {
     }
 
     @GetMapping({"", "/"})
-    public String boardDetail(@PageableDefault Pageable pageable,
-                              @RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {
+    public String boardDetail(@RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {
         // fetchType.lazy 로 불러온 entity 는 연관된 엔티티까지 담아서 thymeleaf 에 보내지 않으니 연관된 entity 를
         // List에 따로 담아서 보내주기로...
         model.addAttribute("board", boardService.findBoardByIdx(idx));

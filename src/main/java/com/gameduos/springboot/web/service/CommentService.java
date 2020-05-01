@@ -34,7 +34,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
     private final BoardRepository boardRepository;
 
     @Transactional
@@ -79,25 +78,6 @@ public class CommentService {
     }
 
     @Transactional
-    public Page<Comment> findCommentsByBoardIdx(Long boardIdx, Pageable pageable) {
-        Board board = boardRepository.findById(boardIdx)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호 =" + boardIdx));
-
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        pageable = PageRequest.of(page, 50, new Sort(Sort.Direction.ASC, "id")); // <- Sort 추가
-
-        return commentRepository.findAllByBoardOrderByIdDesc(board, pageable);
-    }
-
-    public List<User> findCommentUserByBoardIdx(Long boardIdx){
-        Board board = boardRepository.findById(boardIdx)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호 =" + boardIdx));
-
-        return commentRepository.findUserByBoardOrderByIdDesc(board);
-    }
-
-
-    @Transactional
     public ResponseEntity<?> save (CommentSaveRequestDto requestDto){
         Board board = boardRepository.findById(requestDto.getBoardIdx())
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호 =" + requestDto.getBoardIdx()));
@@ -110,7 +90,7 @@ public class CommentService {
     }
 
     @Transactional
-    public ResponseEntity<?> delete(Long commentId, User user){
+    public ResponseEntity<?> delete(Long commentId){
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. 댓글 번호 = " + commentId));
 
@@ -129,5 +109,13 @@ public class CommentService {
         commentRepository.save(comment);
 
         return new ResponseEntity<>("{}", HttpStatus.OK);
+    }
+
+    @Transactional
+    public Long getCommentUserId(Long commentId){
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. 댓글 번호 = " + commentId));
+
+        return comment.getUser().getId();
     }
 }

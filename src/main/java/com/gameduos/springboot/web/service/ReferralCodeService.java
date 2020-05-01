@@ -4,6 +4,7 @@ import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.board.Board;
 import com.gameduos.springboot.web.domain.referralCode.ReferralCode;
 import com.gameduos.springboot.web.domain.referralCode.ReferralCodeRepository;
+import com.gameduos.springboot.web.domain.user.Role;
 import com.gameduos.springboot.web.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import java.util.Random;
 public class ReferralCodeService {
 
     private final ReferralCodeRepository referralCodeRepository;
+    private final UserService userService;
     private final PointService pointService;
 
     @Transactional
@@ -31,6 +33,23 @@ public class ReferralCodeService {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, 10);
         return referralCodeRepository.findAllByUserId(user.getId(), pageable);
+    }
+
+    @Transactional
+    public ResponseEntity<?> updateReferralCode(String referralCode, User sessionUser){
+        ReferralCode entity = referralCodeRepository.findByReferralCodeAndAvailable(referralCode,'Y')
+                .orElseThrow(() -> new IllegalArgumentException("해당 코드가 존재하지않습니다. code=" + referralCode));
+
+        entity.update(ReferralCode.builder()
+                .available('N')
+                .useUserId(sessionUser.getId())
+                .usedDate(LocalDateTime.now())
+                .build());
+
+        referralCodeRepository.save(entity);
+        userService.roleUpdate(sessionUser.getId(), Role.USER);
+
+        return new ResponseEntity<>("{}", HttpStatus.OK);
     }
 
     @Transactional

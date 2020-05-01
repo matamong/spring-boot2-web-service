@@ -2,6 +2,7 @@
     width: 90%;
     margin: 0 auto;
 }
+
 .sec1{
     width: 100%;
     margin-top: 70px;
@@ -22,24 +23,33 @@
     justify-content: space-between;
 }
 
-/* .left-menu-wrapper{
-  width: 20%;
-} */
-
-/* .left-menu{
-  width: 100%;
-  height: 500px;
-   background-color: lawngreen;
-} */
-
-.middle-content-wrapper{
-    width: 80%;
+.left-banner-wrapper{
+    width: 20%;
 }
 
-.middle-content{
+.left-banner{
     width: 100%;
     height: 500px;
-    margin-left: 1%;
-    margin-right: 1%;
-
+    background-color: lawngreen;
 }
+
+.boardContainer{
+    width: 60%;
+}
+
+#mainHide{
+    width: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.write-button{
+    text-align: right;
+}
+/* 
+  .right-banner-wrapper{
+      width: 15%;
+      height: 500px;
+      background-color: maroon;
+  } */
+  

@@ -7,8 +7,9 @@
     <script src="https://kit.fontawesome.com/d22a341da8.js" crossorigin="anonymous"></script>
     <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
     <title>마이 페이지 - Game Duos</title>
-    <link rel="stylesheet" th:href="@{/css/base.css}" />
-    <link rel="stylesheet" th:href="@{/css/levelUp.css}" />
+    <link rel="stylesheet" th:href="@{/css/base.css}" />q
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage_base.css}" />
+    <link rel="stylesheet" th:href="@{/css/myPage/levelUp.css}" />
     <link rel="stylesheet" th:href="@{/css/semantic.min.css}" />
     <meta name="description" content="게임을 이용하는 유저들의 만남의 장이 될 수 있게
     매칭 시스템, 커뮤니티 등을 제공합니다.">
@@ -25,46 +26,10 @@
         <div class="intro"></div>
     </section>
     <section class="sec2">
-        <div class="left-menu-wrapper">
-            <div class="left-menu">
-                <div class="ui vertical menu">
-                    <div class="item">
-                        <div class="header active">내 정보</div>
-                        <div class="menu">
-                            <a class="item" href="/myPage">내 정보 조회</a>
-                            <a class="item">정보 수정</a>
-                            <a class="item">회원 탈퇴</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="header">매칭 정보</div>
-                        <div class="menu">
-                            <a class="item">나의 매칭정보</a>
-                            <a class="item">매칭정보 수정</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="header">포인트</div>
-                        <div class="menu">
-                            <a class="item">포인트 조회 및 사용내역</a>
-                            <a class="item" href="/myPage/referralCode">인증코드 발급</a>
-                            <a class="item active" href="/myPage/levelUp">인증코드 사용</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="header">내 게시물</div>
-                        <div class="menu">
-                            <a class="item">내가 쓴 게시물</a>
-                            <a class="item">준비 중</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div th:replace="layout/myPage/myPage_left_menu::left_menu"></div>
         <div class="middle-content-wrapper">
             <div class="middle-content">
-                <button class="positive ui button" id="insert">추천 코드 생성</button>
-                <div id="mainHide">
+                <div class="ui container">
                     <table class="ui celled striped table">
                         <thead>
                             <tr>
@@ -82,14 +47,19 @@
                     </table>
                 </div>
                 <!-- /Pagination -->
+                <button class="positive fluid ui button" id="insert">추천 코드 생성</button>
             </div>
         </div>
     </section>
 </div>
 <div th:replace="layout/footer::footer"></div>
 </body>
-
 <script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/myPage/myPageBase.js}"></script>
+</html>
+<script>
+    activeMenu('referralCodeMenu');
+</script>
 <script>
     $('#insert').click(function () {
         $.ajax({

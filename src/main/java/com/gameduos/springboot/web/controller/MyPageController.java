@@ -27,12 +27,12 @@ public class MyPageController {
     @GetMapping("/referralCode")
     public String referralCode(@PageableDefault Pageable pageable, Model model, @SocialUser User user) {
         model.addAttribute("referralCodeList", referralCodeService.findReferralList(user, pageable));
-        return "myPage/referralCode";
+        return "myPage/makeReferralCode";
     }
 
-    @GetMapping("/levelUp")
-    public String levelUp(Model model, @SocialUser User user) {
+    @GetMapping("/certification")
+    public String certificateReferralCode(Model model, @SocialUser User user) {
         model.addAttribute("socialUser", user);
-        return "myPage/levelUp";
+        return "myPage/certification";
     }
 }

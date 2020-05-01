@@ -2,7 +2,6 @@ package com.gameduos.springboot.web.controller;
 
 import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.user.User;
-import com.gameduos.springboot.web.dto.LevelUpRequestDto;
 import com.gameduos.springboot.web.service.ReferralCodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +16,12 @@ public class ReferralCodeRestController {
 
     @PostMapping
     public ResponseEntity<?> postReferralCode(@SocialUser User user) {
-        System.out.println("session user ==========" + user.getEmail());
         return referralCodeService.createReferralCode(user);
+    }
+
+    @PutMapping("/{referralCode}")
+    public ResponseEntity<?> putReferralCode(@PathVariable("referralCode")String referralCode, @SocialUser User user){
+        return referralCodeService.updateReferralCode(referralCode, user);
     }
 
 }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://kit.fontawesome.com/d22a341da8.js" crossorigin="anonymous"></script>
+    <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+    <title>마이 페이지 - Game Duos</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage_base.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/levelUp.css}"/>
+    <link rel="stylesheet" th:href="@{/css/semantic.min.css}"/>
+    <meta name="description" content="게임을 이용하는 유저들의 만남의 장이 될 수 있게
+        매칭 시스템, 커뮤니티 등을 제공합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Game Duos-마이 페이지">
+    <meta property="og:description" content="눈치 볼 필요없이 게임 같이 할 사람 구하자!">
+    <meta property="og:image" content="http://">
+    <meta property="og:url" content="https://GameDuos.com">
+</head>
+<body>
+<div th:replace="layout/header::header"></div>
+<!-- middle area -->
+<div class="middle-area-container">
+    <section class="sec1">
+        <div class="intro"></div>
+    </section>
+    <section class="sec2">
+        <div th:replace="layout/myPage/myPage_left_menu::left_menu"></div>
+        <div class="middle-content-wrapper">
+            <div class="middle-content">
+                <div class="form-wrapper">
+                    <div class="ui segment">
+                        <h2 class="ui left floated header">인증코드 사용</h2>
+                        <div class="ui clearing divider"></div>
+                        <form class="ui form">
+                            <div class="field">
+                                <label>추천 코드</label>
+                                <input type="text" id="referralCode" placeholder="추천 코드를 입력해주세요.">
+                            </div>
+                            <div class="field">
+                                <div class="ui checkbox">
+                                    <input type="checkbox" tabindex="0" class="hidden">
+                                    <label>I agree to the Terms and Conditions</label>
+                                </div>
+                            </div>
+                            <button class="ui positive button" id="certificate">
+                                인증
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div th:replace="layout/footer::footer"></div>
+</body>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/myPage/myPageBase.js}"></script>
+
+</html>
+<script>
+    activeMenu('certificationMenu');
+</script>
+<script>
+    $('#certificate').click(function () {
+        $.ajax({
+            url: "http://localhost:8080/api/referralCode/" + $('#referralCode').val(),
+            type: "PUT",
+            success: function () {
+                alert('레벨업 성공!');
+                location.href = '/myPage/home';
+            },
+            error: function () {
+                alert('레벨업 실패!');
+            }
+        });
+    });
+</script>

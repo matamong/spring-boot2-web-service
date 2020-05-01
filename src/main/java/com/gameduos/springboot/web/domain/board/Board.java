@@ -76,7 +76,6 @@ public class Board implements Serializable {
 
     public void update(Board board) {
         this.title = board.getTitle();
-//        this.subTitle = board.getSubTitle();
         this.content = board.getContent();
         this.boardType = board.getBoardType();
         this.updatedDate = LocalDateTime.now();
@@ -91,7 +90,6 @@ public class Board implements Serializable {
     public Board(String title, String content, BoardType boardType, User user,
                  LocalDateTime createdDate, LocalDateTime updatedDate){
         this.title = title;
-//        this.subTitle = subTitle;
         this.content = content;
         this.boardType = boardType;
         this.user = user;

@@ -2,6 +2,7 @@ package com.gameduos.springboot.web.controller;
 
 import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.user.User;
+import com.gameduos.springboot.web.service.PointService;
 import com.gameduos.springboot.web.service.ReferralCodeService;
 import com.gameduos.springboot.web.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class MyPageController {
 
     private final ReferralCodeService referralCodeService;
     private final UserService userService;
+    private final PointService pointService;
 
     @GetMapping({"", "/"})
     public String myPage(Model model, @SocialUser User user) {
@@ -36,6 +38,15 @@ public class MyPageController {
     @GetMapping("/userWithdrawal")
     public String userDelete(){
         return "myPage/userWithdrawal";
+    }
+
+    @GetMapping("/userPoint")
+    public String userPoint(Model model, @SocialUser User sessionUser){
+        User user = userService.getUser(sessionUser.getId());
+        model.addAttribute("userInfo", user);
+        model.addAttribute("userTotalPoint", pointService.sumPoint(user));
+
+        return "myPage/userPoint";
     }
 
     @GetMapping("/referralCode")

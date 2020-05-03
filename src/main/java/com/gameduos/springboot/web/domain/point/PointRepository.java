@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PointRepository extends JpaRepository<Point, Long> {
     List<Point> findByUser(User user);
+    void deleteAllByUser(User user);
 }

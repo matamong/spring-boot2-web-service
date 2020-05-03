@@ -18,7 +18,7 @@ public class UserRestController {
     private final UserService userService;
 
     @PutMapping("/{idx}")
-    public ResponseEntity<?> updateComment(@PathVariable("idx")Long idx, @RequestBody UserUpdateRequestDto requestDto, @SocialUser User user){
+    public ResponseEntity<?> updateUser(@PathVariable("idx")Long idx, @RequestBody UserUpdateRequestDto requestDto, @SocialUser User user){
         requestDto.setUser(user);
         Long userId = userService.getUser(idx).getId();
 
@@ -27,5 +27,10 @@ public class UserRestController {
         }
 
         return userService.update(requestDto);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteUser(@SocialUser User user){
+        return userService.delete(user);
     }
 }

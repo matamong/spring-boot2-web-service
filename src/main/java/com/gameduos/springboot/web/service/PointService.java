@@ -20,7 +20,7 @@ public class PointService {
     private int boardPoint = 100;
     private int loginPoint = 100;
 
-    public void boardPointSave (User user) {
+    public void boardPointSave(User user) {
         pointRepository.save(Point.builder()
                 .user(user)
                 .point(boardPoint)
@@ -29,7 +29,7 @@ public class PointService {
                 .build());
     }
 
-    public void LoginPointSave (User user) {
+    public void LoginPointSave(User user) {
         pointRepository.save(Point.builder()
                 .user(user)
                 .point(loginPoint)
@@ -38,7 +38,7 @@ public class PointService {
                 .build());
     }
 
-   public void cutPoint (@SocialUser User user, int needPoint, PointType pointType) {
+    public void cutPoint(@SocialUser User user, int needPoint, PointType pointType) {
         pointRepository.save(Point.builder()
                 .user(user)
                 .point(-needPoint)
@@ -47,54 +47,58 @@ public class PointService {
                 .build());
     }
 
-    public boolean measurePoint (User user, int needPoint) {
-        if(isPointNotNull(user)){
+    public void deleteAllUserPoint(User user){
+        pointRepository.deleteAllByUser(user);
+    }
+
+    public boolean measurePoint(User user, int needPoint) {
+        if (isPointNotNull(user)) {
             int totalPoint = sumPoint(user);
-            return totalPointMeasure(totalPoint,needPoint);
+            return totalPointMeasure(totalPoint, needPoint);
         }
         return false;
     }
 
-    public boolean measurePoint (int pointToSubtract, User user) {
+    public boolean measurePoint(int pointToSubtract, User user) {
         boolean isPointEnough = false;
         int totalPoint = 0;
 
         List<Point> pointList = pointRepository.findByUser(user);
 
-        for(Point point : pointList) {
+        for (Point point : pointList) {
             totalPoint += point.getPoint();
         }
-        if(totalPoint >= pointToSubtract) {
+        if (totalPoint >= pointToSubtract) {
             isPointEnough = true;
         }
         return isPointEnough;
     }
 
-    public boolean isPointNotNull(User user){
+    public boolean isPointNotNull(User user) {
         List<Point> pointList = pointRepository.findByUser(user);
 
-        if(user != null && !pointList.isEmpty()) {
+        if (user != null && !pointList.isEmpty()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public int sumPoint(User user){
+    public int sumPoint(User user) {
         int totalPoint = 0;
 
         List<Point> pointList = pointRepository.findByUser(user);
 
-        for(Point point : pointList) {
+        for (Point point : pointList) {
             totalPoint += point.getPoint();
         }
         return totalPoint;
     }
 
-    public boolean totalPointMeasure(int totalPoint, int needPoint){
-        if(totalPoint >= needPoint) {
+    public boolean totalPointMeasure(int totalPoint, int needPoint) {
+        if (totalPoint >= needPoint) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

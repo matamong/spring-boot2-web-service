@@ -78,4 +78,14 @@ public class UserService {
         userRepository.save(entity);
     }
 
+    @Transactional
+    public ResponseEntity<?> delete(User user){
+        User entity = userRepository.findById(user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 Id가 존재하지 않습니다. Id = " + user.getId()));
+
+        userRepository.deleteById(entity.getId());
+        pointService.deleteAllUserPoint(entity);
+        return new ResponseEntity<>("{}", HttpStatus.OK);
+    }
+
 }

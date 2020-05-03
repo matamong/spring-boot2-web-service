@@ -33,6 +33,11 @@ public class MyPageController {
 
     }
 
+    @GetMapping("/userWithdrawal")
+    public String userDelete(){
+        return "myPage/userWithdrawal";
+    }
+
     @GetMapping("/referralCode")
     public String referralCode(@PageableDefault Pageable pageable, Model model, @SocialUser User user) {
         model.addAttribute("referralCodeList", referralCodeService.findReferralList(user, pageable));

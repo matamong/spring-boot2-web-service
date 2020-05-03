@@ -9,7 +9,7 @@
     <title>마이 페이지 - Game Duos</title>
     <link rel="stylesheet" th:href="@{/css/base.css}"/>
     <link rel="stylesheet" th:href="@{/css/myPage/myPage_base.css}"/>
-    <link rel="stylesheet" th:href="@{/css/myPage/levelUp.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/certification.css}"/>
     <link rel="stylesheet" th:href="@{/css/semantic.min.css}"/>
     <meta name="description" content="게임을 이용하는 유저들의 만남의 장이 될 수 있게
         매칭 시스템, 커뮤니티 등을 제공합니다.">
@@ -40,6 +40,10 @@
                                 <input type="text" id="referralCode" placeholder="추천 코드를 입력해주세요.">
                             </div>
                             <div class="field">
+                                <label>닉네임</label>
+                                <input type="text" id="nickname" placeholder="사용 할 닉네임을 입력해주세요.">
+                            </div>
+                            <div class="field">
                                 <div class="ui checkbox">
                                     <input type="checkbox" tabindex="0" class="hidden">
                                     <label>I agree to the Terms and Conditions</label>
@@ -67,12 +71,18 @@
 </script>
 <script>
     $('#certificate').click(function () {
+        var jsonData = JSON.stringify({
+            nickname: $('#nickname').val()
+        });
         $.ajax({
             url: "http://localhost:8080/api/referralCode/" + $('#referralCode').val(),
             type: "PUT",
+            data: jsonData,
+            contentType: "application/json",
+            dataType: "json",
             success: function () {
                 alert('레벨업 성공!');
-                location.href = '/myPage/home';
+                location.href = '/myPage';
             },
             error: function () {
                 alert('레벨업 실패!');

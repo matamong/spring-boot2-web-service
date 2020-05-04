@@ -57,7 +57,17 @@ public class UserService {
         }
     }
 
+    @Transactional
+    public ResponseEntity<?> checkNicknameDuplication (String nickname){
+        boolean isPresent = userRepository.findByNickName(nickname).isPresent();
 
+        if(!isPresent){
+            return new ResponseEntity<>("{}", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("{}", HttpStatus.BAD_REQUEST);
+        }
+
+    }
     @Transactional
     public void nicknameUpdate (Long userId, String nickname) {
         User entity = userRepository.findById(userId)

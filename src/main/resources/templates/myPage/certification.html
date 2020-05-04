@@ -42,6 +42,20 @@
                             <div class="field">
                                 <label>닉네임</label>
                                 <input type="text" id="nickname" placeholder="사용 할 닉네임을 입력해주세요.">
+                                <!-- error -->
+                                <div class="ui negative message" id="nicknameValidationError">
+                                    <i class="close icon"></i>
+                                    <div class="header">
+                                        닉네임 양식을 지켜주세요.
+                                    </div>
+                                    <p>닉네임은 특수문자와 공백없이 최대 8글자(영문 16자)입니다.</p>
+                                </div>
+                                <div class="ui negative message" id="nicknameDuplicationError">
+                                    <i class="close icon"></i>
+                                    <div class="header">
+                                        해당 닉네임은 이미 사용 중입니다.
+                                    </div>
+                                </div>
                             </div>
                             <div class="field">
                                 <div class="ui checkbox">
@@ -49,10 +63,11 @@
                                     <label>I agree to the Terms and Conditions</label>
                                 </div>
                             </div>
-                            <button class="ui positive button" id="certificate">
-                                인증
-                            </button>
                         </form>
+                        <div class="ui hidden divider"></div>
+                        <button class="ui positive button" id="certificate">
+                            인증
+                        </button>
                     </div>
                 </div>
             </div>
@@ -70,23 +85,106 @@
     activeMenu('certificationMenu');
 </script>
 <script>
+    $(document).ready(function () {
+        $('.negative').hide();
+    });
+    $(".close.icon").click(function () {
+        $(this).parent().hide();
+    });
+
+
+
     $('#certificate').click(function () {
-        var jsonData = JSON.stringify({
-            nickname: $('#nickname').val()
-        });
+        var nickname = $('#nickname').val();
+
+        if (checkNicknameValidation(nickname) === true) {
+            checkNicknameDuplication(nickname);
+        }else{
+            $("#nicknameValidationError").fadeIn(2000);
+            $('#nickname').focus();
+        }
+    });
+
+    function checkNicknameDuplication(nickname) {
+        var encodedNickname = encodeURI(nickname);
         $.ajax({
-            url: "http://localhost:8080/api/referralCode/" + $('#referralCode').val(),
-            type: "PUT",
-            data: jsonData,
-            contentType: "application/json",
-            dataType: "json",
-            success: function () {
-                alert('레벨업 성공!');
-                location.href = '/myPage';
+            type: 'GET',
+            url: "http://localhost:8080/api/user/nicknames/" + encodedNickname,
+            error: function (err) {
+                $("#nicknameDuplicationError").fadeIn(2000);
+                $('#nickname').focus();
             },
-            error: function () {
-                alert('레벨업 실패!');
+            success: function () {
+                    var jsonData = JSON.stringify({
+                        nickname: $('#nickname').val()
+                    });
+                    $.ajax({
+                        url: "http://localhost:8080/api/referralCode/" + $('#referralCode').val(),
+                        type: "PUT",
+                        data: jsonData,
+                        contentType: "application/json",
+                        dataType: "json",
+                        success: function () {
+                            alert('축하합니다. 인증에 성공하였습니다!');
+                            location.href = '/myPage';
+                        },
+                        error: function () {
+                            alert('인증에 실패하였습니다.');
+                        }
+                    });
             }
         });
-    });
+
+    }
+    function checkNicknameValidation(nickname) {
+        var nickLength = 0;
+        var engCheck = /[a-z]/;
+        var numCheck = /[0-9]/;
+        var specialCheck = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+
+        for (var i = 0; i < nickname.length; i++) {
+            //한글은 2, 영문은 1로 치환
+            nick = nickname.charAt(i);
+            if (escape(nick).length > 4) {
+                nickLength += 2;
+            } else { nickLength += 1; }
+        }
+
+        if (nickname === null || nickname === "") {
+            return false;
+        } else if (nickname.search(/\s/) != -1) {
+            //닉네임 빈칸 포함 안됨
+            return false;
+        } else if (nickLength < 2 || nickLength > 20) {
+            return false;
+        } else if (specialCheck.test(nickname)) {
+            //닉네임 특수문자 포함 안됨
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
 </script>
+<!--<script>-->
+<!--    $('#certificate').click(function () {-->
+<!--        var jsonData = JSON.stringify({-->
+<!--            nickname: $('#nickname').val()-->
+<!--        });-->
+<!--        $.ajax({-->
+<!--            url: "http://localhost:8080/api/referralCode/" + $('#referralCode').val(),-->
+<!--            type: "PUT",-->
+<!--            data: jsonData,-->
+<!--            contentType: "application/json",-->
+<!--            dataType: "json",-->
+<!--            success: function () {-->
+<!--                alert('레벨업 성공!');-->
+<!--                location.href = '/myPage';-->
+<!--            },-->
+<!--            error: function () {-->
+<!--                alert('레벨업 실패!');-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->

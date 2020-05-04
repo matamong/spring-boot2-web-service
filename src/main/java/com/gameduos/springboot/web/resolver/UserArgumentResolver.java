@@ -1,6 +1,7 @@
 package com.gameduos.springboot.web.resolver;
 
 import com.gameduos.springboot.web.annotation.SocialUser;
+import com.gameduos.springboot.web.domain.user.Role;
 import com.gameduos.springboot.web.domain.user.SocialType;
 import com.gameduos.springboot.web.domain.user.User;
 import com.gameduos.springboot.web.domain.user.UserRepository;
@@ -74,6 +75,16 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     private User getModernUser(SocialType socialType, Map<String, Object> map) {
+        if(String.valueOf(map.get("email")).equals("gameduosdev@gmail.com")){
+            return User.builder()
+                    .nickName(String.valueOf(map.get("name")))
+                    .email(String.valueOf(map.get("email")))
+                    .principal(String.valueOf(map.get("id")))
+                    .socialType(socialType)
+                    .role(Role.ADMIN)
+                    .createdDate(LocalDateTime.now())
+                    .build();
+        }
         return User.builder()
                 .nickName(String.valueOf(map.get("name")))
                 .email(String.valueOf(map.get("email")))

@@ -19,19 +19,23 @@
     <meta property="og:url" content="">
 </head>
 <body>
-<div class="ui main container">
-    <div class="ui nav container"></div>
-    <header>
-        <div class="ui header container">
-            <h2 class="ui center aligned icon header">
-                <i class="circular users icon"></i>
-                나와 맞는 오버워치 영웅을 찾아보세요.
-            </h2>
-            <div class="header meta">
-                <span>총 32명의 오버워치 영웅 중 나와 맞는 영웅은 누구일까요?</span>
-            </div>
+<div class="ui ad container">
+    <div class="ui desktop centered leaderboard test ad" data-text="Leaderboard"></div>
+    <div class="ui mobile leaderboard test ad" data-text="광~~~고 ^^"></div>
+</div>
+<div class="navbar"></div>
+<header>
+    <div class="ui header container">
+        <h2 class="ui center aligned icon header">
+            <i class="circular users icon"></i>
+            나와 맞는 오버워치 영웅을 찾아보세요.
+        </h2>
+        <div class="header meta">
+            <span>총 32명의 오버워치 영웅 중 나와 맞는 영웅은 누구일까요?</span>
         </div>
-    </header>
+    </div>
+</header>
+<div class="ui main container">
     <div class="ui divider"></div>
     <div class="ui raised very padded text container segment">
         <div class="ui items">
@@ -291,8 +295,6 @@
                 </div>
             </div>
             <div class="ui hidden divider"></div>
-            <div class="ui centered banner test ad"></div>
-            <div class="ui mobile leaderboard test ad" data-text="Mobile Leaderboard"></div>
             <div class="ui divider"></div>
             <div class="ui hidden divider"></div>
             <!-- <div class="item">
@@ -559,8 +561,10 @@
         </div>
     </div>
 </div>
+<div th:replace="layout/footer::footer"></div>
 </body>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+<script th:src="@{/js/personalTest/ow/heroArray.js}"></script>
 <script th:src="@{/js/personalTest/ow/heroMatching.js}"></script>
 </html>

@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-.nav.container{
+.navbar{
     width: 100%;
     height: 15rem;
     background-color: #57ae8c;
@@ -11,7 +11,7 @@
 
 .header.container{
     width: 100%;
-    height: 18rem;
+    height: 20rem;
     padding: 3rem;
 }
 
@@ -43,7 +43,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .centered.banner{
+    .desktop.ad{
         display: none;
     }
 }

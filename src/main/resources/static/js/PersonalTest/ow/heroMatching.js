@@ -82,43 +82,6 @@ function moveToQuestion(question) {
 }
 
 function findHero(resultNumArr) {
-    const WIDOWMAKER = ['WIDOWMAKER', 20, 0];
-    const ROADHOG = ['ROADHOG', 20, 4];
-    const REAPER = ['REAPER', 19, 1];
-    const SIGMA = ['SIGMA', 18, 2];
-    const MOIRA = ['MOIRA', 17, 0];
-    const SYMMETRA = ['SYMMETRA', 16, 0];
-    const HANZO = ['HANZO', 16, 2];
-    const ZENYATTA = ['ZENYATTA', 15, 20];
-    const BASTION = ['BASTION', 14, 10];
-    const DOOMFIST = ['DOOMFIST', 13, 0];
-    const SOLDIER76 = ['SOLDIER76', 12, 2];
-    const MCREE = ['MCREE', 12, 12];
-    const SOMBRA = ['SOMBRA', 12, 4];
-    const ZARYA = ['ZARYA', 11, 6];
-    const MEI = ['MEI', 10, 20];
-    const WREKINGBALL = ['WREKINGBALL', 10, 4];
-    const PHARAH = ['PHARAH', 10, 2];
-    const TORBJORN = ['TORBJORN', 9, 2];
-    const ASH = ['ASH', 9, 14];
-    const ANA = ['ANA', 8, 6];
-    const GENJI = ['GENJI', 8, 16];
-    const MERCY = ['MERCY', 7, 8];
-    const JUNKRAT = ['JUNKRAT', 6, 16];
-    const WINSTON = ['WINSTON', 6, 14];
-    const ECHO = ['ECHO', 5, 8];
-    const ORISA = ['ORISA', 5, 6];
-    const BRIGITTE = ['BRIGITTE', 4, 18];
-    const BAPTISTE = ['BAPTISTE', 3, 14];
-    const DVA = ['DVA', 2, 8];
-    const REINHARDT = ['REINHARDT', 1, 18];
-    const TRACER = ['TRACER', 0, 16];
-    const LUCIO = ['LUCIO', 0, 20];
-
-    const HEROS = [];
-    HEROS.push(WIDOWMAKER, ROADHOG, REAPER, SIGMA, MOIRA, SYMMETRA, HANZO, ZENYATTA, BASTION, DOOMFIST, SOLDIER76, MCREE,
-        SOMBRA, ZARYA, MEI, WREKINGBALL, PHARAH, TORBJORN, ASH, ANA, GENJI,
-        MERCY, JUNKRAT, WINSTON, ECHO, ORISA, BRIGITTE, BAPTISTE, DVA, REINHARDT, TRACER, LUCIO);
 
     for (i in HEROS) {
         console.log("i: " + i + "; value: " + HEROS[i]);

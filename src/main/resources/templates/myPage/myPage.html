@@ -37,7 +37,7 @@
                     </div>
                     <div class="content">
                         <div class="header name" th:text="${userInfo.getNickName()}"></div>
-                        <div class="meta join-date" th:text="${userInfo.getCreatedDate()}"></div>
+                        <div class="meta join-date" th:text="${userInfo.getCreatedDate()} ? ${#temporals.format(userInfo.getCreatedDate(),'yyyy-MM-dd HH:mm')} : ${userInfo.getCreatedDate()}"></div>
                         <div class="description">
                             <p></p>
                         </div>

@@ -3,8 +3,6 @@ package com.gameduos.springboot.web.controller;
 
 import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.user.User;
-import com.gameduos.springboot.web.dto.CommentUpdateRequestDto;
-import com.gameduos.springboot.web.dto.NicknameDuplicationRequestDto;
 import com.gameduos.springboot.web.dto.UserUpdateRequestDto;
 import com.gameduos.springboot.web.service.UserService;
 import lombok.RequiredArgsConstructor;

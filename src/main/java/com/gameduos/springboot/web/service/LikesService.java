@@ -21,6 +21,7 @@ public class LikesService {
 
     @Transactional
     public ResponseEntity<?> boardLikeSave(LikesRequestDto requestDto, User user){
+        System.out.println(requestDto.getBoardIdx());
         Board board = boardRepository.findById(requestDto.getBoardIdx())
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호d=" + requestDto.getBoardIdx()));
 

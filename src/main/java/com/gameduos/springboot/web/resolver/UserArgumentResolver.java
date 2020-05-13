@@ -81,7 +81,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                     .email(String.valueOf(map.get("email")))
                     .principal(String.valueOf(map.get("id")))
                     .socialType(socialType)
-                    .role(Role.ADMIN)
+                    .role(Role.MASTER)
                     .createdDate(LocalDateTime.now())
                     .build();
         }
@@ -90,6 +90,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                 .email(String.valueOf(map.get("email")))
                 .principal(String.valueOf(map.get("id")))
                 .socialType(socialType)
+                .role(Role.GUEST)
                 .createdDate(LocalDateTime.now())
                 .build();
     }

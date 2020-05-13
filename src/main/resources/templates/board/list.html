@@ -16,6 +16,9 @@
     <meta property="og:description" content="눈치 볼 필요없이 게임 같이 할 사람 구하자!">
     <meta property="og:image" content="http://">
     <meta property="og:url" content="https://GameDuos.com">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
 <div th:replace="layout/header::header"></div>
@@ -85,4 +88,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
 <script th:src="@{/js/mobileMenu.js}"></script>
+<script th:src="@{/js/basic.js}"></script>
 </html>

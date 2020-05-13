@@ -74,7 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .cors().configurationSource(source)
                 .and()
                     .addFilterBefore(filter, CsrfFilter.class)
-                    .csrf().disable();
+                    .csrf()
+        ;
     }
 
     @Bean

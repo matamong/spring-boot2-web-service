@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/personalTest/ow/heroMatchingResult.css}"/>
+    <title>나와 맞는 오버워치 영웅 찾기 - 결과</title>
+    <meta name="description" content="Game Duos 심리 테스트">
+    <meta property="og:type" content="website">
+    <meta id="ogTitle" property="og:title" content="">
+    <meta property="og:description" content="Game Duos 심리 테스트">
+    <meta id="ogImg" property="og:image"
+          content="">
+    <meta property="og:image:width" content="400"/>
+    <meta property="og:image:height" content="300"/>
+    <meta id="ogUrl" property="og:url" content="">
+</head>
+<body>
+<body style="font-family:  'Noto Sans KR';">
+<div class="navbar"></div>
+<div class="ui ad container">
+    <div class="ui mobile leaderboard test ad" data-text="광~~~고 ^^"></div>
+</div>
+<input type="hidden" th:value="${heroName}" id="hero">
+<input type="hidden" th:value="${x}" id="X">
+<input type="hidden" th:value="${y}" id="y">
+<div class="ui main container">
+    <div class="ui center aligned segment">
+        <div class="ui hidden divider"></div>
+        <div class="type-info">
+            <h3 class="ui center aligned header" id="caption">당신과 맞는 영웅은:</h3>
+            <h3 class="ui center aligned header" id="typeXY">
+            </h3>
+            <h1 class="ui center aligned header" id="heroName"></h1>
+            <img src="https://d1u1mce87gyfbn.cloudfront.net/hero/zenyatta/hero-select-portrait.png"
+                 id="heroImg"/>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="type-description">
+            <article>
+                <h1 class="ui center aligned header"><span class="heroName"></span>와(과) 잘 맞으시겠네요!</h1>
+                <blockquote>
+                    <p id="blockquote"></p>
+                </blockquote>
+                <p id="heroDescription"></p>
+            </article>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+        <div class="social">
+            <div class="social-link">
+                <div class="ui input">
+                    <input type="text" id="link" readonly>
+                </div>
+                <button class="ui teal button" id="copyLink" data-clipboard-target="#link">
+                    <i class="share alternate icon"></i>주소 복사하기
+                </button>
+            </div>
+            <div class="ui hidden divider"></div>
+            <div class="social-button">
+                <button class="ui circular facebook icon button" onclick="sendSns('facebook', '나와 맞는 영웅은?')">
+                    <i class="facebook icon"></i>
+                </button>
+                <button class="ui circular twitter icon button" onclick="sendSns('twitter', '나와 맞는 영웅은?')">
+                    <i class="twitter icon"></i>
+                </button>
+                </button>
+                <button class="ui circular yellow icon button" onclick="sendSns('kakaotalk', '나와 맞는 영웅은?')">
+                    <i class="comment icon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui stackable inverted divided grid">
+            <div class="four wide column">
+                <h4 class="ui inverted header">Contact Us</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">
+                        <button class="ui circular twitter icon button">
+                            <i class="twitter icon"></i>
+                        </button>
+                        Game Duos Twitter</a>
+                </div>
+            </div>
+            <div class="ten wide column">
+                <h4 class="ui inverted header">Game Duos</h4>
+                <p>게임 듀오즈에서 제공하는 심리테스트입니다.</p>
+                <p>버그 제보 및 피드백 언제나 환영입니다.</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <img src="#" class="ui centered mini image">
+        <div class="ui horizontal inverted small divided link list">
+            <span class="item">gameduosdev@gmail.com</span>
+            <a class="item" href="#">Terms and Conditions</a>
+            <a class="item" href="#">Privacy Policy</a>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<!--<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>-->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+<script th:src="@{/js/personalTest/ow/heroArray.js}"></script>
+<script>
+    //이미지주소만 어떻게 하자
+
+
+    // 화면에 쓰는 js
+    var heroEngName = $('#hero').val();
+    var x = $('x').val();
+    var y = $('y').val();
+
+    var heroArr = findHeroArray(heroEngName)
+
+    changeOgMeta(heroArr);
+    writeArticle(heroArr);
+
+    function findHeroArray(heroEngName) {
+        for (i in HEROS) {
+            if (HEROS[i][0] === heroEngName) {
+                return HEROS[i];
+            }
+        }
+    }
+
+    function changeOgMeta(heroArr) {
+        var heroEngName = heroArr[0];
+        var heroKorName = heroArr[3];
+
+        var title = '나는 ' + heroKorName + '와(과) 잘 어울려요.'
+        var imgSrc = 'https://raw.githubusercontent.com/gameduosdev/gameduosdev.github.io/master/' + heroEngName + '.png';
+        var url = $(location).attr('href');
+
+        // 페이스북 관련 메타태그
+        $("#ogTitle").attr("content", title);
+        $("#ogImg").attr("content", imgSrc);
+        $("#ogUrl").attr("content", url);
+
+        //hidden input에 주소 쓰기
+        $("#link").val(url);
+        //본문 이미지 바꾸기
+        $("#heroImg").attr("src", imgSrc);
+    }
+
+    function writeArticle(heroArr) {
+        var heroKorName = heroArr[3];
+        var heroQuote = heroArr[4];
+        var heroDescription = heroArr[5];
+
+        $('#heroName').text(heroKorName);
+        $('.heroName').text(heroKorName);
+        $('#blockquote').text(heroQuote);
+        $('#heroDescription').text(heroDescription);
+    }
+
+</script>
+<script>
+    //공유 js
+    $(document).ready(function () {
+        //input에 데이터넣고
+        // 다른 버튼에 인풋 데이터를 data text value 넣은거 따옴
+        var btn = document.getElementById('copyLink');
+        var clipboard = new Clipboard(btn);
+        clipboard.on('success', function (e) {
+            alert('주소가 복사됐습니다!');
+        });
+        clipboard.on('error', function (e) {
+            console.log('에러');
+        });
+    });
+
+
+
+
+    function sendSns(sns, txt) {
+        var o;
+        var _url = encodeURIComponent($(location).attr('href'));
+        var _txt = encodeURIComponent(txt);
+        var _br = encodeURIComponent('\r\n');
+
+        switch (sns) {
+            case 'facebook':
+                o = {
+                    method: 'popup',
+                    url: 'http://www.facebook.com/sharer/sharer.php?u=' + _url
+                };
+                break;
+
+            case 'twitter':
+                o = {
+                    method: 'popup',
+                    url: 'http://twitter.com/intent/tweet?text=' + _txt + '&url=' + _url
+                };
+                break;
+
+            case 'me2day':
+                o = {
+                    method: 'popup',
+                    url: 'http://me2day.net/posts/new?new_post[body]=' + _txt + _br + _url + '&new_post[tags]=epiloum'
+                };
+                break;
+
+            case 'kakaotalk':
+                alert('준비 중입니다. 주소복사를 이용해주세요 :)')
+                kakaotalk();
+                break;
+
+            case 'kakaostory':
+                o = {
+                    method: 'web2app',
+                    param: 'posting?post=' + _txt + _br + _url + '&apiver=1.0&appver=2.0&appid=dev.epiloum.net&appname=' + encodeURIComponent('Epiloum 개발노트'),
+                    a_store: 'itms-apps://itunes.apple.com/app/id486244601?mt=8',
+                    g_store: 'market://details?id=com.kakao.story',
+                    a_proto: 'storylink://',
+                    g_proto: 'scheme=kakaolink;package=com.kakao.story'
+                };
+                break;
+
+            case 'band':
+                o = {
+                    method: 'web2app',
+                    param: 'create/post?text=' + _txt + _br + _url,
+                    a_store: 'itms-apps://itunes.apple.com/app/id542613198?mt=8',
+                    g_store: 'market://details?id=com.nhn.android.band',
+                    a_proto: 'bandapp://',
+                    g_proto: 'scheme=bandapp;package=com.nhn.android.band'
+                };
+                break;
+
+            default:
+                alert('지원하지 않는 SNS입니다.');
+                return false;
+        }
+
+        switch (o.method) {
+            case 'popup':
+                window.open(o.url);
+                break;
+
+            case 'web2app':
+                if (navigator.userAgent.match(/android/i)) {
+                    // Android
+                    setTimeout(function () { location.href = 'intent://' + o.param + '#Intent;' + o.g_proto + ';end' }, 100);
+                }
+                else if (navigator.userAgent.match(/(iphone)|(ipod)|(ipad)/i)) {
+                    // Apple
+                    setTimeout(function () { location.href = o.a_store; }, 200);
+                    setTimeout(function () { location.href = o.a_proto + o.param }, 100);
+                }
+                else {
+                    alert('이 기능은 모바일에서만 사용할 수 있습니다.');
+                }
+                break;
+        }
+    }
+</script>
+</html>

@@ -1,11 +1,14 @@
 package com.gameduos.springboot.web.config;
 
+import com.gameduos.springboot.web.domain.user.Role;
 import com.gameduos.springboot.web.oauth2.CustomOAuth2Provider;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +19,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -24,6 +28,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.gameduos.springboot.web.domain.user.Role.*;
 import static com.gameduos.springboot.web.domain.user.SocialType.*;
 
 
@@ -45,13 +50,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
 
         http
-                .authorizeRequests()
-                .antMatchers("/", "/oauth2/**", "/login/**",  "/css/**",
-                        "/images/**", "/js/**", "/console/**", "swagger-ui.html#").permitAll()
+                .authorizeRequests() //구체적인걸 위로
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .antMatchers("/kakao").hasAuthority(KAKAO.getRoleType())
-                .anyRequest().permitAll()
+                .antMatchers(HttpMethod.GET ,"/api/user/nicknames/**").hasAnyAuthority(GUEST.getRoleType(), USER.getRoleType(),
+                                                                        ADMIN.getRoleType(), MASTER.getRoleType())
+                .antMatchers(HttpMethod.PUT ,"/api/referralCode/**").hasAnyAuthority(GUEST.getRoleType(), USER.getRoleType(),
+                                                                        ADMIN.getRoleType(), MASTER.getRoleType())
+                .antMatchers("/master/**").hasAuthority(MASTER.getRoleType())
+                .antMatchers("/admin/**").hasAnyAuthority(MASTER.getRoleType(), ADMIN.getRoleType())
+                .antMatchers("/home", "/myPage/**").hasAnyAuthority(GUEST.getRoleType(), USER.getRoleType(),
+                                                                                ADMIN.getRoleType(), MASTER.getRoleType())
+                .antMatchers("/", "/oauth2/**", "/login/**",  "/css/**",
+                        "/images/**", "/js/**", "/console/**", "/swagger-ui.html#", "/personalTest/**",
+                        "/loginSuccess", "/loginFailure", "/logout").permitAll()
+                .anyRequest().hasAnyAuthority(USER.getRoleType(), ADMIN.getRoleType(), MASTER.getRoleType())
                 .and()
                     .oauth2Login()
                     .defaultSuccessUrl("/loginSuccess")
@@ -70,6 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .logoutSuccessUrl("/")
                         .deleteCookies("JSESSIONID")
                         .invalidateHttpSession(true)
+                        .clearAuthentication(true)
                 .and()
                     .cors().configurationSource(source)
                 .and()
@@ -114,4 +129,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
         return null;
     }
+
+    @Bean
+    public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
+    }
+
 }

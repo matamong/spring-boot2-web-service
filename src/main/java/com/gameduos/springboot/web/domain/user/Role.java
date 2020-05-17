@@ -4,14 +4,24 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public enum Role {
-    GUEST("ROLE_GUEST", "손님"),
-    USER("ROLE_USER", "일반 사용자"),
-    ADMIN("ROLE_ADMIN", "관리자"),
-    MASTER("ROLE_MASTER","최고관리자");
+    GUEST("guest"),
+    USER("user"),
+    ADMIN("admin"),
+    MASTER("master");
 
-    private final String key;
-    private final String title;
+    private final String ROLE_PREFIX = "ROLE_";
+    private final String name;
 
+    Role(String name) {
+        this.name = name;
+    }
+
+    public String getRoleType() { return ROLE_PREFIX + name.toUpperCase(); }
+
+    public String getValue() { return name; }
+
+    public boolean isEquals(String authority) {
+        return this.name.equals(authority);
+    }
 }

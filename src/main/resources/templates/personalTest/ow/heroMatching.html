@@ -17,6 +17,9 @@
     <meta property="og:image:width" content="400" />
     <meta property="og:image:height" content="300" />
     <meta property="og:url" content="">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
 <div class="ui ad container">
@@ -567,4 +570,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
 <script th:src="@{/js/personalTest/ow/heroArray.js}"></script>
 <script th:src="@{/js/personalTest/ow/heroMatching.js}"></script>
+<script th:src="@{/js/basic.js}"></script>
 </html>

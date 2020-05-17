@@ -1,0 +1,43 @@
+.body{
+    margin: 0;
+    padding: 0;
+}
+
+.ui {
+    font-family: 'Noto Sans KR' !important;
+}
+
+.navbar{
+    width: 100%;
+    height: 90px;
+    background-color: teal;
+}
+
+.caption{
+    font-weight: 400;
+    color: darkgray;
+}
+
+#typeXY{
+    color: #7f8691;
+    font-weight: 500;
+}
+
+#heroName{
+    color: teal;
+    letter-spacing: 0.5rem;
+}
+.heroName{
+    color: teal;
+    letter-spacing: 0.5rem;
+}
+blockquote{
+    color: #7f8691;
+}
+blockquote:before {
+    content: "\201C";
+    font-size: 3em;
+    color: #bcbcbc;
+    float: left;
+    margin: 0 0 0 1.4rem;
+}

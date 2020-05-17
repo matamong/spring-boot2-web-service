@@ -90,6 +90,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .addFilterBefore(filter, CsrfFilter.class)
                     .csrf()
+                        .ignoringAntMatchers("/console/**", "/**")
+                .and()
+                .sessionManagement()
+                .maximumSessions(1)
+                .expiredUrl("/login")
+                .maxSessionsPreventsLogin(true)
         ;
     }
 

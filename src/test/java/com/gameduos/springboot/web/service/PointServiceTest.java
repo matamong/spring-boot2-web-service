@@ -65,28 +65,4 @@ public class PointServiceTest {
         assertThat(isPointEnough).isEqualTo(true);
     }
 
-    @Test
-    public void ReferralMeasurePoint_test () throws Exception {
-        //given
-        User user = User.builder()
-                .nickName("referralTest")
-                .build();
-
-        userRepository.save(user);
-        pointRepository.save(Point.builder()
-                .point(50)
-                .user(user)
-                .pointType(PointType.BOARD_POINT)
-                .pointGiveDate(LocalDateTime.now())
-                .build());
-
-        //when
-        boolean isPointEnough = pointService.measureReferralPoint(user);
-
-        //then
-        assertThat(isPointEnough).isEqualTo(true);
-    }
-
-
-
 }

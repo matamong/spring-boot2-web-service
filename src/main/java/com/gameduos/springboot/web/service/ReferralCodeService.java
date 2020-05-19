@@ -15,14 +15,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -68,6 +72,14 @@ public class ReferralCodeService {
         referralCodeRepository.save(entity);
         userService.roleUpdate(requestDto.getUser().getId(), Role.USER);
         userService.nicknameUpdate(requestDto.getUser().getId(), requestDto.getNickname());
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+        updatedAuthorities.add(new SimpleGrantedAuthority(Role.USER.getRoleType())); //add your role here [e.g., new SimpleGrantedAuthority("ROLE_NEW_ROLE")]
+
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
 
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }

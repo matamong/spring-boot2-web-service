@@ -54,16 +54,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .antMatchers("/kakao").hasAuthority(KAKAO.getRoleType())
+                .antMatchers("/myPage/certification").hasAnyAuthority(GUEST.getRoleType(), ADMIN.getRoleType(), MASTER.getRoleType())
                 .antMatchers(HttpMethod.GET ,"/api/user/nicknames/**").hasAnyAuthority(GUEST.getRoleType(), USER.getRoleType(),
                                                                         ADMIN.getRoleType(), MASTER.getRoleType())
                 .antMatchers(HttpMethod.PUT ,"/api/referralCode/**").hasAnyAuthority(GUEST.getRoleType(), USER.getRoleType(),
                                                                         ADMIN.getRoleType(), MASTER.getRoleType())
-                .antMatchers("/master/**").hasAuthority(MASTER.getRoleType())
+                .antMatchers("/master/**", "/swagger-ui.html#", "/console/**").hasAuthority(MASTER.getRoleType())
                 .antMatchers("/admin/**").hasAnyAuthority(MASTER.getRoleType(), ADMIN.getRoleType())
                 .antMatchers("/home", "/myPage/**").hasAnyAuthority(GUEST.getRoleType(), USER.getRoleType(),
                                                                                 ADMIN.getRoleType(), MASTER.getRoleType())
                 .antMatchers("/", "/oauth2/**", "/login/**",  "/css/**",
-                        "/images/**", "/js/**", "/console/**", "/swagger-ui.html#", "/personalTest/**",
+                        "/images/**", "/js/**", "/personalTest/**",
                         "/loginSuccess", "/loginFailure", "/logout").permitAll()
                 .anyRequest().hasAnyAuthority(USER.getRoleType(), ADMIN.getRoleType(), MASTER.getRoleType())
                 .and()
@@ -90,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .addFilterBefore(filter, CsrfFilter.class)
                     .csrf()
-                        .ignoringAntMatchers("/console/**", "/**")
+                        .ignoringAntMatchers("/console/**")
                 .and()
                 .sessionManagement()
                 .maximumSessions(1)

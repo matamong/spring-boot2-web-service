@@ -6,6 +6,8 @@ import com.gameduos.springboot.web.domain.point.PointRepository;
 import com.gameduos.springboot.web.domain.point.PointType;
 import com.gameduos.springboot.web.domain.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,6 +21,16 @@ public class PointService {
 
     private int boardPoint = 100;
     private int loginPoint = 100;
+
+    public ResponseEntity<?> savePoint(User user, int point){
+        pointRepository.save(Point.builder()
+                .user(user)
+                .point(point)
+                .pointType(PointType.ADMIN_POINT)
+                .pointGiveDate(LocalDateTime.now())
+                .build());
+        return new ResponseEntity<>("{}", HttpStatus.OK);
+    }
 
     public void boardPointSave(User user) {
         pointRepository.save(Point.builder()

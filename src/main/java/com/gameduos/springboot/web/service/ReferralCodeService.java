@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -31,6 +33,18 @@ public class ReferralCodeService {
     private final PointService pointService;
 
     private int referralCodePoint = 50;
+
+    @Transactional
+    public User findRecommendedUser(Long useUserId){
+        ReferralCode referralCode = referralCodeRepository.findByUseUserId(useUserId);
+
+            if(referralCode != null){
+                User user = userService.getUserIncludeNullUser(referralCode.getUser().getId());
+                return user;
+            }else{
+                return null;
+            }
+    }
 
 
     @Transactional

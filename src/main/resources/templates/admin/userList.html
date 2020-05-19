@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <title>유저 리스트</title>
+</head>
+<body>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th class="col-md-2">id</th>
+        <th class="col-md-2">Role</th>
+        <th class="col-md-2">이메일</th>
+        <th class="col-md-2">닉네임</th>
+        <th class="col-md-2">가입 날짜</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${userList}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.getRole()}"></td>
+        <td th:text="${user.email}"></td>
+        <td><a th:href="'/admin/user?id='+${user.id}" th:text="${user.nickName}"></a></td>
+        <td th:text="${user.createdDate} ? ${#temporals.format(user.createdDate,'yyyy-MM-dd HH:mm')} : ${user.createdDate}"></td>
+    </tr>
+    </tbody>
+</table>
+<!-- Pagination -->
+<nav aria-label="Page navigation" style="text-align:center;">
+    <ul class="pagination" th:with="startNumber=${T(Math).floor(userList.number/10)}*10+1, endNumber=(${userList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${userList.totalPages}">
+        <li><a aria-label="Previous" href="/admin/users/list?page=1">&laquo;</a></li>
+        <li th:style="${userList.first} ? 'display:none'">
+            <a th:href="@{/admin/users/list(page=${userList.number})}">&lsaquo;</a>
+        </li>
+
+        <li th:each="page :${#numbers.sequence(startNumber, endNumber)}" th:class="(${page} == ${userList.number}+1) ? 'active'">
+            <a th:href="@{/admin/users/list(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+        </li>
+
+        <li th:style="${userList.last} ? 'display:none'">
+            <a th:href="@{/admin/users/list(page=${userList.number}+2)}">&rsaquo;</a>
+        </li>
+        <li><a aria-label="Next" th:href="@{/admin/users/list(page=${userList.totalPages})}">&raquo;</a></li>
+    </ul>
+</nav>
+<!-- /Pagination -->
+</body>
+</html>

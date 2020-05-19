@@ -29,7 +29,7 @@ public class LoginController {
 
     @GetMapping("/loginSuccess")
     public String loginComplete(@SocialUser User user) {
-        pointService.LoginPointSave(user);
+//        pointService.LoginPointSave(user);
         return "redirect:/home";
     }
 

@@ -43,11 +43,11 @@
                         </div>
                     </div>
                     <div class="extra content">
-                        <div th:if="${userInfo.getRole() != null}">
+                        <div th:if="${!userInfo.getRole().getValue().equals('guest')}">
                             <i class="check icon"></i>
                             인증 된 회원
                         </div>
-                        <div th:if="${userInfo.getRole() == null}">
+                        <div th:if="${userInfo.getRole().getValue().equals('guest')}">
                             인증되지 않은 회원
                         </div>
                     </div>

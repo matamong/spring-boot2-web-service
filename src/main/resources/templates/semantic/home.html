@@ -1,0 +1,123 @@
+<!--
+    Art by Blazej Kozlowski
+       _                        
+       \`*-.                    
+        )  _`-.                 
+       .  : `. .                
+       : _   '  \               
+       ; *` _.   `*-._          
+       `-.-'          `-.       
+         ;       `       `.     
+         :.       .        \    
+         . \  .   :   .-'   .   
+         '  `+.;  ;  '      :   
+         :  '  |    ;       ;-. 
+         ; '   : :`-:     _.`* ;
+[bug] .*' /  .*' ; .*`- +'  `*' 
+      `*-*   `*-*  `*-*'
+-->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://kit.fontawesome.com/d22a341da8.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+        type="text/css" />
+    <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="home.css" />
+    <title>Game Duos</title>
+    <meta name="description" content="게임을 이용하는 유저들의 만남의 장이 될 수 있게
+    매칭 시스템, 커뮤니티 등을 제공합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Game Duos">
+    <meta property="og:description" content="눈치 볼 필요없이 게임 같이 할 사람 구하자!">
+    <meta property="og:image" content="http://">
+    <meta property="og:url" content="https://GameDuos.com">
+</head>
+
+<body>
+    <header>
+        <div class="topHeaderContainer">
+            <section class="megaphoneContainer">
+                <i class="fas fa-bullhorn"></i>
+                <div class="megaphoneContext"></div>
+            </section>
+            <section class="logoMenuUserContainer">
+                <img class="logo" href="/home.html" src="https://place-hold.it/200x50"></img>
+                <div class="topMenu">
+                    <ul>
+                        <li class="hvr-underline-reveal">Home</li>
+                        <li class="hvr-underline-reveal">Matching</li>
+                        <li class="hvr-underline-reveal">자유 게시판</li>
+                        <li class="hvr-underline-reveal">My Page</li>
+                    </ul>
+                </div>
+                <div class="user"></div>
+            </section>
+        </div>
+        <!-- mobile Menu -->
+        <div class="mobileTopMenu">
+            <ul>
+                <i class="fas fa-bars" onclick="showMenu()"></i>
+                <li href="/home">GameDuos</li>
+                <i class="fas fa-user" href="myPage"></i>
+            </ul>
+        </div>
+        <!--Sidebar Menu-->
+        <div class="sidebarMenu">
+            <ul>
+                <i class="fas fa-bars" onclick="hideMenu()"></i>
+                <li class="active item" href="/home">Home</li>
+                <li class="item" href="/matching">매칭하기</li>
+                <li class="item" href="/board/list">자유 게시판</li>
+                <li class="item" href="/myPage">My Page</li>
+                <li class="item" href="/logout">logout</li>
+            </ul>
+        </div>
+    </header>
+    <section class="sec1">
+        <div class="banner"></div>
+        </article>
+    </section>
+    <section class="sec2">
+        <img id="matchingStart" src="https://place-hold.it/380x230"></img>
+    </section>
+    <section class="sec3">
+        <div class="board">
+            <div class="boardImg"></div>
+            <div id="freeBoard"></div>
+        </div>
+        <div class="board">
+            <div class="boardImg"></div>
+            <div id="freeBoard"></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footerContainer">
+            <img class="footerLogo" src="https://place-hold.it/100x50"></img>
+            <div class="devEmail">문의 / 신고 / 기능개선 <br> gameduosdev@gmail.com로 문의 바랍니다.</div>
+        </div>
+    </footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+<script>
+    var giMenuDuration = 700;
+
+// 전체 메뉴를 오른쪽으로 슬라이드하여서 보여준다.
+function showMenu(){
+    $('.sidebarMenu' ).css( { 'display' : 'block' } );
+    $('.sidebarMenu' ).css( { 'left' : '-100%' } );
+    $('.sidebarMenu' ).animate( { left: '0px' }, { duration: giMenuDuration } );
+}
+
+// 전체 메뉴를 왼쪽으로 슬라이드하여서 닫는다.
+function hideMenu(){
+			$('.sidebarMenu' ).animate( { left: '-100%' }, { duration: giMenuDuration, complete:function(){ $('.menu_bg' ).css( { 'display' : 'none' } ); } } );
+		}
+</script>
+
+</html>

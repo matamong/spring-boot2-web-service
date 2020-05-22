@@ -1,0 +1,49 @@
+.body{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    width: 100%;
+    height: 15rem;
+    background-color: #57ae8c;
+}
+
+.header.container{
+    width: 100%;
+    height: 20rem;
+    padding: 3rem;
+}
+
+.header.meta{
+    text-align: center;
+    font-size: small;
+    color: darkgray;
+}
+
+.test.header{
+    margin: 2%;
+}
+
+.modal > .header {
+    text-align: center;
+}
+.modal > .content > p{
+    text-align: center;
+    color: gray;
+}
+
+.modal > .content > h2{
+    text-align: center;
+    color: teal;
+}
+
+.modal > .content > h1{
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .desktop.ad{
+        display: none;
+    }
+}

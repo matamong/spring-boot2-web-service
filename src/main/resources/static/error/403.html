@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/semantic.min.css}" />
+    <title>접근 권한이 없습니다.</title>
+</head>
+<body>
+<div class="ui container">
+    <div class="ui segments">
+        <div class="ui segment">
+            <img class="ui fluid image" src="https://http.cat/403.jpg">
+            <h2 class="ui center aligned header" style="color: red">접근 권한이 없습니다. </h2>
+        </div>
+    </div>
+</div>
+<div th:replace="layout/footer::footer"></div>
+</body>
+</html>

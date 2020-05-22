@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://kit.fontawesome.com/d22a341da8.js" crossorigin="anonymous"></script>
+    <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+    <title>마이 페이지 - Game Duos</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage_base.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/certification.css}"/>
+    <link rel="stylesheet" th:href="@{/css/semantic.min.css}"/>
+    <meta name="description" content="게임을 이용하는 유저들의 만남의 장이 될 수 있게
+        매칭 시스템, 커뮤니티 등을 제공합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Game Duos-마이 페이지">
+    <meta property="og:description" content="눈치 볼 필요없이 게임 같이 할 사람 구하자!">
+    <meta property="og:image" content="http://">
+    <meta property="og:url" content="https://GameDuos.com">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<div th:replace="layout/header::header"></div>
+<!-- middle area -->
+<div class="middle-area-container">
+    <section class="sec1">
+        <div class="intro"></div>
+    </section>
+    <section class="sec2">
+        <div th:replace="layout/myPage/myPage_left_menu::left_menu"></div>
+        <div class="middle-content-wrapper">
+            <div class="middle-content">
+                <div class="form-wrapper">
+                    <div class="ui segment">
+                        <h2 class="ui left floated header">회원 탈퇴</h2>
+                        <div class="ui clearing divider"></div>
+                        <form class="ui form">
+                            <div class="one field">
+                                <div class="ui red message">
+                                    <div class="header">회원 탈퇴 시 아래의 데이터가 영구 삭제됩니다.</div>
+                                    <ul class="list">
+                                        <li>메일 연동 회원 정보</li>
+                                        <li>회원 포인트</li>
+                                        <li>게임 매칭 정보</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="ui fluid red button" id="delete">
+                                삭제
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- modal -->
+<div class="ui mini modal">
+    <div class="header">
+        회원 탈퇴
+    </div>
+    <div class="content">
+        <p>탈퇴하시겠습니까?</p>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">취소</div>
+        <div class="negative ui approve button">삭제</div>
+    </div>
+</div>
+<div th:replace="layout/footer::footer"></div>
+</body>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+<script th:src="@{/js/myPage/myPageBase.js}"></script>
+<script th:src="@{/js/basic.js}"></script>
+</html>
+<script>
+    activeMenu('userWithdrawalMenu');
+</script>
+<script>
+    $('#delete').on('click', function () {
+        $.ajax({
+            url: "http://localhost:8080/api/user",
+            type: "DELETE",
+            success: function () {
+                location.href="/index";
+            },
+            error: function () {
+                alert('삭제 실패!' + 'status >> ' + status);
+            }
+        });
+    });
+</script>

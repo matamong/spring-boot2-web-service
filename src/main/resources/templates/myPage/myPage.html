@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://kit.fontawesome.com/d22a341da8.js" crossorigin="anonymous"></script>
+    <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+    <title>마이 페이지 - Game Duos</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage_base.css}" />
+    <link rel="stylesheet" th:href="@{/css/semantic.min.css}" />
+    <meta name="description" content="게임을 이용하는 유저들의 만남의 장이 될 수 있게
+    매칭 시스템, 커뮤니티 등을 제공합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Game Duos-마이 페이지">
+    <meta property="og:description" content="눈치 볼 필요없이 게임 같이 할 사람 구하자!">
+    <meta property="og:image" content="http://">
+    <meta property="og:url" content="https://GameDuos.com">
+</head>
+<body>
+<div th:replace="layout/header::header"></div>
+
+<!--body-->
+<div class="middle-area-container">
+    <section class="sec1">
+        <div class="intro"></div>
+    </section>
+    <section class="sec2">
+        <div th:replace="layout/myPage/myPage_left_menu::left_menu"></div>
+        <div class="middle-content-wrapper">
+            <div class="middle-content">
+                <div class="ui centered card">
+                    <div class="image">
+                        <img src="https://semantic-ui.com/images/avatar2/large/elyse.png">
+                    </div>
+                    <div class="content">
+                        <div class="header name" th:text="${userInfo.getNickName()}"></div>
+                        <div class="meta join-date" th:text="${userInfo.getCreatedDate()} ? ${#temporals.format(userInfo.getCreatedDate(),'yyyy-MM-dd HH:mm')} : ${userInfo.getCreatedDate()}"></div>
+                        <div class="description">
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <div th:if="${!userInfo.getRole().getValue().equals('guest')}">
+                            <i class="check icon"></i>
+                            인증 된 회원
+                        </div>
+                        <div th:if="${userInfo.getRole().getValue().equals('guest')}">
+                            인증되지 않은 회원
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</section>
+<div></div>
+</section>
+</div>
+<!--/body-->
+<div th:replace="layout/footer::footer"></div>
+</body>
+<script th:src="@{/js/myPage/myPageBase.js}"></script>
+</html>
+<script>
+    activeMenu('userInfoMenu');
+</script>

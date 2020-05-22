@@ -1,0 +1,231 @@
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: grayscale;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Nanum Barun Gothic', sans-serif;
+}
+
+a:link { color: #595959; text-decoration: none; }
+a:visited { color: #595959; text-decoration: none; }
+a:active { color: #595959; }
+
+/** header **/
+
+.topHeaderContainer{
+    width: 100%;
+    height: 71px;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+.logoMenuUserContainer{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-flow: row wrap;
+}
+.megaphoneContainer{
+    width: 100%;
+}
+
+.logo{
+    width: 200px;
+    height: 50px;
+    margin-left: 1%;
+    cursor: pointer;
+}
+
+.topMenu{
+    width: 70%;
+    height: 50%;
+    margin-left: 2%;
+    text-align: left;
+}
+.topMenu ul{
+    float: center;
+    display: flex;
+    width: 50%;
+    height: 100%;
+    justify-content: space-between;
+    margin:1% auto;
+}
+.topMenu ul li{
+    list-style: none;
+    color: #595959;
+    font-size: large;
+    font-family: 'Nanum Barun Gothic', sans-serif;
+}
+
+/* underline reveal */
+.hvr-underline-reveal {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.hvr-underline-reveal:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(240, 240, 240);
+    height: 4px;
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+.hvr-underline-reveal:hover:before, .hvr-underline-reveal:focus:before, .hvr-underline-reveal:active:before {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.user{
+    width: 8%;
+    height: 50px;
+    background-color: gray;
+    margin: auto;
+    cursor: pointer;
+}
+
+/**mobile menu**/
+
+.mobileTopMenu{
+    display: none;
+}
+
+.sidebarMenu{
+    display: none;
+}
+.sidebarMenu{
+    background-color:gray;
+    width:70%;
+    height: 100%;
+    position: fixed;
+    /**font-family: ;**/
+    color: white;
+    font-size: 30px;
+    top: 0;
+    left: 0px;
+    z-index: 2;
+}
+
+.sidebarMenu i{
+    margin-top: 5%;
+    margin-left: 80%;
+}
+
+.sidebarMenu li {
+    margin: 10px;
+    margin-top: 50px;
+    padding: 10px;
+    font-size: x-large;
+}
+
+/**footer**/
+
+footer{
+    width: 100%;
+    font-family: 'Nanum Barun Gothic', sans-serif;
+}
+
+.footerContainer{
+    margin-top: 3%;
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    height: 100px;
+    padding: 25px 0;
+    text-align: center;
+    background-color: rgb(185, 185, 185);
+    font-family: 'Nanum Barun Gothic', sans-serif;
+}
+
+.footerLogo{
+    width: 100px;
+    height: 50px;
+    margin-left: 20%;
+}
+
+.devEmail{
+    margin-left: 10%;
+}
+
+/** @media **/
+
+@media screen and (max-width: 768px) {
+    /**header**/
+
+    .topHeaderContainer{
+        display: none !important;
+    }
+
+    .mobileTopMenu{
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: gray;
+        text-align: center;
+        width:100%;
+        height: 50px;
+        z-index: 1;
+    }
+    .mobileTopMenu ul{
+        float: left;
+        display: flex;
+        width: 90%;
+        justify-content: space-between;
+        margin-top: 3%;
+        margin-left: 5%;
+        margin-right: 0.5%;
+        font-size: x-large;
+        color: white;
+    }
+    .mobileTopMenu ul li{
+        list-style: none;
+        color: white;
+    }
+
+
+    /** footer **/
+
+    .footerContainer{
+        margin: 0 auto;
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+        height: 150px;
+        padding: 25px 0;
+        text-align: center;
+        background-color: rgb(185, 185, 185);
+    }
+
+    .footerLogo{
+        width: 100px;
+        height: 50px;
+        margin: 0 auto;
+    }
+
+    .devEmail{
+        margin: 0 auto;
+    }
+
+}

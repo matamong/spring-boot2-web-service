@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <!--header-->
+        <header th:fragment="header">
+            <div class="topHeaderContainer">
+                <section class="megaphoneContainer">
+                    <i class="fas fa-bullhorn"></i>
+                    <div class="megaphoneContext"></div>
+                </section>
+                <section class="logoMenuUserContainer">
+                    <img class="logo" href="/home.html" src="https://place-hold.it/200x50"></img>
+                    <div class="topMenu">
+                        <ul>
+                            <li class="hvr-underline-reveal"><a href="/home">Home</a></li>
+                            <li class="hvr-underline-reveal"><a href="/matching">Matching</a></li>
+                            <li class="hvr-underline-reveal"><a href="/board/list">자유 게시판</a></li>
+                            <li class="hvr-underline-reveal"><a href="/myPage">My Page</a></li>
+                        </ul>
+                    </div>
+                    <div class="user" th:if="${session.user != null}">
+                        <span th:text="${session['nickname']}"></span>
+                    </div>
+                </section>
+            </div>
+            <!-- mobile Menu -->
+            <div class="mobileTopMenu">
+                <ul>
+                    <i class="fas fa-bars" onclick="showMenu()"></i>
+                    <li href="/home">GameDuos</li>
+                    <i class="fas fa-user" href="myPage"></i>
+                </ul>
+            </div>
+            <!--Sidebar Menu-->
+            <div class="sidebarMenu">
+                <ul>
+                    <i class="fas fa-bars" onclick="hideMenu()"></i>
+                    <li class="active item" ><a href="/home">Home</a></li>
+                    <li class="item" ><a href="/matching">매칭</a></li>
+                    <li class="item" ><a href="/board/list">자유 게시판</a></li>
+                    <li class="item" ><a href="/myPage">마이 페이지</a></li>
+                    <li class="item" ><a href="/logout">logout</a></li>
+                </ul>
+            </div>
+        </header>
+    <!--/header-->
+</html>

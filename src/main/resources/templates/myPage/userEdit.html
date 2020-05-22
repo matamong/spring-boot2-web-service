@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://kit.fontawesome.com/d22a341da8.js" crossorigin="anonymous"></script>
+    <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+    <title>마이 페이지 - Game Duos</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage_base.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/certification.css}"/>
+    <link rel="stylesheet" th:href="@{/css/semantic.min.css}"/>
+    <meta name="description" content="게임을 이용하는 유저들의 만남의 장이 될 수 있게
+        매칭 시스템, 커뮤니티 등을 제공합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Game Duos-마이 페이지">
+    <meta property="og:description" content="눈치 볼 필요없이 게임 같이 할 사람 구하자!">
+    <meta property="og:image" content="http://">
+    <meta property="og:url" content="https://GameDuos.com">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<div th:replace="layout/header::header"></div>
+<!-- middle area -->
+<div class="middle-area-container">
+    <section class="sec1">
+        <div class="intro"></div>
+    </section>
+    <section class="sec2">
+        <div th:replace="layout/myPage/myPage_left_menu::left_menu"></div>
+        <div class="middle-content-wrapper">
+            <div class="middle-content">
+                <div class="form-wrapper">
+                    <div class="ui segment">
+                        <h2 class="ui left floated header">내 정보 수정</h2>
+                        <div class="ui clearing divider"></div>
+                        <form class="ui form">
+                            <input type="hidden" id="userId" th:value="${userInfo.getId()}" />
+                            <div class="one field">
+                                <img class="ui small image" src="/images/wireframe/wireframe960796.png">
+                                <div class="ui message">
+                                    <div class="header">프로필 이미지 적용 기능은 준비 중입니다.</div>
+                                    <ul class="list">
+                                        <li>보다 나은 프로필 아바타 디자인을 위하여 작업 중입니다.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>닉네임</label>
+                                <input type="text" id="nickname" th:value="${userInfo.getNickName()}">
+                                <!-- error -->
+                                <div class="ui negative message" id="nicknameValidationError">
+                                    <i class="close icon"></i>
+                                    <div class="header">
+                                        닉네임 양식을 지켜주세요.
+                                    </div>
+                                    <p>닉네임은 특수문자와 공백없이 최대 8글자(영문 16자)입니다.</p>
+                                </div>
+                                <div class="ui negative message" id="nicknameDuplicationError">
+                                    <i class="close icon"></i>
+                                    <div class="header">
+                                        해당 닉네임은 이미 사용 중입니다.
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="ui hidden divider"></div>
+                        <button class="ui button" id="userUpdate">
+                            수정
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div th:replace="layout/footer::footer"></div>
+</body>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/myPage/myPageBase.js}"></script>
+<script th:src="@{/js/basic.js}"></script>
+</html>
+<script>
+    activeMenu('userEditMenu');
+</script>
+<script>
+    $(document).ready(function () {
+        $('.negative').hide();
+    });
+    $(".close.icon").click(function () {
+        $(this).parent().hide();
+    });
+
+
+
+    $('#userUpdate').click(function () {
+        var nickname = $('#nickname').val();
+
+        if (checkNicknameValidation(nickname) === true) {
+            checkNicknameDuplication(nickname);
+        }else{
+            $("#nicknameValidationError").fadeIn(2000);
+            $('#nickname').focus();
+        }
+    });
+
+    function checkNicknameDuplication(nickname) {
+        var encodedNickname = encodeURI(nickname);
+            $.ajax({
+            type: 'GET',
+            url: "http://localhost:8080/api/user/nicknames/" + encodedNickname,
+            error: function (err) {
+                $("#nicknameDuplicationError").fadeIn(2000);
+                $('#nickname').focus();
+            },
+            success: function () {
+                    var jsonData = JSON.stringify({
+                        nickname: $('#nickname').val(),
+                        userId: $('#userId').val()
+                    });
+                    $.ajax({
+                        url: "http://localhost:8080/api/user/" + $('#userId').val(),
+                        type: "PUT",
+                        data: jsonData,
+                        contentType: "application/json",
+                        dataType: "json",
+                        success: function () {
+                            alert('수정하였습니다.');
+                            location.href = '/myPage';
+                        },
+                        error: function () {
+                            alert('예상하지 못한 에러가 발생하였습니다.');
+                        }
+                    });
+            }
+        });
+
+    }
+    function checkNicknameValidation(nickname) {
+        var nickLength = 0;
+        var engCheck = /[a-z]/;
+        var numCheck = /[0-9]/;
+        var specialCheck = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+
+        for (var i = 0; i < nickname.length; i++) {
+            //한글은 2, 영문은 1로 치환
+            nick = nickname.charAt(i);
+            if (escape(nick).length > 4) {
+                nickLength += 2;
+            } else { nickLength += 1; }
+        }
+
+        if (nickname === null || nickname === "") {
+            return false;
+        } else if (nickname.search(/\s/) != -1) {
+            //닉네임 빈칸 포함 안됨
+            return false;
+        } else if (nickLength < 2 || nickLength > 20) {
+            return false;
+        } else if (specialCheck.test(nickname)) {
+            //닉네임 특수문자 포함 안됨
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
+</script>
+<!--<script>-->
+<!--    $('#userUpdate').click(function () {-->
+<!--        var jsonData = JSON.stringify({-->
+<!--            nickname: $('#nickname').val(),-->
+<!--            userId: $('#userId').val()-->
+<!--        });-->
+<!--        $.ajax({-->
+<!--            url: "http://localhost:8080/api/user/nicknames/" + $('#userId').val(),-->
+<!--            type: "PUT",-->
+<!--            data: jsonData,-->
+<!--            contentType: "application/json",-->
+<!--            dataType: "json",-->
+<!--            success: function () {-->
+<!--                alert('수정하였습니다.');-->
+<!--                location.href = '/myPage';-->
+<!--            },-->
+<!--            error: function () {-->
+<!--                alert('수정에 실패하였습니다.');-->
+<!--                console.log()-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->

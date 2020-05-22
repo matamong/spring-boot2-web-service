@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!-- left_menu -->
+
+<div th:fragment="left_menu">
+    <div th:fragment="left_menu" class="left-menu-wrapper">
+        <div class="left-menu">
+            <div class="ui vertical menu">
+                <div class="item">
+                    <div class="header active">내 정보</div>
+                    <div class="menu">
+                        <a class="item" href="/myPage" id="userInfoMenu">내 정보 조회</a>
+                        <a class="item" href="/myPage/userUpdate" id="userEditMenu">정보 수정</a>
+                        <a class="item" href="/myPage/userWithdrawal" id="userWithdrawalMenu">회원 탈퇴</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="header">매칭 정보</div>
+                    <div class="menu">
+                        <a class="item">나의 매칭정보</a>
+                        <a class="item">매칭정보 수정</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="header">포인트</div>
+                    <div class="menu">
+                        <a class="item" href="/myPage/userPoint" id="userPointMenu">포인트 조회</a>
+                        <a class="item" href="/myPage/referralCode" id="referralCodeMenu">인증코드 발급</a>
+                        <a class="item" href="/myPage/certification" id="certificationMenu">인증코드 사용</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="header">내 게시물</div>
+                    <div class="menu">
+                        <a class="item">내가 쓴 게시물</a>
+                        <a class="item">준비 중</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

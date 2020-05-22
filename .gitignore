@@ -8,7 +8,8 @@
 .gradle
 .idea
 
-application-real-oauth.properties
+application-oauth.yml
+application.yml
 
 build
 out
@@ -100,4 +101,11 @@ local.properties
 # Scala IDE specific (Scala & Java development for Eclipse)
 .cache-main
 .scala_dependencies
-.worksheet
+.worksheetapplication-oauth.yml
+application.yml
+application.yml
+application.yml
+application-oauth.yml
+application.yml
+application.yml
+application.yml

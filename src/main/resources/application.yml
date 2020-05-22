@@ -1,11 +1,10 @@
 spring:
   profiles:
-    include: oauth
+    include: oauth,real-db
   jpa:
-    hibernate:
-      ddl-auto: create
     properties:
-      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     open-in-view: false
   h2:

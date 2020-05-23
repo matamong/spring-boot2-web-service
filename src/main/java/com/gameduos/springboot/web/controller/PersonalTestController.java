@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PersonalTestController {
     @GetMapping("/heroMatching")
     public String getHeroMatching(){
-        return "/personalTest/ow/heroMatching";
+        return "personalTest/ow/heroMatching";
     }
 
     @GetMapping("/heroMatching/result")
@@ -24,6 +24,6 @@ public class PersonalTestController {
         model.addAttribute("x", x);
         model.addAttribute("y", y);
         System.out.println("받은 파라미터 >>>>>> " + heroName + "/" + x + "/" + y);
-        return "/personalTest/ow/heroMatchingResult";
+        return "personalTest/ow/heroMatchingResult";
     }
 }

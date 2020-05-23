@@ -24,7 +24,7 @@ public class BoardController {
     @GetMapping("/list")
     public String list(@PageableDefault Pageable pageable, Model model) {
         model.addAttribute("boardList", boardService.findBoardList(pageable));
-        return "/board/list";
+        return "board/list";
     }
 
     @GetMapping({"", "/"})
@@ -35,7 +35,7 @@ public class BoardController {
         model.addAttribute("boardUser", boardService.findBoardUserById(idx));
         model.addAttribute("commentInfoList", commentService.getCommentInfo(idx));
 
-        return "/board/detail";
+        return "board/detail";
     }
 
     @GetMapping("/editForm")
@@ -47,11 +47,11 @@ public class BoardController {
         }
         model.addAttribute("board", boardService.findBoardByIdx(idx));
 
-        return "/board/editForm";
+        return "board/editForm";
     }
 
     @GetMapping("/form")
     public String boardForm() {
-        return "/board/form";
+        return "board/form";
     }
 }

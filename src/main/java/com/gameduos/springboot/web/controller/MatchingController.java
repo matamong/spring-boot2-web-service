@@ -12,6 +12,6 @@ public class MatchingController {
 
     @GetMapping({"", "/"})
     public String matching() {
-        return "/matching/matching";
+        return "matching/matching";
     }
 }

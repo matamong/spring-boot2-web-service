@@ -15,6 +15,6 @@ public class HomeController {
             System.out.println(user.getEmail());
             model.addAttribute("userEmail", user.getEmail());
         }
-        return "/home";
+        return "home";
     }
 }

@@ -39,6 +39,7 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     bucket: gameduos-build
     key: spring-boot2-web-service.zip
+    skip_cleanup: true
     bundle_type: zip
     application: spring-boot2-web-service #웹 콘솔에서 등록한 CodeDeploy 애플리케이션
     deployment_group: spring-boot2-web-service-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹

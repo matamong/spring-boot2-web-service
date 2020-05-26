@@ -1,3 +1,18 @@
 .static-wrapper{
     margin: 0 auto 0 8rem;
 }
+
+@media screen and (max-width: 768px) {
+    .left-menu-wrapper{
+        margin: 0 auto;
+    }
+
+    .middle-content-wrapper{
+        width: 100%;
+        margin: 3rem auto;
+    }
+
+    .static-wrapper{
+        margin: 0 auto;
+    }
+}

@@ -45,3 +45,15 @@
     margin-left: 1%;
     margin-right: 1%;
 }
+
+@media screen and (max-width: 768px) {
+    .left-menu-wrapper{
+        margin: 0 auto;
+    }
+
+    .middle-content-wrapper{
+        width: 100%;
+        margin: 3rem auto;
+    }
+
+}

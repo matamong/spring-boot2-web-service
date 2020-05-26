@@ -5,3 +5,15 @@
     height: 50%;
     background-color: darkkhaki;
 }
+
+@media screen and (max-width: 768px) {
+    .left-menu-wrapper{
+        margin: 0 auto;
+    }
+
+    .middle-content-wrapper{
+        width: 100%;
+        margin: 3rem auto;
+    }
+
+}

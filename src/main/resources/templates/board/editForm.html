@@ -91,7 +91,7 @@
                             <div class="finish-button-container">
                                 <div class="ui green button" tabindex="0" id="update">수정</div>
                                 <div class="ui red button" tabindex="0" id="delete">삭제</div>
-                                <div class="ui button" tabindex="0" id="cancel">취소</div>
+                                <div class="ui button" tabindex="0" onclick="history.back();">취소</div>
                             </div>
                         </form>
                     </div>
@@ -159,7 +159,5 @@
             }
         });
     });
-    $('#cancel').click()(function () {
-        history.back();
-    })
+
 </script>

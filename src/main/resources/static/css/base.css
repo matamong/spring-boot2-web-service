@@ -43,15 +43,14 @@ a:active { color: #595959; }
 }
 
 .topMenu{
-    width: 70%;
+    width: 60%;
     height: 50%;
-    margin-left: 2%;
     text-align: left;
 }
 .topMenu ul{
     float: center;
     display: flex;
-    width: 50%;
+    width: 70%;
     height: 100%;
     justify-content: space-between;
     margin:1% auto;

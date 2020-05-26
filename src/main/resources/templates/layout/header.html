@@ -1,46 +1,61 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
     <!--header-->
-        <header th:fragment="header">
-            <div class="topHeaderContainer">
-                <section class="megaphoneContainer">
-                    <i class="fas fa-bullhorn"></i>
-                    <div class="megaphoneContext"></div>
-                </section>
-                <section class="logoMenuUserContainer">
-                    <img class="logo" href="/home.html" src="https://place-hold.it/200x50"></img>
-                    <div class="topMenu">
-                        <ul>
-                            <li class="hvr-underline-reveal"><a href="/home">Home</a></li>
-                            <li class="hvr-underline-reveal"><a href="/matching">Matching</a></li>
-                            <li class="hvr-underline-reveal"><a href="/board/list">자유 게시판</a></li>
-                            <li class="hvr-underline-reveal"><a href="/myPage">My Page</a></li>
-                        </ul>
-                    </div>
-                    <div class="user" th:if="${session.user != null}">
-                        <span th:text="${session['nickname']}"></span>
-                    </div>
-                </section>
-            </div>
-            <!-- mobile Menu -->
-            <div class="mobileTopMenu">
-                <ul>
-                    <i class="fas fa-bars" onclick="showMenu()"></i>
-                    <li href="/home">GameDuos</li>
-                    <i class="fas fa-user" href="myPage"></i>
+    <header th:fragment="header">
+        <div class="topHeaderContainer">
+            <section class="megaphoneContainer">
+                <i class="fas fa-bullhorn"></i>
+                <div class="megaphoneContext"></div>
+            </section>
+            <section class="logoMenuUserContainer">
+                <img class="logo" href="/home.html" src="https://place-hold.it/200x50"></img>
+                <div class="topMenu">
+                    <ul>
+                        <li class="hvr-underline-reveal"><a href="/home">Home</a></li>
+                        <li class="hvr-underline-reveal"><a href="">Matching(준비 중)</a></li>
+                        <li class="hvr-underline-reveal"><a href="/board/list">자유 게시판</a></li>
+                        <li class="hvr-underline-reveal"><a href="/myPage">My Page</a></li>
+                    </ul>
+                </div>
+                <div class="user">
+                    <i class="fas fas fa-user"></i>
+                        <a href="/myPage" th:text="${session.user.nickName}"></a>
+                </div>
+            </section>
+        </div>
+        <!-- mobile -->
+        <div class="mobileTopMenu">
+            <ul>
+                <li href="/home"><a href="/home" style="color: white; font-weight: bold">GameDuos</a></li>
+            </ul>
+        </div>
+        <!-- mobile Sidebar Menu-->
+        <div class="mobile-menu">
+            <nav class="menu__nav">
+                <ul class="r-list menu__list">
+                    <li class="menu__group">
+                        <a href="/home" class="r-link menu__link">Home</a>
+                    </li>
+                    <li class="menu__group">
+                        <a href="/board/list" class="r-link menu__link">자유게시판</a>
+                    </li>
+                    <li class="menu__group">
+                        <a href="/myPage" class="r-link menu__link">마이페이지</a>
+                    </li>
+                    <li class="menu__group">
+                        <a href="/logout" class="r-link menu__link">로그아웃</a>
+                    </li>
                 </ul>
+            </nav>
+            <div class="menu__toggle">
+                <button class="r-button menu__hamburger">
+                    <span class="m-hamburger">
+                        <span class="m-hamburger__label">Open menu</span>
+                    </span>
+                </button>
             </div>
-            <!--Sidebar Menu-->
-            <div class="sidebarMenu">
-                <ul>
-                    <i class="fas fa-bars" onclick="hideMenu()"></i>
-                    <li class="active item" ><a href="/home">Home</a></li>
-                    <li class="item" ><a href="/matching">매칭</a></li>
-                    <li class="item" ><a href="/board/list">자유 게시판</a></li>
-                    <li class="item" ><a href="/myPage">마이 페이지</a></li>
-                    <li class="item" ><a href="/logout">logout</a></li>
-                </ul>
-            </div>
-        </header>
+        </div>
+        <!-- mobile -->
+    </header>
     <!--/header-->
 </html>

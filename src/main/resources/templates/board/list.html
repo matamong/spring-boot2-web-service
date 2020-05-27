@@ -47,7 +47,7 @@
                     <tr th:each="board : ${boardList}">
                         <td th:text="${board.idx}"></td>
                         <td th:text="${board.boardType.value}"></td>
-                        <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
+                        <td><a class="boardTitle" th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
                         <td th:text="${board.viewCnt}"></td>
                         <td th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"></td>
                     </tr>
@@ -88,4 +88,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
 <script th:src="@{/js/mobileMenu.js}"></script>
 <script th:src="@{/js/basic.js}"></script>
+<script>
+    function textLengthOverCut(txt, len, lastTxt) {
+    if (len == "" || len == null) { // 기본값
+    len = 20;
+    }
+    if (lastTxt == "" || lastTxt == null) { // 기본값
+    lastTxt = "…";
+    }
+    if (txt.length > len) {
+    txt = txt.substr(0, len) + lastTxt;
+    }
+    return txt;
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        // Handler when the DOM is fully loaded
+        var boardTitleArr = document.getElementsByClassName('boardTitle');
+        for(i=0; i<boardTitleArr.length; i++) {
+            var changedTxt = textLengthOverCut(boardTitleArr[i].innerHTML);
+            boardTitleArr[i].innerHTML = changedTxt;
+        }
+    });
+</script>
 </html>

@@ -110,35 +110,10 @@ a:active { color: #595959; }
     cursor: pointer;
 }
 
-
-
 /**footer**/
 
-footer{
-    width: 100%;
-    font-family: 'Nanum Barun Gothic', sans-serif;
-}
-
-.footerContainer{
-    margin-top: 3%;
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
-    height: 100px;
-    padding: 25px 0;
-    text-align: center;
-    background-color: rgb(185, 185, 185);
-    font-family: 'Nanum Barun Gothic', sans-serif;
-}
-
-.footerLogo{
-    width: 100px;
-    height: 50px;
-    margin-left: 20%;
-}
-
-.devEmail{
-    margin-left: 10%;
+.ui.inverted.vertical.footer.segment{
+    background-color: teal;
 }
 
 /** @media **/
@@ -183,27 +158,6 @@ footer{
 
 
     /** footer **/
-
-    .footerContainer{
-        margin: 0 auto;
-        display: flex;
-        flex-flow: row wrap;
-        width: 100%;
-        height: 150px;
-        padding: 25px 0;
-        text-align: center;
-        background-color: rgb(185, 185, 185);
-    }
-
-    .footerLogo{
-        width: 100px;
-        height: 50px;
-        margin: 0 auto;
-    }
-
-    .devEmail{
-        margin: 0 auto;
-    }
 
 }
 

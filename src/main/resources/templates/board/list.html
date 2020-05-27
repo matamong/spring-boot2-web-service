@@ -36,11 +36,11 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th class="col-md-1">글 번호</th>
-                        <th class="col-md-2">카테고리</th>
-                        <th class="col-md-5">제목</th>
-                        <th class="col-md-2">조회수</th>
-                        <th class="col-md-2">작성 날짜</th>
+                        <th id="boardNumberTh" class="col-md-1">글 번호</th>
+                        <th id="boardCategoryTh" class="col-md-2">카테고리</th>
+                        <th id="boardTitleTh"class="col-md-5">제목</th>
+                        <th id="boardViewTh" class="col-md-2">조회수</th>
+                        <th id="boardDateTh" class="col-md-2">작성 날짜</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -49,7 +49,7 @@
                         <td th:text="${board.boardType.value}"></td>
                         <td><a class="boardTitle" th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
                         <td th:text="${board.viewCnt}"></td>
-                        <td th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"></td>
+                        <td class="boardDate" th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -58,7 +58,8 @@
                 <a href="/board/form" class="btn btn-primary btn-block">글 쓰기</a>
             </div>
             <!-- Pagination -->
-            <nav aria-label="Page navigation" style="text-align:center;">
+            <div>
+            <nav aria-label="Page navigation" style="text-align:center; margin-top: 8rem;">
                 <ul class="pagination" th:with="startNumber=${T(Math).floor(boardList.number/10)}*10+1, endNumber=(${boardList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${boardList.totalPages}">
                     <li><a aria-label="Previous" href="/board/list?page=1">&laquo;</a></li>
                     <li th:style="${boardList.first} ? 'display:none'">
@@ -75,6 +76,7 @@
                     <li><a aria-label="Next" th:href="@{/board/list(page=${boardList.totalPages})}">&raquo;</a></li>
                 </ul>
             </nav>
+            </div>
             <!-- /Pagination -->
         </div>
         <div class="right-banner-wrapper">

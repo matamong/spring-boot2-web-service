@@ -36,7 +36,13 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
         session.invalidate();
-        return "login";
+        return "redirect:/";
+    }
+
+    @GetMapping("/loginFailure")
+    public String failLogin(HttpSession session){
+        session.invalidate();
+        return "loginFailure";
     }
 
 }

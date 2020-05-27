@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.4/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.4/semantic.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+          type="text/css" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <title>Game Duos</title>
+</head>
+<body>
+<div class="container">
+    <div class="container__item landing-page-container">
+        <div class="content-wrapper">
+            <header class="header">
+                <!--                    <div class="menu-icon header__item">-->
+                <!--                        <span class="menu-icon__line"></span>-->
+                <!--                    </div>-->
+                <h1 class="heading header__item">LOGO</h1>
+                <ul class="social-container header__item">
+                    <!--                        <li class="social__icon social__icon&#45;&#45;fb">-->
+                    <!--                            <a href="javascript:;"  class="btn_social"  data-social="facebook">-->
+                    <!--                                <img th:src="@{/images/facebook.png}" alt="facebook" width="20px" height="20px" >-->
+                    <!--                            </a>-->
+                    <!--                        </li>-->
+                    <li class="social__icon social__icon--google" >
+                        <a href="javascript:;"  class="btn_social" data-social="google" >
+                            <img th:src="@{/images/google.png}" alt="google" width="20px" height="20px" >
+                        </a>
+                    </li>
+                    <!--                        <li class="social__icon social__icon&#45;&#45;kakao" data-social="kakao">-->
+                    <!--                            <a href="javascript:;"  class="btn_social" data-social="kakao">-->
+                    <!--                                <img th:src="@{/images/kakao.png}" alt="kakao" width="20px" height="20px" >-->
+                    <!--                            </a>-->
+                    <!--                        </li>-->
+                </ul>
+            </header>
+            <p class="coordes"> Make Game duo  /  게임 듀오즈 </p>
+            <div class="ellipse-container">
+                <h2 class="greeting">Game Duos</h2>
+                <div class="ellipse ellipse__inner--thick"></div>
+                <div class="ellipse ellipse__outer--thin">
+                    <div class="ellipse ellipse__orbit"></div>
+                </div>
+                <div class="ellipse ellipse__outer--thick"></div>
+            </div>
+            <ul class="mobile-social-icon">
+                <a href="javascript:;"  class="btn_social" data-social="google" >
+                    <img th:src="@{/images/googleMobileLoginBtn.png}" alt="구글 아이디로 로그인/회원가입 하기" >
+                </a>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="page-back"></div>
+</body>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script>
+    $('.btn_social').click(function () {
+        var socialType = $(this).data('social');
+        location.href="/oauth2/authorization/"+socialType;
+    });
+</script>
+<script>
+    $('body')
+        .toast({
+            displayTime: 5000,
+            title: '로그인에 실패했어요',
+            message: '알 수 없는 오류로 로그인에 실패하였어요.',
+            showProgress: 'bottom',
+            classProgress: 'red'
+        })
+    ;
+</script>
+</html>

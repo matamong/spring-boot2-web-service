@@ -36,7 +36,7 @@
 }
 
 .boardContainer{
-    width: 60%;
+    width: 80%;
 }
 
 #mainHide{
@@ -92,7 +92,7 @@ button{
     border-left: 1px solid #dddfe4;
 }
 .article-meta-left{
-    width: 300px;
+    width: 400px;
     height: 20px;
     text-align: left;
     display: flex;
@@ -177,6 +177,10 @@ button{
 
     .right-banner-wrapper{
         display: none;
+    }
+
+    .article-meta{
+        font-size: x-small;
     }
 
 }

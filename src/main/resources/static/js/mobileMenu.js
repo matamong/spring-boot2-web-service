@@ -1,13 +1,29 @@
 var giMenuDuration = 700;
 
-// 전체 메뉴를 오른쪽으로 슬라이드하여서 보여준다.
-function showMenu(){
-    $('.sidebarMenu' ).css( { 'display' : 'block' } );
-    $('.sidebarMenu' ).css( { 'left' : '-100%' } );
-    $('.sidebarMenu' ).animate( { left: '0px' }, { duration: giMenuDuration } );
-}
+(function(){
+    'use strict';
 
-// 전체 메뉴를 왼쪽으로 슬라이드하여서 닫는다.
-function hideMenu(){
-    $('.sidebarMenu' ).animate( { left: '-100%' }, { duration: giMenuDuration, complete:function(){ $('.menu_bg' ).css( { 'display' : 'none' } ); } } );
-}
+    class Menu {
+        constructor(settings) {
+            this.menuNode = settings.menuNode;
+        }
+
+        toggleMenuState(className) {
+            if (typeof className !== 'string' || className.length === 0) {
+                return console.log('you did not give the class for toggleState function');
+            }
+            return  this.menuNode.classList.toggle(className);
+        }
+    }
+
+    const jsMenuNode = document.querySelector('.mobile-menu');
+    const demoMenu = new Menu ({
+        menuNode: jsMenuNode
+    });
+
+    function callMenuToggle(event) {
+        demoMenu.toggleMenuState('menu_activated');
+    }
+
+    jsMenuNode.querySelector('.menu__hamburger').addEventListener('click', callMenuToggle);
+})();

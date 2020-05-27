@@ -25,6 +25,7 @@ public class MyPageController {
     @GetMapping({"", "/"})
     public String myPage(Model model, @SocialUser User user) {
         model.addAttribute("userInfo", userService.getUser(user.getId()));
+
         return "myPage/myPage";
     }
 

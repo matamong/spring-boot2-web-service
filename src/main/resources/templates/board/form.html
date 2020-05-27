@@ -7,6 +7,7 @@
     maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
     <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+    <script src="https://kit.fontawesome.com/d22a341da8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/base.css}" />
     <link rel="stylesheet" th:href="@{/css/board/semanticBoardForm.css}" />
     <link rel="stylesheet" th:href="@{/css/semantic.min.css}" />
@@ -41,7 +42,7 @@
                 <div class="ui raised segment">
                     <div class="form-container">
                         <form class="ui form">
-                            <h2 class="ui dividing header">글 작성</h2>
+                            <h2 class="ui dividing header" id="focusTop">글 작성</h2>
                             <div class="two fields">
                                 <div class="field">
                                     <label>카테고리</label>
@@ -54,6 +55,16 @@
                                 <label>제목</label>
                                 <div class="field">
                                     <input type="text" id="board_title" placeholder="제목을 입력해주세요.">
+                                    <div class="ui negative message" id="titleNegative">
+                                        <i class="close icon"></i>
+                                        <div class="header">
+                                            제목을 확인해주세요!
+                                        </div>
+                                        <ul class="list">
+                                            <li>제목에 공백을 넣을 수 없어요.</li>
+                                            <li>제목은 최대 30자 입니다.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <div class="field">
@@ -66,9 +77,18 @@
                                     </div>
                                 </div>
                             </div>
+<!--                            <div class="ui negative message" id="contentNegative">-->
+<!--                                <i class="close icon"></i>-->
+<!--                                <div class="header">-->
+<!--                                    내용을 확인해주세요!-->
+<!--                                </div>-->
+<!--                                <ul class="list">-->
+<!--                                    <li>내용에 공백을 넣을 수 없어요.</li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
                             <div class="policy-box">
                                 <div class="policy-content">
-                                    <div class="ui info message">
+                                    <div class="ui info message" id="policy">
                                         <div class="header">
                                             작성하기 전에 확인해주세요!
                                         </div>
@@ -82,14 +102,14 @@
                                 </div>
                                 <div class="policy-checkbox">
                                     <div class="ui checkbox">
-                                        <input type="checkbox" id="policyCheckbox">
+                                        <input type="checkbox" id="policyCheckbox" name="policy">
                                         <label>확인했습니다.</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="finish-button-container">
                                 <div class="ui button" tabindex="0" id="insert">등록</div>
-                                <div class="ui button" tabindex="0" id="cancel">취소</div>
+                                <div class="ui button" tabindex="0" id="cancel" onclick="history.back();">취소</div>
                             </div>
                         </form>
                     </div>
@@ -107,6 +127,7 @@
 <script th:src="@{/js/jquery.min.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
 <script th:src="@{/js/basic.js}"></script>
+<script th:src="@{/js/validation.js}"></script>
 <script>
     $('.ui.dropdown')
         .dropdown();
@@ -120,28 +141,51 @@
         .catch( error => {
             console.error( error );
         } );
-</script>
-<script>
+
+
+    $(document).ready(function () {
+        $('.negative').hide();
+    });
+    $(".close.icon").click(function () {
+        $(this).parent().hide();
+    });
+
 
     $('#insert').click(function () {
-        var jsonData = JSON.stringify({
-            title: $('#board_title').val(),
-            content: myEditor.getData(),
-            boardType: $('#board_type option:selected').val()
-        });
-        $.ajax({
-            url: "http://localhost:8080/api/boards",
-            type: "POST",
-            data: jsonData,
-            contentType: "application/json",
-            dataType: "json",
-            success: function () {
-                alert('저장 성공!');
-                location.href = '/board/list';
-            },
-            error: function () {
-                alert('저장 실패!');
-            }
-        });
+        var title = $('#board_title').val();
+        var inputValue = $('input[name="policy"]:checked').val();
+
+        if (checkIsNotEmpty(title) === false) {
+            $("#titleNegative").fadeIn(2000);
+            document.getElementById("focusTop").scrollIntoView();
+            $('#title').focus();
+        } else if(checkLength(title, 50) === false){
+            $("#titleNegative").fadeIn(2000);
+            document.getElementById("focusTop").scrollIntoView();
+            $('#title').focus();
+        } else if(findUncheckedInput(inputValue) === false){
+            $('#policy').attr('class','ui red message');
+            document.getElementById("focusTop").scrollIntoView();
+        } else{
+            var jsonData = JSON.stringify({
+                title: $('#board_title').val(),
+                content: myEditor.getData(),
+                boardType: $('#board_type option:selected').val()
+            });
+            $.ajax({
+                url: "http://localhost:8080/api/boards",
+                type: "POST",
+                data: jsonData,
+                contentType: "application/json",
+                dataType: "json",
+                success: function () {
+                    location.href = '/board/list';
+                },
+                error: function () {
+                    alert('무엇인가 잘못되었네요!');
+                }
+            });
+
+        }
     });
 </script>

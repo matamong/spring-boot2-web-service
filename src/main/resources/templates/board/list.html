@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,
     maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+    <script src="https://kit.fontawesome.com/d22a341da8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/base.css}" />
     <link rel="stylesheet" th:href="@{/css/board/boardList.css}" />
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
@@ -28,28 +29,28 @@
         <div class="intro"></div>
     </section>
     <section class="sec2">
-        <div class="left-banner-wrapper">
-            <div class="left-banner"></div>
-        </div>
+<!--        <div class="left-banner-wrapper">-->
+<!--            <div class="left-banner"></div>-->
+<!--        </div>-->
         <div class="boardContainer">
             <div id="mainHide">
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th class="col-md-1">글 번호</th>
-                        <th class="col-md-2">카테고리</th>
-                        <th class="col-md-5">제목</th>
-                        <th class="col-md-2">조회수</th>
-                        <th class="col-md-2">작성 날짜</th>
+                        <th id="boardNumberTh" class="col-md-1">글 번호</th>
+                        <th id="boardCategoryTh" class="col-md-2">카테고리</th>
+                        <th id="boardTitleTh"class="col-md-5">제목</th>
+                        <th id="boardViewTh" class="col-md-2">조회수</th>
+                        <th id="boardDateTh" class="col-md-2">작성 날짜</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="board : ${boardList}">
                         <td th:text="${board.idx}"></td>
                         <td th:text="${board.boardType.value}"></td>
-                        <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
+                        <td><a class="boardTitle" th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
                         <td th:text="${board.viewCnt}"></td>
-                        <td th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"></td>
+                        <td class="boardDate" th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -58,7 +59,8 @@
                 <a href="/board/form" class="btn btn-primary btn-block">글 쓰기</a>
             </div>
             <!-- Pagination -->
-            <nav aria-label="Page navigation" style="text-align:center;">
+            <div>
+            <nav aria-label="Page navigation" style="text-align:center; margin-top: 8rem;">
                 <ul class="pagination" th:with="startNumber=${T(Math).floor(boardList.number/10)}*10+1, endNumber=(${boardList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${boardList.totalPages}">
                     <li><a aria-label="Previous" href="/board/list?page=1">&laquo;</a></li>
                     <li th:style="${boardList.first} ? 'display:none'">
@@ -75,6 +77,7 @@
                     <li><a aria-label="Next" th:href="@{/board/list(page=${boardList.totalPages})}">&raquo;</a></li>
                 </ul>
             </nav>
+            </div>
             <!-- /Pagination -->
         </div>
         <div class="right-banner-wrapper">
@@ -83,10 +86,33 @@
     </section>
     </section>
 </div>
-<div th:replace="layout/footer::footer"></div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
 <script th:src="@{/js/mobileMenu.js}"></script>
 <script th:src="@{/js/basic.js}"></script>
+<script>
+    function textLengthOverCut(txt, len, lastTxt) {
+    if (len == "" || len == null) { // 기본값
+    len = 20;
+    }
+    if (lastTxt == "" || lastTxt == null) { // 기본값
+    lastTxt = "…";
+    }
+    if (txt.length > len) {
+    txt = txt.substr(0, len) + lastTxt;
+    }
+    return txt;
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        // Handler when the DOM is fully loaded
+        var boardTitleArr = document.getElementsByClassName('boardTitle');
+        for(i=0; i<boardTitleArr.length; i++) {
+            var changedTxt = textLengthOverCut(boardTitleArr[i].innerHTML);
+            boardTitleArr[i].innerHTML = changedTxt;
+        }
+    });
+</script>
 </html>

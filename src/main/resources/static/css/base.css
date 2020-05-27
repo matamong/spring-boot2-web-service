@@ -548,7 +548,7 @@ DEMO
 
     .menu__group{
         --rLinkTextColor: var(--colorWhite);
-        padding: .8rem 3rem;
+        padding: .9rem 3rem;
         font-size: 3.2rem;
         font-weight: 700;
         text-transform: uppercase;

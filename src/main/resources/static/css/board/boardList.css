@@ -63,6 +63,13 @@ button{
         display: none;
     }
 
+    #boardDateTh{
+        display: none;
+    }
+    .boardDate{
+        display: none;
+    }
+
     .boardContainer{
         width: 90%;
         height: 40rem;

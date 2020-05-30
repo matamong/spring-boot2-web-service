@@ -19,8 +19,11 @@
                 </div>
                 <div class="user">
                     <i class="fas fas fa-user"></i>
-                        <a href="/myPage" th:text="${session.user.nickName}"></a>
-                </div>
+                        <a href="/myPage" th:text="${session.user.nickName}">
+                        </a>
+                    <form action="#" th:action="@{/logout}" method="post">
+                        <input class="ui button" type="submit" value="Logout" />
+                    </form>
             </section>
         </div>
         <!-- mobile -->
@@ -43,7 +46,9 @@
                         <a href="/myPage" class="r-link menu__link">마이페이지</a>
                     </li>
                     <li class="menu__group">
-                        <a href="/logout" class="r-link menu__link">로그아웃</a>
+                        <form action="#" th:action="@{/logout}" method="post">
+                            <input class="ui button r-link menu__link" type="submit" value="Logout" />
+                        </form>
                     </li>
                 </ul>
             </nav>

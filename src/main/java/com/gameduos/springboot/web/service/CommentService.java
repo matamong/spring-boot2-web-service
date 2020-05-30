@@ -59,16 +59,19 @@ public class CommentService {
         List<Comment> commentsList = commentRepository.findAllByBoardOrderByIdDesc(board);
 
         List<CommentInfoDto> commentInfoList = new ArrayList<>();
+
         for(int i =0; i < commentsList.size(); i++){
             CommentInfoDto commentInfoDto = new CommentInfoDto();
 
             Comment comment = commentsList.get(i);
-            Long commentUserId = commentsList.get(i).getId();
+            Long commentUserId = commentsList.get(i).getUser().getId();
             String commentUserNickname = commentsList.get(i).getUser().getNickName();
+            int deleted = commentsList.get(i).getDeleted();
 
             commentInfoDto.setComment(comment);
             commentInfoDto.setCommentUserId(commentUserId);
             commentInfoDto.setCommentUserNickname(commentUserNickname);
+            commentInfoDto.setDeleted(deleted);
 
             commentInfoList.add(commentInfoDto);
         }

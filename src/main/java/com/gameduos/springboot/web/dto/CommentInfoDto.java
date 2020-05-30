@@ -12,6 +12,7 @@ public class CommentInfoDto {
     private String commentUserNickname;
     private Long commentUserId;
     private User commentUser;
+    private int deleted;
 
     public void setComment(Comment comment){
         this.comment = comment;
@@ -28,4 +29,6 @@ public class CommentInfoDto {
     public void setCommentUser(User user){
         this.commentUser = user;
     }
+
+    public void setDeleted(int deleted){ this.deleted = deleted;}
 }

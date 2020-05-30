@@ -81,14 +81,14 @@
                         </div>
                         <div class="article-vote-box">
                             <div class="vote">
-                                <div class="ui labeled button" tabindex="0">
-                                    <div class="ui button" id="like">
-                                        <i class="heart icon"></i> <span>좋아요</span>
-                                    </div>
-                                    <a class="ui basic label">
-                                        <span th:text="${board.getLikesCnt()}"></span>
-                                    </a>
-                                </div>
+<!--                                <div class="ui labeled button" tabindex="0">-->
+<!--                                    <div class="ui button" id="like">-->
+<!--                                        <i class="heart icon"></i> <span>좋아요</span>-->
+<!--                                    </div>-->
+<!--                                    <a class="ui basic label">-->
+<!--                                        <span th:text="${board.getLikesCnt()}"></span>-->
+<!--                                    </a>-->
+<!--                                </div>-->
                             </div>
                         </div>
                         <div class="article-footer">
@@ -141,9 +141,9 @@
                                     <div class="actions">
 <!--                                        <a th:if="${commentInfo.getComment().getDeleted() == 0}" class="reply">답글 달기</a>-->
 <!--                                        <a th:if="${commentInfo.getComment().getDeleted() == 0}" class="comment-report">신고하기</a>-->
-                                        <a th:if="${commentInfo.getCommentUserId()} == ${session.user.id} and ${commentInfo.getComment().getDeleted() == 0}"
+                                        <a th:if="${commentInfo.getCommentUserId()} == ${session.user.id} and ${commentInfo.getDeleted() == 0}"
                                            class="edit">수정</a>
-                                        <a th:if="${commentInfo.getCommentUserId()} == ${session.user.id} and ${commentInfo.getComment().getDeleted() == 0}"
+                                        <a th:if="${commentInfo.getCommentUserId()} == ${session.user.id} and ${commentInfo.getDeleted() == 0}"
                                            class="delete">삭제</a>
                                     </div>
                                 </div>

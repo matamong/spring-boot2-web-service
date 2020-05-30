@@ -65,7 +65,7 @@
             userId : $('#userId').text()
         });
         $.ajax({
-            url: "http://localhost:8080/admin/api/user/point",
+            url: url + "admin/api/user/point",
             type: "PUT",
             data: jsonData,
             contentType: "application/json",

@@ -68,9 +68,7 @@ a:active { color: #595959; }
     font-size: medium;
     font-family: 'Nanum Barun Gothic', sans-serif;
 }
-.user{
-    margin-top: -1rem;
-}
+
 /* underline reveal */
 .hvr-underline-reveal {
     display: inline-block;
@@ -108,8 +106,8 @@ a:active { color: #595959; }
 .user{
     width: 8%;
     height: 50px;
-    margin: auto;
     cursor: pointer;
+    margin-top: -1rem;
 }
 
 /**footer**/

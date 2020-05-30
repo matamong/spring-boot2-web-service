@@ -78,21 +78,8 @@
 <script th:src="@{/js/myPage/myPageBase.js}"></script>
 <script th:src="@{/js/basic.js}"></script>
 <script th:src="@{/js/mobileMenu.js}"></script>
+<script th:src="@{/js/myPage/userWithdrawal.js}"></script>
 </html>
 <script>
     activeMenu('userWithdrawalMenu');
-</script>
-<script>
-    $('#delete').on('click', function () {
-        $.ajax({
-            url: "http://localhost:8080/api/user",
-            type: "DELETE",
-            success: function () {
-                location.href="/index";
-            },
-            error: function () {
-                alert('삭제 실패!' + 'status >> ' + status);
-            }
-        });
-    });
 </script>

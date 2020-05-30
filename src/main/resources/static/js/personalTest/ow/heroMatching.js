@@ -1,3 +1,8 @@
+var protocol = location.protocol;
+var host = location.host;
+var url = protocol + "//" + host+'/';
+
+
 $('.label').on('click', function () {
     $(this).prev().prop("checked", true);
     var nextQuestion = $(this).parent().parent().parent().parent().parent().next().next().next().next(); //item
@@ -54,7 +59,7 @@ $('#find').on('click', function () {
         var heroName = encodeURI(matchedHero[0]);
         var x = matchedHero[1];
         var y = matchedHero[2];
-        location.href = "http://localhost:8080/personalTest/ow/heroMatching/result?heroName=" + heroName + "&x=" + x + "&y=" + y;
+        location.href = url + "personalTest/ow/heroMatching/result?heroName=" + heroName + "&x=" + x + "&y=" + y;
     }
 
 });

@@ -12,6 +12,14 @@ function checkIsNotEmpty(content) {
     }
 }
 
+function checkIsNotEmptyWithoutSpace(content){
+    if (content === null || content === "") {
+        return false;
+    }else{
+        return true;
+    }
+}
+
 function checkLength(content, lengthUwant) {
     var contentLength = 0;
     var engCheck = /[a-z]/;

@@ -56,19 +56,22 @@ public class CommentService {
         Board board = boardRepository.findById(boardIdx)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호 =" + boardIdx));
 
-        List<Comment> commentsList = commentRepository.findAllByBoardOrderByIdDesc(board);
+        List<Comment> commentsList = commentRepository.findAllByBoardOrderByIdAsc(board);
 
         List<CommentInfoDto> commentInfoList = new ArrayList<>();
+
         for(int i =0; i < commentsList.size(); i++){
             CommentInfoDto commentInfoDto = new CommentInfoDto();
 
             Comment comment = commentsList.get(i);
-            Long commentUserId = commentsList.get(i).getId();
+            Long commentUserId = commentsList.get(i).getUser().getId();
             String commentUserNickname = commentsList.get(i).getUser().getNickName();
+            int deleted = commentsList.get(i).getDeleted();
 
             commentInfoDto.setComment(comment);
             commentInfoDto.setCommentUserId(commentUserId);
             commentInfoDto.setCommentUserNickname(commentUserNickname);
+            commentInfoDto.setDeleted(deleted);
 
             commentInfoList.add(commentInfoDto);
         }

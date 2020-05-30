@@ -36,7 +36,7 @@ public class LoginController {
     @GetMapping("/loginFailure")
     public String failLogin(HttpSession session){
         session.invalidate();
-        return "loginFailure";
+        return "redirect:/";
     }
 
 }

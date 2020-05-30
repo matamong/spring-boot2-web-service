@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     Page<Comment> findAllByBoardOrderByIdDesc(Board board, Pageable pageable);
-    List<Comment> findAllByBoardOrderByIdDesc(Board board);
+    List<Comment> findAllByBoardOrderByIdAsc(Board board);
     List<User> findUserByBoardOrderByIdDesc(Board board);
 }

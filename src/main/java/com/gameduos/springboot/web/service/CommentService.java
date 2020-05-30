@@ -56,7 +56,7 @@ public class CommentService {
         Board board = boardRepository.findById(boardIdx)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시판이 존재하지 않습니다. 게시판 번호 =" + boardIdx));
 
-        List<Comment> commentsList = commentRepository.findAllByBoardOrderByIdDesc(board);
+        List<Comment> commentsList = commentRepository.findAllByBoardOrderByIdAsc(board);
 
         List<CommentInfoDto> commentInfoList = new ArrayList<>();
 

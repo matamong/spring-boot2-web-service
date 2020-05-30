@@ -61,22 +61,8 @@
 <script th:src="@{/js/myPage/myPageBase.js}"></script>
 <script th:src="@{/js/mobileMenu.js}"></script>
 <script th:src="@{/js/basic.js}"></script>
+<script th:src="@{/js/myPage/makeReferralCode.js}"></script>
 </html>
 <script>
     activeMenu('referralCodeMenu');
-</script>
-<script>
-    $('#insert').click(function () {
-        $.ajax({
-            url: "http://localhost:8080/api/referralCode",
-            type: "POST",
-            success: function () {
-                alert('생성 성공!');
-                location.href = '/myPage/referralCode';
-            },
-            error: function () {
-                alert('생성 실패!');
-            }
-        });
-    });
 </script>

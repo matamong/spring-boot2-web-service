@@ -5,3 +5,7 @@ $(function() {
         xhr.setRequestHeader(header, token);
     });
 });
+
+const protocol = location.protocol;
+const host = location.host;
+const url = protocol + "//" + host+'/';

@@ -64,24 +64,31 @@ function createCommentEditForm(content) {
         var textareaContent = $(this).parent().find('textarea').val();
         var commentId = $(this).parent().parent().prev().prev().find('.comment_id').val();
 
-        var jsonData = JSON.stringify({
-            commentId: commentId,
-            content: textareaContent,
-            boardIdx: $('#board_idx').val()
-        });
-        $.ajax({
-            url: url + "api/comments/" + commentId,
-            type: "PUT",
-            data: jsonData,
-            contentType: "application/json",
-            dataType: "json",
-            success: function (data, status) {
-                location.reload();
-            },
-            error: function (status) {
-                alert("댓글 작성에 실패하였습니다.")
-            }
-        });
+        if(checkIsNotEmptyWithoutSpace(textareaContent) === false){
+            alert("내용을 입력해주세요!");
+        }else if(checkLength(textareaContent, 300) === false){
+            alert("글자 수는 300자를 넘으면 안됩니다.")
+        } else{
+            var jsonData = JSON.stringify({
+                commentId: commentId,
+                content: textareaContent,
+                boardIdx: $('#board_idx').val()
+            });
+            $.ajax({
+                url: url + "api/comments/" + commentId,
+                type: "PUT",
+                data: jsonData,
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data, status) {
+                    location.reload();
+                },
+                error: function (status) {
+                    alert("댓글 작성에 실패하였습니다.")
+                }
+            });
+        }
+
     }
 
     fieldDiv.appendChild(textarea);
@@ -116,27 +123,33 @@ $('.delete').on('click', function () {
         .modal('show');
 });
 
-$('#like').click(function () {
-    var jsonData = JSON.stringify({
-        boardIdx: $('#board_idx').text()
-    });
-    $.ajax({
-        url: url + "api/likes/board",
-        type: "POST",
-        data: jsonData,
-        contentType: "application/json",
-        dataType: "json",
-        success: function () {
-            alert('추천 성공!');
-            location.reload();
-        },
-        error: function () {
-            location.reload();
-        }
-    });
-});
+// $('#like').click(function () {
+//     var jsonData = JSON.stringify({
+//         boardIdx: $('#board_idx').text()
+//     });
+//     $.ajax({
+//         url: url + "api/likes/board",
+//         type: "POST",
+//         data: jsonData,
+//         contentType: "application/json",
+//         dataType: "json",
+//         success: function () {
+//             alert('추천 성공!');
+//             location.reload();
+//         },
+//         error: function () {
+//             location.reload();
+//         }
+//     });
+// });
 
 $('#comment_insert').click(function () {
+
+    if(checkIsNotEmptyWithoutSpace($('#comment_content').val()) === false){
+        alert("내용을 입력해주세요!");
+    }else if(checkLength($('#comment_content').val(), 300) === false){
+        alert("글자 수는 300자를 넘으면 안됩니다.")
+    }else{
     var jsonData = JSON.stringify({
         content: $('#comment_content').val(),
         boardIdx: $('#board_idx').text()
@@ -154,4 +167,5 @@ $('#comment_insert').click(function () {
             alert("댓글 저장에 실패하였습니다.")
         }
     });
+    }
 });

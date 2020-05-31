@@ -33,7 +33,7 @@ public class UserRestController {
         return userService.checkNicknameDuplication(nickname);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUser(@SocialUser User user){
         return userService.delete(user);
     }

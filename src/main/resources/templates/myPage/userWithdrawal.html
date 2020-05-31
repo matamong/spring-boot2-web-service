@@ -37,27 +37,19 @@
                                 삭제
                             </button>
                         </form>
+                        <form action="#" id="logout" th:action="@{/logout}" method="post">
+                            <input class="ui fluid button" type="submit" value="Logout" />
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
-<!-- modal -->
-<div class="ui mini modal">
-    <div class="header">
-        회원 탈퇴
-    </div>
-    <div class="content">
-        <p>탈퇴하시겠습니까?</p>
-    </div>
-    <div class="actions">
-        <div class="ui cancel button">취소</div>
-        <div class="negative ui approve button">삭제</div>
-    </div>
-</div>
+
+
 <div th:replace="layout/footer::footer"></div>
-</body>
+
 <script th:src="@{/js/myPage/myPageBase.js}"></script>
 <script th:src="@{/js/basic.js}"></script>
 <script th:src="@{/js/mobileMenu.js}"></script>
@@ -65,4 +57,5 @@
 <script>
     activeMenu('userWithdrawalMenu');
 </script>
+</body>
 </html>

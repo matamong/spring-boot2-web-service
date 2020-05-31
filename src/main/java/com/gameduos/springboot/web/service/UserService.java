@@ -125,8 +125,8 @@ public class UserService {
         User entity = userRepository.findById(user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 Id가 존재하지 않습니다. Id = " + user.getId()));
 
-        userRepository.deleteById(entity.getId());
         pointService.deleteAllUserPoint(entity);
+        userRepository.deleteById(entity.getId());
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
 

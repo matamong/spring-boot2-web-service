@@ -24,20 +24,20 @@
     <meta property="og:url" content="https://GameDuos.com">
 </head>
 <body>
-<header th:replace="layout/header::header"></header>
+<header th:replace="layout/errorHeader::errorHeader"></header>
 <!--body-->
 <section class="sec1">
-    <div class="this-banner" style="background-color:white;background-image: url('https://http.cat/403.jpg'); background-repeat: no-repeat; background-position: center;">
+    <div class="this-banner" style="background-color:white;background-image: url('https://http.cat/506.jpg'); background-repeat: no-repeat; background-position: center;">
     </div>
     <div class="error-article">
-        <h2>접근 권한이 없어요!</h2>
-        <h4>해당 페이지는 특정한 사람들만 이용할 수 있어요.</h4>
-        <button class="fluid ui teal button"><a href="/myPage/certification">인증하러 가기</a></button>
+        <h2>이런, 무엇인가 잘못되었네요.</h2>
+        <h4>알 수 없는 오류가 나타났어요!</h4>
+        <h4>괜찮으시다면 무엇을 하시려고 했는지 개발자에게 알려주실 수 있을까요?</h4>
+        <h4>gameduosdev@gamil.com</h4>
         <div class="ui hidden divider"></div>
         <button class="fluid ui button" onclick="history.go(-1);">이전페이지로</button>
     </div>
 </section>
->
 <!--/body-->
 <div th:replace="layout/footer::footer"></div>
 </body>

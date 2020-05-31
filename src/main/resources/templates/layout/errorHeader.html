@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
     <!--header-->
-    <header th:fragment="header">
+    <header th:fragment="errorHeader">
         <div class="topHeaderContainer">
             <section class="megaphoneContainer">
                 <i class="fas fa-bullhorn"></i>
@@ -19,8 +19,6 @@
                 </div>
                 <div class="user">
                     <i class="fas fas fa-user"></i>
-                        <a href="/myPage" th:text="${session.user.nickName}">
-                        </a>
                     <form action="#" th:action="@{/logout}" method="post">
                         <input class="ui button" type="submit" value="Logout" />
                     </form>

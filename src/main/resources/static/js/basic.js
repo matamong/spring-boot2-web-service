@@ -10,6 +10,7 @@ $(function() {
 
 const protocol = location.protocol;
 const host = location.host;
+
 const url = protocol + "//" + host+'/';
 
 
@@ -23,3 +24,4 @@ function changeMeta() {
 }
 
 changeMeta();
+

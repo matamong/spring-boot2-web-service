@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:replace="layout/basicHeadSemanticUI :: basicHeadSemanticUI"></div>
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
+    <link rel="stylesheet" th:href="@{/css/error.css}" />
+    <title>오류 - Game Duos</title>
+</head>
+<body>
+<header th:replace="layout/errorHeader::errorHeader"></header>
+<!--body-->
+<section class="sec1">
+    <div class="this-banner" style="background-color:white;background-image: url('https://http.cat/506.jpg'); background-repeat: no-repeat; background-position: center;">
+    </div>
+    <div class="error-article">
+        <h2>이런, 무엇인가 잘못되었네요.</h2>
+        <h4>알 수 없는 오류가 나타났어요!</h4>
+        <h4>괜찮으시다면 무엇을 하시려고 했는지 개발자에게 알려주실 수 있을까요?</h4>
+        <h4>gameduosdev@gamil.com</h4>
+        <div class="ui hidden divider"></div>
+        <button class="fluid ui button" onclick="history.go(-1);">이전페이지로</button>
+    </div>
+</section>
+<!--/body-->
+<div th:replace="layout/footer::footer"></div>
+</body>
+<script th:src="@{/js/mobileMenu.js}"></script>
+<script th:src="@{/js/basic.js}"></script>
+</html>

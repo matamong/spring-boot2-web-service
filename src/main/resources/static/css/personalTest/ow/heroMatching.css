@@ -2,7 +2,9 @@
     margin: 0;
     padding: 0;
 }
-
+.ui {
+    word-break: keep-all !important;
+}
 .navbar{
     width: 100%;
     height: 15rem;

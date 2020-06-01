@@ -24,7 +24,7 @@ function changeOgMeta(heroArr) {
     var heroKorName = heroArr[3];
 
     var title = '나는 ' + heroKorName + '와(과) 잘 어울려요.'
-    var imgSrc = 'https://raw.githubusercontent.com/gameduosdev/gameduosdev.github.io/master/' + heroEngName + '.png';
+    var imgSrc = 'https://raw.githubusercontent.com/gameduosdev/gameduosdev.github.io/master/images/PsersonalTest/ow/heros/' + heroEngName + '.PNG';
     var url = $(location).attr('href');
 
     // 페이스북 관련 메타태그

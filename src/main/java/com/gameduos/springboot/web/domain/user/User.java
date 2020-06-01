@@ -22,7 +22,7 @@ public class User implements Serializable {
     @Column
     private String nickName;
 
-    @Column(unique = true)
+    @Column
     private String email;
 
     @Column
@@ -39,8 +39,6 @@ public class User implements Serializable {
     @Column
     private String principal;
 
-    @Column
-    private String recommended;
 
     @Column
     private LocalDateTime createdDate;
@@ -48,8 +46,11 @@ public class User implements Serializable {
     @Column
     private LocalDateTime updatedDate;
 
+    @Column(columnDefinition = "int default 0")
+    private int deleted;
+
     @Builder
-    public User(Long id, String nickName, String email, String picture, Role role, String recommended,
+    public User(Long id, String nickName, String email, String picture, Role role,
                 String principal, SocialType socialType, LocalDateTime createdDate, LocalDateTime updatedDate){
         this.id = id;
         this.nickName = nickName;
@@ -58,7 +59,6 @@ public class User implements Serializable {
         this.role = role;
         this.principal = principal;
         this.socialType = socialType;
-        this.recommended = recommended;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
@@ -75,5 +75,11 @@ public class User implements Serializable {
         this.nickName = user.getNickName();
         this.picture = user.getPicture();
         this.updatedDate = user.getUpdatedDate();
+    }
+
+    public void delete(){
+        this.deleted = 1;
+        this.email = this.email + "(deleted)";
+        this.nickName = null;
     }
 }

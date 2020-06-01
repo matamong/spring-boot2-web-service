@@ -36,7 +36,7 @@
             <h3 class="ui center aligned header" id="typeXY">
             </h3>
             <h1 class="ui center aligned header" id="heroName"></h1>
-            <img src="https://d1u1mce87gyfbn.cloudfront.net/hero/zenyatta/hero-select-portrait.png"
+            <img src=""
                  id="heroImg"/>
         </div>
         <div class="ui hidden divider"></div>
@@ -78,97 +78,16 @@
         </div>
     </div>
 </div>
-<div class="ui hidden divider"></div>
-<div class="ui hidden divider"></div>
-<div class="ui hidden divider"></div>
-<div class="ui inverted vertical footer segment">
-    <div class="ui center aligned container">
-        <div class="ui stackable inverted divided grid">
-            <div class="four wide column">
-                <h4 class="ui inverted header">Contact Us</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">
-                        <button class="ui circular twitter icon button">
-                            <i class="twitter icon"></i>
-                        </button>
-                        Game Duos Twitter</a>
-                </div>
-            </div>
-            <div class="ten wide column">
-                <h4 class="ui inverted header">Game Duos</h4>
-                <p>게임 듀오즈에서 제공하는 심리테스트입니다.</p>
-                <p>버그 제보 및 피드백 언제나 환영입니다.</p>
-            </div>
-        </div>
-        <div class="ui inverted section divider"></div>
-        <img src="#" class="ui centered mini image">
-        <div class="ui horizontal inverted small divided link list">
-            <span class="item">gameduosdev@gmail.com</span>
-            <a class="item" href="#">Terms and Conditions</a>
-            <a class="item" href="#">Privacy Policy</a>
-        </div>
-    </div>
-</div>
+<div th:replace="layout/heroMatchingFooter::heroMatchingFooter"></div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 <!--<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>-->
 <script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/basic.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
 <script th:src="@{/js/personalTest/ow/heroArray.js}"></script>
-<script>
-    //이미지주소만 어떻게 하자
-
-
-    // 화면에 쓰는 js
-    var heroEngName = $('#hero').val();
-    var x = $('x').val();
-    var y = $('y').val();
-
-    var heroArr = findHeroArray(heroEngName)
-
-    changeOgMeta(heroArr);
-    writeArticle(heroArr);
-
-    function findHeroArray(heroEngName) {
-        for (i in HEROS) {
-            if (HEROS[i][0] === heroEngName) {
-                return HEROS[i];
-            }
-        }
-    }
-
-    function changeOgMeta(heroArr) {
-        var heroEngName = heroArr[0];
-        var heroKorName = heroArr[3];
-
-        var title = '나는 ' + heroKorName + '와(과) 잘 어울려요.'
-        var imgSrc = 'https://raw.githubusercontent.com/gameduosdev/gameduosdev.github.io/master/' + heroEngName + '.png';
-        var url = $(location).attr('href');
-
-        // 페이스북 관련 메타태그
-        $("#ogTitle").attr("content", title);
-        $("#ogImg").attr("content", imgSrc);
-        $("#ogUrl").attr("content", url);
-
-        //hidden input에 주소 쓰기
-        $("#link").val(url);
-        //본문 이미지 바꾸기
-        $("#heroImg").attr("src", imgSrc);
-    }
-
-    function writeArticle(heroArr) {
-        var heroKorName = heroArr[3];
-        var heroQuote = heroArr[4];
-        var heroDescription = heroArr[5];
-
-        $('#heroName').text(heroKorName);
-        $('.heroName').text(heroKorName);
-        $('#blockquote').text(heroQuote);
-        $('#heroDescription').text(heroDescription);
-    }
-
-</script>
+<script th:src="@{/js/personalTest/ow/heroMatchingResult.js}"></script>
 <script>
     //공유 js
     $(document).ready(function () {

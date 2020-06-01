@@ -23,7 +23,7 @@
     <tr th:each="user : ${userList}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.getRole()}"></td>
-        <td th:text="${user.email}"></td>
+        <td><a th:href="'/admin/user?id='+${user.id}" th:text="${user.email}"></a></td>
         <td><a th:href="'/admin/user?id='+${user.id}" th:text="${user.nickName}"></a></td>
         <td th:text="${user.createdDate} ? ${#temporals.format(user.createdDate,'yyyy-MM-dd HH:mm')} : ${user.createdDate}"></td>
     </tr>

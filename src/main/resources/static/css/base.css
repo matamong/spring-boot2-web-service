@@ -4,6 +4,7 @@ body {
 }
 .ui {
     font-family: 'Nanum Barun Gothic' !important;
+    word-break: keep-all !important;
 }
 
 .mobile-menu{

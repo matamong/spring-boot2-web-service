@@ -72,47 +72,47 @@ const SOLDIER76 = ['SOLDIER76', 12, 2, '솔저 76', '이 시간부로 우린 모
     '타고난 군인인 그는 원칙을 고수하는 보수적인 모습을 보이며 개인으로 활동하면서도 자신의 바운더리 안에 들어온 사람들에게는 애정을 아끼지 않는 사람이네요.\n' +
     '이런 점이 당신과 닮았을지도 모르겠어요!\n'];
 
-const MCREE = ['MCREE', 12, 12, '맥크리'];
+const MCREE = ['MCREE', 12, 12, '맥크리', '정의는 저절로 실현되지 않아.'];
 
-const SOMBRA = ['SOMBRA', 12, 4, '솜브라'];
+const SOMBRA = ['SOMBRA', 12, 4, '솜브라', '무엇이든... 누구든 해킹할 수 있어.'];
 
-const ZARYA = ['ZARYA', 11, 6, '자리야'];
+const ZARYA = ['ZARYA', 11, 6, '자리야', '함께일 때 우린 강합니다.'];
 
-const MEI = ['MEI', 10, 20, '메이'];
+const MEI = ['MEI', 10, 20, '메이', '우리 세계는 지킬 가치가 있어요!"'];
 
-const WREKINGBALL = ['WREKINGBALL', 10, 4, '레킹볼'];
+const WREKINGBALL = ['WREKINGBALL', 10, 4, '레킹볼', '햄스터를 화나게 하지 마라.'];
 
-const PHARAH = ['PHARAH', 10, 2, '파라'];
+const PHARAH = ['PHARAH', 10, 2, '파라', '무고한 이들을 지키겠습니다.'];
 
-const TORBJORN = ['TORBJORN', 9, 2, '토르비욘'];
+const TORBJORN = ['TORBJORN', 9, 2, '토르비욘', '일단 만들어. 그리고 부숴.'];
 
-const ASH = ['ASH', 9, 14, '애쉬'];
+const ASH = ['ASH', 9, 14, '애쉬', '내말 듣든가, 꺼지든가.'];
 
-const ANA = ['ANA', 8, 6, '아나'];
+const ANA = ['ANA', 8, 6, '아나', '누구나 삶의 목적을 찾아야 돼.'];
 
-const GENJI = ['GENJI', 8, 16, '겐지'];
+const GENJI = ['GENJI', 8, 16, '겐지', '내 한 몸 버릴지언정, 내 명예는 버리지 않으리.'];
 
-const MERCY = ['MERCY', 7, 8, '메르시'];
+const MERCY = ['MERCY', 7, 8, '메르시', '영웅은 죽지 않아요.'];
 
-const JUNKRAT = ['JUNKRAT', 6, 16, '정크랫'];
+const JUNKRAT = ['JUNKRAT', 6, 16, '정크랫', '깽판 치기 딱 좋은 날씨네!"'];
 
-const WINSTON = ['WINSTON', 6, 14, '윈스턴'];
+const WINSTON = ['WINSTON', 6, 14, '윈스턴', '상상력이야말로 발견의 어머니입니다.'];
 
-const ECHO = ['ECHO', 5, 8, '에코'];
+const ECHO = ['ECHO', 5, 8, '에코', '돌아오니 좋군요.'];
 
-const ORISA = ['ORISA', 5, 6, '오리사'];
+const ORISA = ['ORISA', 5, 6, '오리사', '여러분의 안전이야말로 제 의무입니다.'];
 
-const BRIGITTE = ['BRIGITTE', 4, 18, '브리기테'];
+const BRIGITTE = ['BRIGITTE', 4, 18, '브리기테', '제 능력을 증명하겠어요!"'];
 
-const BAPTISTE = ['BAPTISTE', 3, 14, '바티스트'];
+const BAPTISTE = ['BAPTISTE', 3, 14, '바티스트', '내가 있는 한, 아무도 죽지 않는다."'];
 
-const DVA = ['DVA', 2, 8, '디바'];
+const DVA = ['DVA', 2, 8, '디바', '게임을 하면 이겨야지!'];
 
-const REINHARDT = ['REINHARDT', 1, 18, '라인하르트'];
+const REINHARDT = ['REINHARDT', 1, 18, '라인하르트', '정의의 이름으로.'];
 
-const TRACER = ['TRACER', 0, 16, '트레이서'];
+const TRACER = ['TRACER', 0, 16, '트레이서', '안녕, 친구들! 해결사가 왔어!'];
 
-const LUCIO = ['LUCIO', 0, 20, '루시우'];
+const LUCIO = ['LUCIO', 0, 20, '루시우', '힘내. 우린 할 수 있어!”'];
 
 const HEROS = [];
 

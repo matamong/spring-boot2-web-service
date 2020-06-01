@@ -21,37 +21,40 @@ $('#certificate').click(function () {
 
 function checkNicknameDuplication(nickname) {
     var encodedNickname = encodeURI(nickname);
+    var inputValue = $('input[name="policyCheck"]:checked').val();
+    if(findUncheckedInput(inputValue) === false){
+        $('#policy').attr('class','ui red message');
+    }else{
+        $.ajax({
+            type: 'GET',
+            url: url + "api/user/nicknames/" + encodedNickname,
+            error: function (err) {
+                $("#nicknameDuplicationError").fadeIn(2000);
+                $('#nickname').focus();
+            },
+            success: function () {
+                var encodedNickname = encodeURI(nickname);
 
-    $.ajax({
-        type: 'GET',
-        url: url + "api/user/nicknames/" + encodedNickname,
-        error: function (err) {
-            $("#nicknameDuplicationError").fadeIn(2000);
-            $('#nickname').focus();
-        },
-        success: function () {
-            var encodedNickname = encodeURI(nickname);
-
-            var jsonData = JSON.stringify({
-                nickname: $('#nickname').val()
-            });
-            $.ajax({
-                url: url + "api/referralCode/" + $('#referralCode').val(),
-                type: "PUT",
-                data: jsonData,
-                contentType: "application/json",
-                dataType: "json",
-                success: function () {
-                    alert('축하합니다. 인증에 성공하였습니다!');
-                    location.href = '/myPage';
-                },
-                error: function () {
-                    alert('인증에 실패하였습니다.');
-                }
-            });
-        }
-    });
-
+                var jsonData = JSON.stringify({
+                    nickname: $('#nickname').val()
+                });
+                $.ajax({
+                    url: url + "api/referralCode/" + $('#referralCode').val(),
+                    type: "PUT",
+                    data: jsonData,
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function () {
+                        alert('축하합니다. 인증에 성공하였습니다!');
+                        location.href = '/myPage';
+                    },
+                    error: function () {
+                        alert('인증에 실패하였습니다.');
+                    }
+                });
+            }
+        });
+    }
 }
 function checkNicknameValidation(nickname) {
     var nickLength = 0;
@@ -76,6 +79,14 @@ function checkNicknameValidation(nickname) {
         return false;
     } else if (specialCheck.test(nickname)) {
         //닉네임 특수문자 포함 안됨
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function findUncheckedInput(inputValue) {
+    if (inputValue === undefined) {
         return false;
     }else{
         return true;

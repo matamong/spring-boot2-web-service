@@ -5,6 +5,7 @@
 
 .ui {
     font-family: 'Noto Sans KR' !important;
+    word-break: keep-all !important;
 }
 
 .navbar{

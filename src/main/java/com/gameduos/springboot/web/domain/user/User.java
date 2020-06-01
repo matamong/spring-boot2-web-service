@@ -39,8 +39,6 @@ public class User implements Serializable {
     @Column
     private String principal;
 
-    @Column
-    private String recommended;
 
     @Column
     private LocalDateTime createdDate;
@@ -52,7 +50,7 @@ public class User implements Serializable {
     private int deleted;
 
     @Builder
-    public User(Long id, String nickName, String email, String picture, Role role, String recommended,
+    public User(Long id, String nickName, String email, String picture, Role role,
                 String principal, SocialType socialType, LocalDateTime createdDate, LocalDateTime updatedDate){
         this.id = id;
         this.nickName = nickName;
@@ -61,7 +59,6 @@ public class User implements Serializable {
         this.role = role;
         this.principal = principal;
         this.socialType = socialType;
-        this.recommended = recommended;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }

@@ -127,6 +127,7 @@ public class UserService {
 
         pointService.deleteAllUserPoint(entity);
         entity.delete();
+
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
 

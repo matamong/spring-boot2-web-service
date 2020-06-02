@@ -27,10 +27,10 @@ function changeOgMeta(heroArr) {
     var imgSrc = 'https://raw.githubusercontent.com/gameduosdev/gameduosdev.github.io/master/images/PsersonalTest/ow/heros/' + heroEngName + '.PNG';
     var url = $(location).attr('href');
 
-    // 페이스북 관련 메타태그
-    $("#ogTitle").attr("content", title);
-    $("#ogImg").attr("content", imgSrc);
-    $("#ogUrl").attr("content", url);
+    // // 페이스북 관련 메타태그
+    // $("#ogTitle").attr("content", title);
+    // $("#ogImg").attr("content", imgSrc);
+    // $("#ogUrl").attr("content", url);
 
     //hidden input에 주소 쓰기
     $("#link").val(url);

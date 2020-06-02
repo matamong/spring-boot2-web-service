@@ -8,16 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/personalTest/ow/heroMatchingResult.css}"/>
-    <title>나와 맞는 오버워치 영웅 찾기 - 결과</title>
+    <title th:text="${ogTitle}"></title>
     <meta name="description" content="나와 잘 맞는 오버워치 영웅은 누구일까?">
     <meta property="og:type" content="website">
-    <meta id="ogTitle" property="og:title" content="">
+    <meta id="ogTitle" property="og:title" th:content="${ogTitle}">
     <meta property="og:description" content="Game Duos 심리 테스트">
     <meta id="ogImg" property="og:image"
-          content="">
+          th:content="${ogImg}">
     <meta property="og:image:width" content="400"/>
     <meta property="og:image:height" content="300"/>
-    <meta id="ogUrl" property="og:url" content="">
+    <meta id="ogUrl" property="og:url" th:content="${ogUrl}">
     <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
     <!-- default header name is X-CSRF-TOKEN -->
     <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>

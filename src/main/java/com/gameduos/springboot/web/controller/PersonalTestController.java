@@ -20,7 +20,7 @@ public class PersonalTestController {
     public String getHeroMatchingResult(@RequestParam(value = "heroName", defaultValue = "0")String heroName,
                                         @RequestParam(value="x", defaultValue = "0") int x,
                                         @RequestParam(value = "y", defaultValue = "0") int y, Model model){
-        String ogImg = "https://raw.githubusercontent.com/gameduosdev/gameduosdev.github.io/master/images/PsersonalTest/ow/heros/"
+        String ogImg = "http://raw.githubusercontent.com/gameduosdev/gameduosdev.github.io/master/images/PsersonalTest/ow/heros/"
                 + heroName + ".PNG";
         String ogTitle = "나는 " + heroName + "와(과) 잘 어울려요!";
         String ogUrl = "www.gameduos.net/personalTest/ow/heroMatching/result?heroName="+ heroName +"&x="+ x + "&y=" + y;

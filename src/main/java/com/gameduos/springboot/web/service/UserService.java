@@ -28,7 +28,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PointService pointService;
 
-    private int userUpdatePoint = 50;
+    private int userUpdatePoint = 1000;
 
     @Transactional
     public Page<User> findUserList(Pageable pageable){

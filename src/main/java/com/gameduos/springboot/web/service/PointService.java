@@ -19,8 +19,9 @@ import java.util.List;
 public class PointService {
     private final PointRepository pointRepository;
 
-    private int boardPoint = 100;
-    private int loginPoint = 100;
+    private int boardPoint = 10;
+    private int commentPoint = 1;
+    private int loginPoint = 1;
 
     public ResponseEntity<?> savePoint(User user, int point){
         pointRepository.save(Point.builder()
@@ -37,6 +38,15 @@ public class PointService {
                 .user(user)
                 .point(boardPoint)
                 .pointType(PointType.BOARD_POINT)
+                .pointGiveDate(LocalDateTime.now())
+                .build());
+    }
+
+    public void commentPointSave(User user){
+        pointRepository.save(Point.builder()
+                .user(user)
+                .point(commentPoint)
+                .pointType(PointType.COMMENT_POINT)
                 .pointGiveDate(LocalDateTime.now())
                 .build());
     }

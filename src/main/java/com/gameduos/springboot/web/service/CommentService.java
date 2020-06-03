@@ -13,9 +13,7 @@ import com.gameduos.springboot.web.dto.CommentSaveRequestDto;
 import com.gameduos.springboot.web.dto.CommentUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
@@ -35,6 +33,7 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final BoardRepository boardRepository;
+    private final PointService pointService;
 
     @Transactional
     public ResponseEntity<?> get (@PageableDefault Pageable pageable, Long boardIdx, @SocialUser User user) {
@@ -87,6 +86,7 @@ public class CommentService {
         requestDto.setBoard(board);
 
         requestDto.setUser(requestDto.getUser());
+        pointService.commentPointSave(requestDto.getUser());
         commentRepository.save(requestDto.toEntity());
 
         return new ResponseEntity<>("{}", HttpStatus.CREATED);

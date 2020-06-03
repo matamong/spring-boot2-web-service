@@ -85,3 +85,4 @@
 <br><br>
 - JavaScript / Jquery / Ajax
 - semantic-ui.css 이용
+- 구글 애널리틱스 사용

@@ -215,6 +215,7 @@ const LUCIO = ['LUCIO', 0, 20, '루시우', '힘내. 우린 할 수 있어!”',
 '그로인해 루시우는 긍정적인 사회 운동의 상징으로 추앙받았습니다. \n' +
 '긍정적이고 유쾌한 성격을 가졌으며 다른 사람들의 기운을 챙겨주는 이러한 루시우의 멋진 점이 당신과 닮았을 수도 있겠네요!'];
 
+
 const HEROS = [];
 
 HEROS.push(WIDOWMAKER, ROADHOG, REAPER, SIGMA, MOIRA, SYMMETRA, HANZO, ZENYATTA, BASTION, DOOMFIST, SOLDIER76, MCREE,

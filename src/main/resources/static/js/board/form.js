@@ -25,7 +25,7 @@ $('#insert').click(function () {
     var title = $('#board_title').val();
     var inputValue = $('input[name="policy"]:checked').val();
 
-    if (checkIsNotEmpty(title) === false) {
+    if (checkIsNotEmptyWithoutSpace(title) === false) {
         $("#titleNegative").fadeIn(2000);
         document.getElementById("focusTop").scrollIntoView();
         $('#title').focus();

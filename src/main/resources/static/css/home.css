@@ -9,11 +9,15 @@
 
 .sec1 .banner{
     width: 100%;
-    height: 570px;
-    /*background-image: url("/images/home/emergency.jpg");*/
+    /*height: 570px;*/
+    /*background-image: url("/images/home/bigBanner.PNG");*/
     background-repeat: no-repeat;
     background-size: 100% 570px;
-    background-color: teal;
+    /*background-color: teal;*/
+}
+
+.mobile-banner{
+    display: none;
 }
 
 .sec2{
@@ -55,14 +59,23 @@
     .sec1{
         margin-top: 0;
     }
-    .sec1 .banner{
-        width: 100%;
-        height: 570px;
-        /*background-image: url('emergency.jpg');*/
-        background-repeat: no-repeat;
-        background-size: auto;
-        background-color: teal;
+    /*.sec1 .banner{*/
+    /*    width: 100%;*/
+    /*    height: 570px;*/
+    /*    !*background-image: url('/images/home/smallBanner.PNG');*!*/
+    /*    background-repeat: no-repeat;*/
+    /*    background-size: auto;*/
+    /*    background-color: teal;*/
 
+    /*}*/
+
+    .sec1 .banner{
+        display: none;
+    }
+
+    .sec1 .mobile-banner{
+        margin: 50px auto;
+        display: block;
     }
 
     .sec2 #matchingStart{

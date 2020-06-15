@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                                                                 ADMIN.getRoleType(), MASTER.getRoleType())
                 .antMatchers("/", "/oauth2/**", "/login/**",  "/css/**",
                         "/images/**", "/js/**", "/personalTest/**", "/api/user/delete",
-                        "/loginSuccess", "/loginFailure", "/logout", "/error/**", "/customLogout", "/profile").permitAll()
+                        "/loginSuccess", "/loginFailure", "/logout", "/error/**", "/customLogout", "/profile", "/favicon.ico", "/fonts/**").permitAll()
                 .anyRequest().hasAnyAuthority(USER.getRoleType(), ADMIN.getRoleType(), MASTER.getRoleType())
                 .and()
                     .oauth2Login()

@@ -26,6 +26,10 @@ repositories {
     jcenter()
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web'){
         exclude module: "jackson-databind"

@@ -1,5 +1,6 @@
 package com.gameduos.springboot.web.dto;
 
+import com.gameduos.springboot.web.domain.user.Role;
 import com.gameduos.springboot.web.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,8 @@ public class UserUpdateRequestDto {
     private User user;
     private String picture;
     private LocalDateTime updatedDate;
+    private String roleString;
+    private Long userId;
 
     public void setUser(User user){
         this.user = user;

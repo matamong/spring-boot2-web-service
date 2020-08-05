@@ -34,6 +34,15 @@
     <div class="ui input">
         <input type="text" id="point"><span class="ui button" id="givePoint">포인트 부여</span>
     </div>
+    <field>
+        <select class="ui dropdown" id="selectRoleBox">
+            <option value="">권한 선택</option>
+            <option value="USER">USER</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="INTERVIEWER">INTERVIEWER</option>
+        </select>
+        <div class="ui button" id="roleBoxButton">권한 적용</div>
+    </field>
 </div>
 <h2 class="ui dividing header">이 유저에게 추천받았습니다.</h2>
 <table class="ui striped table">
@@ -80,6 +89,28 @@
         });
     });
 
+    $('#roleBoxButton').on('click', function () {
+        var test =
+        console.log(test);
+        var jsonData = JSON.stringify({
+            userId : $('#userId').text(),
+            roleString: $("#selectRoleBox option:selected").val()
+        });
+        $.ajax({
+            url: url + "admin/api/user/role",
+            type: "PUT",
+            data: jsonData,
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data, status) {
+                alert('id가 ' +  $('#userId').text() + '인 님에게 ' + $("#selectRoleBox option:selected").val() +' 권한 부여')
+            },
+            error: function (status) {
+                alert('id가 ' +  $('#userId').text() + '인 님에게 ' + $("#selectRoleBox option:selected").val() +' 권한 부여 실패,,,')
+                console.log(status);
+            }
+        });
+    });
 </script>
 <script th:src="@{/js/basic.js}"></script>
 </html>

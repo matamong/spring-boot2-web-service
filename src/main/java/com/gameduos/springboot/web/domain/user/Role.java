@@ -8,7 +8,8 @@ public enum Role {
     GUEST("guest"),
     USER("user"),
     ADMIN("admin"),
-    MASTER("master");
+    MASTER("master"),
+    INTERVIEWER("interviewer");
 
     private final String ROLE_PREFIX = "ROLE_";
     private final String name;
@@ -23,5 +24,15 @@ public enum Role {
 
     public boolean isEquals(String authority) {
         return this.name.equals(authority);
+    }
+
+    public Role findRole(String roleType){
+        if(roleType.equals("ROLE_USER"))
+            return Role.USER;
+        if(roleType.equals("ROLE_ADMIN"))
+            return Role.ADMIN;
+        if(roleType.equals("ROLE_INTERVIEWER"))
+            return Role.INTERVIEWER;
+        return Role.USER;
     }
 }

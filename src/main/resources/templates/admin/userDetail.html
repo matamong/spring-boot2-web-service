@@ -65,6 +65,9 @@
 </table>
 <h2 class="ui dividing header">이 유저들을 추천했습니다.</h2>
 <h3>준비 중</h3>
+    <div class="ui button" tabindex="0" onclick="pageBack()">
+        <div class="visible content">이전으로</div>
+    </div>
 </body>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script>
@@ -113,4 +116,9 @@
     });
 </script>
 <script th:src="@{/js/basic.js}"></script>
+<script>
+    function pageBack() {
+        history.back();
+    }
+</script>
 </html>

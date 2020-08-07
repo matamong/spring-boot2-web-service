@@ -56,13 +56,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/kakao").hasAuthority(KAKAO.getRoleType())
                 .antMatchers("/myPage/certification").hasAnyAuthority(GUEST.getRoleType(), ADMIN.getRoleType(), MASTER.getRoleType())
                 .antMatchers(HttpMethod.GET ,"/api/user/nicknames/**").hasAnyAuthority(GUEST.getRoleType(), USER.getRoleType(),
-                                                                        ADMIN.getRoleType(), MASTER.getRoleType())
+                                                                        ADMIN.getRoleType(), MASTER.getRoleType(), INTERVIEWER.getRoleType())
                 .antMatchers(HttpMethod.PUT ,"/api/referralCode/**").hasAnyAuthority(GUEST.getRoleType(), USER.getRoleType(),
-                                                                        ADMIN.getRoleType(), MASTER.getRoleType())
+                                                                        ADMIN.getRoleType(), MASTER.getRoleType(), INTERVIEWER.getRoleType())
+                .antMatchers("/admin/api/**").hasAnyAuthority(MASTER.getRoleType(), ADMIN.getRoleType())
+                .antMatchers("/admin/users/**").hasAnyAuthority(MASTER.getRoleType(), ADMIN.getRoleType(), INTERVIEWER.getRoleType())
                 .antMatchers("/master/**", "/swagger-ui.html#", "/console/**").hasAuthority(MASTER.getRoleType())
-                .antMatchers("/admin/**").hasAnyAuthority(MASTER.getRoleType(), ADMIN.getRoleType())
+                .antMatchers("/admin/**").hasAnyAuthority(MASTER.getRoleType(), ADMIN.getRoleType(),INTERVIEWER.getRoleType())
                 .antMatchers("/home", "/myPage/**").hasAnyAuthority(GUEST.getRoleType(), USER.getRoleType(),
-                                                                                ADMIN.getRoleType(), MASTER.getRoleType())
+                                                                                ADMIN.getRoleType(), MASTER.getRoleType(), INTERVIEWER.getRoleType())
                 .antMatchers("/", "/oauth2/**", "/login/**",  "/css/**",
                         "/images/**", "/js/**", "/personalTest/**", "/api/user/delete",
                         "/loginSuccess", "/loginFailure", "/logout", "/error/**", "/customLogout", "/profile", "/favicon.ico", "/fonts/**").permitAll()

@@ -15,11 +15,17 @@
                         <li class="hvr-underline-reveal"><a href="">Matching(준비 중)</a></li>
                         <li class="hvr-underline-reveal"><a href="/board/list">자유 게시판</a></li>
                         <li class="hvr-underline-reveal"><a href="/myPage">My Page</a></li>
+                        <li th:if="${session.user.getRole().getValue().equals('master')}" class="hvr-underline-reveal"><a href="/admin/users/list">관리자 페이지</a></li>
+                        <li th:if="${session.user.getRole().getValue().equals('admin')}" class="hvr-underline-reveal"><a href="/admin/users/list">관리자 페이지</a></li>
+                        <li th:if="${session.user.getRole().getValue().equals('interviewer')}" class="hvr-underline-reveal"><a href="/admin/users/list">관리자 페이지</a></li>
                     </ul>
                 </div>
                 <div class="user">
                     <i class="fas fas fa-user"></i>
                         <a href="/myPage" th:text="${session.user.nickName}">
+                            <span th:if="${session.user.getRole().getValue().equals('master')}">[운영자]</span>
+                            <span th:if="${session.user.getRole().getValue().equals('admin')}">[관리자]</span>
+                            <span th:if="${session.user.getRole().getValue().equals('interviewer')}">[면접아이디]</span>
                         </a>
                     <form action="#" th:action="@{/logout}" method="post">
                         <input class="ui button" type="submit" value="Logout" />
@@ -45,6 +51,11 @@
                     </li>
                     <li class="menu__group">
                         <a href="/myPage" class="r-link menu__link">마이페이지</a>
+                    </li>
+                    <li class="menu__group">
+                        <a th:if="${session.user.getRole().getValue().equals('master')}" href="/admin/users/list" class="r-link menu__link">관리자 페이지</a>
+                        <a th:if="${session.user.getRole().getValue().equals('admin')}" href="/admin/users/list" class="r-link menu__link">관리자 페이지</a>
+                        <a th:if="${session.user.getRole().getValue().equals('interviewer')}" href="/admin/users/list" class="r-link menu__link">관리자 페이지</a>
                     </li>
                     <li class="menu__group">
                         <form action="#" th:action="@{/logout}" method="post">

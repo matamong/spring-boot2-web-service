@@ -1,5 +1,6 @@
 package com.gameduos.springboot.web.service;
 
+import com.gameduos.springboot.web.annotation.SocialUser;
 import com.gameduos.springboot.web.domain.board.Board;
 import com.gameduos.springboot.web.domain.point.PointType;
 import com.gameduos.springboot.web.domain.referralCode.ReferralCode;
@@ -15,6 +16,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -116,8 +122,27 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 Id가 존재하지않습니다. Id=" + userId));
 
         entity.roleUpdate(role);
-
         userRepository.save(entity);
+    }
+
+    @Transactional
+    public ResponseEntity<?> updateUserAuth(User user, String roleString){
+
+        User entity = userRepository.findById(user.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 Id가 존재하지않습니다. Id=" + user.getId()));
+
+        roleUpdate(entity.getId(), Role.valueOf(roleString));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+        updatedAuthorities.add(new SimpleGrantedAuthority(Role.valueOf(roleString).getRoleType())); //add your role here [e.g., new SimpleGrantedAuthority("ROLE_NEW_ROLE")]
+
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+
+        return new ResponseEntity<>("{}", HttpStatus.OK);
+
+
     }
 
     @Transactional

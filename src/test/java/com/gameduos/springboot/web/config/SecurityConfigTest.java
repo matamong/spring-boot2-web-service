@@ -74,17 +74,6 @@ public class SecurityConfigTest {
 
     @Test
     @WithMockUser(username = "GuestUser", roles = "GUEST")
-    public void 게스트유저는_마이페이지에_접근이_가능하다() throws Exception {
-        startSession(Role.GUEST);
-        mvc.perform(get("/myPage")
-                .session(session)
-                .with(csrf()))
-                .andExpect(status().isOk());
-        endSession();
-    }
-
-    @Test
-    @WithMockUser(username = "GuestUser", roles = "GUEST")
     public void 게스트유저는_게시판에_접근이_금지된다() throws Exception {
         startSession(Role.GUEST);
         mvc.perform(get("/board/list")

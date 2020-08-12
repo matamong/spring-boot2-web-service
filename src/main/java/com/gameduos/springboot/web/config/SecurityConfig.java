@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/oauth2/**", "/login/**",  "/css/**",
                         "/images/**", "/js/**", "/personalTest/**", "/api/user/delete",
                         "/loginSuccess", "/loginFailure", "/logout", "/error/**", "/customLogout", "/profile", "/favicon.ico", "/fonts/**").permitAll()
-                .anyRequest().hasAnyAuthority(USER.getRoleType(), ADMIN.getRoleType(), MASTER.getRoleType())
+                .anyRequest().hasAnyAuthority(USER.getRoleType(), ADMIN.getRoleType(), MASTER.getRoleType(), INTERVIEWER.getRoleType())
                 .and()
                     .oauth2Login()
                     .defaultSuccessUrl("/loginSuccess")
